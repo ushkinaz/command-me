@@ -1,5 +1,6 @@
 package com.googlecode.commandme.impl;
 
+import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.CliParameter;
 import com.googlecode.commandme.CommandLine;
 import org.slf4j.Logger;
@@ -18,16 +19,19 @@ public class CommandLineImpl implements CommandLine {
     public CommandLineImpl(String[] arguments) {
     }
 
-    public <T> T execute(Class<T> clz) {
-        T instance = null;
+    public <T> T execute(Class<T> clz) throws CliException {
+        T instance;
         try {
             instance = clz.newInstance();
         } catch (InstantiationException e) {
-//TODO: add proper handling
             LOGGER.error("Error", e);
+            throw new CliException(e);
         } catch (IllegalAccessException e) {
-//TODO: add proper handling
             LOGGER.error("Error", e);
+            throw new CliException(e);
+        }catch (NullPointerException e){
+            LOGGER.error("Error", e);
+            throw new CliException(e);
         }
         return instance;
     }

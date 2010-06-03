@@ -1,5 +1,6 @@
 package com.googlecode.commandme.impl;
 
+import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.CliParameter;
 import com.googlecode.commandme.CommandLine;
 import org.hamcrest.CoreMatchers;
@@ -35,14 +36,14 @@ public class CommandLineImplTest {
     public void setUp() throws Exception {
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = CliException.class)
     public void testExecuteNull() throws Exception {
         commandLine = new CommandLineImpl(arg1);
         commandLine.execute(null);
     }
 
 
-    @Test(expected = InstantiationException.class)
+    @Test(expected = CliException.class)
     public void testExecuteNoPublicConstructor() throws Exception {
         commandLine = new CommandLineImpl(arg1);
         commandLine.execute(NoConstructor.class);
