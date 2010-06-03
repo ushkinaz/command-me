@@ -15,12 +15,12 @@ public interface CommandLine {
      * @param <T> type
      * @return instance of a class
      */
-    <T> T execute(Class<T> clz) throws InstantiationException, IllegalAccessException;
+    <T> T execute(Class<T> clz);
 
     /**
-     * Returns list of options.
+     * Returns list of parameters.
      *
-     * @return options
+     * @return parameters
      */
-    List<CliOption> getOptions();
+    List<CliParameter> getParameters();
 }
