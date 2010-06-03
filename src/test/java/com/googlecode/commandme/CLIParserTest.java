@@ -1,10 +1,10 @@
 package com.googlecode.commandme;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -18,11 +18,10 @@ public class CLIParserTest {
     @Test(expected = NullPointerException.class)
     public void testParseArgumentsNull() throws Exception {
         CLIParser.parseArguments(null);
-
     }
 
     @Test
     public void testParseArgumentsNotNull() throws Exception {
-        assertThat(CLIParser.parseArguments(new String[]{}), CoreMatchers.<CommandLine>notNullValue());
+        assertThat(CLIParser.parseArguments(new String[]{}), notNullValue());
     }
 }

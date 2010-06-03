@@ -1,6 +1,6 @@
 package com.googlecode.commandme.impl;
 
-import com.googlecode.commandme.CliOption;
+import com.googlecode.commandme.CliParameter;
 import com.googlecode.commandme.CommandLine;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
@@ -49,16 +49,16 @@ public class CommandLineImplTest {
     }
 
     @Test
-    public void testGetOptionsNotNull() throws Exception {
+    public void testGetParametersNotNull() throws Exception {
         commandLine = new CommandLineImpl(arg1);
-        assertThat(commandLine.getOptions(), notNullValue());
+        assertThat(commandLine.getParameters(), notNullValue());
     }
 
     @Test
-    public void testGetOptions1() throws Exception {
+    public void testGetParameters1() throws Exception {
         commandLine = new CommandLineImpl(arg1);
-        List<CliOption> options = commandLine.getOptions();
-        assertThat(options.size(), CoreMatchers.is(4));
+        List<CliParameter> parameters = commandLine.getParameters();
+        assertThat(parameters.size(), CoreMatchers.is(4));
     }
 
     private class NoConstructor{

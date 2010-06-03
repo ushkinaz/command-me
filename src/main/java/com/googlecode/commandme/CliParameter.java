@@ -1,14 +1,14 @@
 package com.googlecode.commandme;
 
 /**
- * Actual option passed to an application
+ * Actual parameter passed to an application
  *
  * @author Dmitry Sidorenko
  */
-public interface CliOption {
+public interface CliParameter {
 
     /**
-     * Gets name of an option as passed in cli
+     * Gets name of an parameter as passed in cli
      *
      * @return name
      */
@@ -22,7 +22,7 @@ public interface CliOption {
     String[] getValues();
 
     /**
-     * Returns single value of an option. If there are more than one value, first will be returned
+     * Returns single value of an parameter. If there are more than one value, first will be returned
      *
      * @return returns single value.
      */

@@ -10,25 +10,25 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Option {
+public @interface Parameter {
     /**
-     * The long name of this option
+     * The long name of this parameter
      *
-     * @return The long name of this option
+     * @return The long name of this parameter
      */
     String longName() default "";
 
     /**
-     * The short name of this option
+     * The short name of this parameter
      *
-     * @return The short name of this option
+     * @return The short name of this parameter
      */
     String[] shortName() default "";
 
     /**
-     * A description of this option
+     * A description of this parameter
      *
-     * @return A description of this option
+     * @return A description of this parameter
      */
     String description() default "";
 
@@ -40,10 +40,10 @@ public @interface Option {
     String[] defaultValue() default {};
 
     /**
-     * Should help be displayed if this option is
+     * Should help be displayed if this parameter is
      * present.
      *
-     * @return True if this option is a help option
+     * @return True if this parameter is a help parameter
      */
     boolean helpRequest() default false;
 }
