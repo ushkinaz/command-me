@@ -15,7 +15,7 @@ public class CLIParserTest {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(CLIParserTest.class);
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseArgumentsNull() throws Exception {
         CLIParser.parseArguments(null);
     }
