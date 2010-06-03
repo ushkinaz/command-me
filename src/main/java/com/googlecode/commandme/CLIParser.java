@@ -1,5 +1,6 @@
 package com.googlecode.commandme;
 
+import com.googlecode.commandme.impl.CommandLineImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,6 @@ public final class CLIParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(CLIParser.class);
 
     public static CommandLine parseArguments(String[] arguments){
-        return null;
+        return new CommandLineImpl(arguments);
     }
 }
