@@ -14,7 +14,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.unitils:unitils:3.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.slf4j:slf4j-api:1.6.0" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="Maven: org.slf4j:slf4j-log4j12:1.6.0" level="project" />
+    <orderEntry type="library" exported="" scope="RUNTIME" name="Maven: log4j:log4j:1.2.14" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.1" level="project" />
   </component>
 </module>

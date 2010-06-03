@@ -65,10 +65,69 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CLIParser.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CLIParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="24" selection-start="334" selection-end="334" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CLIParserTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/googlecode/commandme/CLIParserTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="0" selection-start="755" selection-end="755" vertical-scroll-proportion="0.4213483">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="66" selection-start="832" selection-end="832" vertical-scroll-proportion="0.33707866">
+            <state line="31" column="38" selection-start="1102" selection-end="1102" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Option.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/googlecode/commandme/annotations/Option.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="10" selection-start="1076" selection-end="1076" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#Option#0" expanded="true" />
+                <element signature="docComment;method#longName#0;class#Option#0" expanded="true" />
+                <element signature="docComment;method#shortName#0;class#Option#0" expanded="true" />
+                <element signature="docComment;method#description#0;class#Option#0" expanded="true" />
+                <element signature="docComment;method#defaultValue#0;class#Option#0" expanded="true" />
+                <element signature="docComment;method#helpRequest#0;class#Option#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommandLine.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CommandLine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="22" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="docComment;method#getOptions#0;class#CommandLine#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CliOption.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CliOption.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="41" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -84,6 +143,17 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$PROJECT_DIR$/src/main/java/commandme/googlecode/com/CommandLine.java" />
+        <option value="$PROJECT_DIR$/src/main/java/commandme/googlecode/com/CommandLineOptions.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/googlecode/commandme/Option.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CommandLineOptions.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/googlecode/commandme/Options.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CommandLine.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/googlecode/commandme/annotations/Parameter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CLIParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CliOption.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/googlecode/commandme/annotations/Option.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/googlecode/commandme/CLIParserTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
@@ -168,6 +238,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Favorites" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -203,10 +276,6 @@
               <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -229,36 +298,8 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="commandme" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commandme" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commandme" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commandme" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -273,30 +314,27 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value=".idea" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="copyright" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.last.edited" value="Project" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.lastSelected" value="preferences.externalResources" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.searchVisible" value="true" />
@@ -319,6 +357,14 @@
         </serverdata>
       </server>
     </servers>
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.googlecode.commandme" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="commandme.googlecode.com" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -446,7 +492,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24933119" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24879615" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3338616" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -490,10 +536,80 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/awt/List.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="docComment;method#remove#1;class#List#0" expanded="true" />
+            <element signature="docComment;method#delItem#0;class#List#0" expanded="true" />
+            <element signature="docComment;method#getSelectedIndex#0;class#List#0" expanded="true" />
+            <element signature="docComment;method#getSelectedItem#0;class#List#0" expanded="true" />
+            <element signature="docComment;method#getSelectedObjects#0;class#List#0" expanded="true" />
+            <element signature="docComment;method#select#0;class#List#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-6-sun/src.zip!/java/util/Collections.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="226" column="19" selection-start="10152" selection-end="10152" vertical-scroll-proportion="0.5224719">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CommandLine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="22" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="docComment;method#getOptions#0;class#CommandLine#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CliOption.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="41" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/googlecode/commandme/annotations/Option.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="10" selection-start="1076" selection-end="1076" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#Option#0" expanded="true" />
+            <element signature="docComment;method#longName#0;class#Option#0" expanded="true" />
+            <element signature="docComment;method#shortName#0;class#Option#0" expanded="true" />
+            <element signature="docComment;method#description#0;class#Option#0" expanded="true" />
+            <element signature="docComment;method#defaultValue#0;class#Option#0" expanded="true" />
+            <element signature="docComment;method#helpRequest#0;class#Option#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/googlecode/commandme/CLIParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="24" selection-start="334" selection-end="334" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="66" selection-start="832" selection-end="832" vertical-scroll-proportion="0.33707866">
+        <state line="31" column="38" selection-start="1102" selection-end="1102" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/googlecode/commandme/CLIParserTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="0" selection-start="755" selection-end="755" vertical-scroll-proportion="0.4213483">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
