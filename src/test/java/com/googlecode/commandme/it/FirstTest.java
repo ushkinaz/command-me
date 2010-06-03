@@ -15,7 +15,6 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Dmitry Sidorenko
- * @date Jun 3, 2010
  */
 public class FirstTest {
     @SuppressWarnings({"UnusedDeclaration"})
@@ -49,6 +48,7 @@ public class FirstTest {
         assertThat(module.getDate(), is(DateFormat.getDateInstance().parse("26/02/2010")));
     }
 
+    @SuppressWarnings({"UnusedDeclaration"})
     public static class Module{
         private String comment;
         private int revision;
