@@ -1,6 +1,8 @@
 package com.googlecode.commandme;
 
 /**
+ * Indicates an exception in cli parsing
+ *
  * @author Dmitry Sidorenko
  */
 public class CliException extends Exception {

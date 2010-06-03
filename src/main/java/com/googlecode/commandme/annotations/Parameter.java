@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Defines a parameter
+ *
  * @author Dmitry Sidorenko
  */
 @Retention(RetentionPolicy.RUNTIME)

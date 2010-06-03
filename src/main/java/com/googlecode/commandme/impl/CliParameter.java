@@ -1,4 +1,4 @@
-package com.googlecode.commandme;
+package com.googlecode.commandme.impl;
 
 /**
  * Actual parameter passed to an application
