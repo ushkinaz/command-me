@@ -11,7 +11,11 @@ public class PlayGround {
     private static final Logger LOGGER = LoggerFactory.getLogger(PlayGround.class);
 
     public static void main(String[] args) {
-        CLIParser.parseArguments(args).execute(PlayGround.class);
+        try {
+            CLIParser.parseArguments(args).execute(PlayGround.class);
+        } catch (CliException e) {
+            LOGGER.error("Error", e);
+        }
         args.hashCode();
     }
 }

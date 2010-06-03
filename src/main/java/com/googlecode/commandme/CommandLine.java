@@ -14,8 +14,9 @@ public interface CommandLine {
      * @param clz class to instantiate
      * @param <T> type
      * @return instance of a class
+     * @throws CliException an exception
      */
-    <T> T execute(Class<T> clz);
+    <T> T execute(Class<T> clz) throws CliException;
 
     /**
      * Returns list of parameters.
