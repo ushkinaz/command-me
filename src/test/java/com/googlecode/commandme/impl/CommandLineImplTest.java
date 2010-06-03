@@ -1,7 +1,6 @@
 package com.googlecode.commandme.impl;
 
 import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.CliParameter;
 import com.googlecode.commandme.CommandLine;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;

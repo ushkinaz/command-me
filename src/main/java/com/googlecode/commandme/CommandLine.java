@@ -1,10 +1,13 @@
 package com.googlecode.commandme;
 
+import com.googlecode.commandme.impl.CliParameter;
+
 import java.util.List;
 
 /**
+ * Command line.
+ *
  * @author Dmitry Sidorenko
- * @date Jun 3, 2010
  */
 public interface CommandLine {
 
