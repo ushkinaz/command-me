@@ -15,7 +15,7 @@ public interface CommandLine {
      * @param <T> type
      * @return instance of a class
      */
-    <T> T execute(Class<T> clz);
+    <T> T execute(Class<T> clz) throws InstantiationException, IllegalAccessException;
 
     /**
      * Returns list of options.
