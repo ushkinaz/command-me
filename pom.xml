@@ -8,12 +8,12 @@
 
     <name>Command Me</name>
 
-    <description>Explores various storm8 games and plays for you</description>
+    <description>Library for easy command line parameters parsing</description>
     <inceptionYear>2010</inceptionYear>
 
     <organization>
-        <name>Dead Ninja Clan</name>
-        <url>http://DeaD-NinjA-ClaN.org/</url>
+        <name>Dmitry Sidorenko</name>
+        <url>http://www.sid0renk0.ru/</url>
     </organization>
 
     <scm>
