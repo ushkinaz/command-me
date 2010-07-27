@@ -12,7 +12,7 @@ public class PlayGround {
 
     public static void main(String[] args) {
         try {
-            CLIParser.parseArguments(args).execute(PlayGround.class);
+            CLIParser.createModule(PlayGround.class).execute(args);
         } catch (CliException e) {
             LOGGER.error("Error", e);
         }

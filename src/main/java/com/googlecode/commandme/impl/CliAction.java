@@ -14,33 +14,14 @@
  * limitations under the License.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.googlecode.commandme.samples;
-
-import com.googlecode.commandme.CLIParser;
-import com.googlecode.commandme.CliException;
+package com.googlecode.commandme.impl;
 
 /**
+ * Action from command line.
+ * Given an example "java HelloWorld --name World greet" it's "greet"
  *
- * @author ushkinaz
+ * @author Dmitry Sidorenko
  */
-public class HelloWorld {
+public interface CliAction extends CliElement {
 
-    private String name;
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public void greet(){
-        System.out.println("Hello, " + name + "!");
-    }
-
-    public static void main(String[] argv) throws CliException{
-        CLIParser.createModule(HelloWorld.class).execute(argv);
-    }
 }
