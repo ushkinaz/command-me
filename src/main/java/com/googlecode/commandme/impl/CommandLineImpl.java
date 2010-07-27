@@ -6,7 +6,7 @@ import com.googlecode.commandme.impl.interrogator.Interrogator;
 import com.googlecode.commandme.impl.interrogator.InterrogatorFactory;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospectorFactory;
-import com.googlecode.commandme.impl.introspector.OptionsDefinition;
+import com.googlecode.commandme.impl.introspector.ModuleParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,7 @@ public class CommandLineImpl<T> implements CommandLine {
     private ModuleIntrospector moduleIntrospector;
 
     private List<CliParameter> parameters;
-    private OptionsDefinition optionsDefinition;
+    private ModuleParameters moduleParameters;
 
     private T instance;
 
@@ -40,7 +40,7 @@ public class CommandLineImpl<T> implements CommandLine {
     public CommandLineImpl(Class<T> clz) throws CliException {
 
         moduleIntrospector = ModuleIntrospectorFactory.createIntrospector(clz);
-        optionsDefinition = moduleIntrospector.inspect();
+        moduleParameters = moduleIntrospector.inspect();
 
         instance = createInstance(clz);
 
@@ -53,7 +53,7 @@ public class CommandLineImpl<T> implements CommandLine {
         argumentsParser = new ArgumentsParser(arguments);
         parameters = argumentsParser.parse();
 
-        Interrogator interrogator = InterrogatorFactory.createInterrogator(instance, optionsDefinition, parameters);
+        Interrogator interrogator = InterrogatorFactory.createInterrogator(instance, moduleParameters, parameters);
         interrogator.torture();
 
         return instance;

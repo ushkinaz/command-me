@@ -21,7 +21,7 @@ package com.googlecode.commandme.impl.interrogator;
  */
 
 import com.googlecode.commandme.impl.CliParameter;
-import com.googlecode.commandme.impl.introspector.OptionsDefinition;
+import com.googlecode.commandme.impl.introspector.ModuleParameters;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
@@ -44,8 +44,8 @@ public class InterrogatorFactoryTest {
     public void testSetFactory() throws Exception {
         InterrogatorFactory.setFactory(new InterrogatorFactory(){
             @Override
-            protected <T> Interrogator create(T instance, OptionsDefinition optionsDefinition, List<CliParameter> parameters) {
-                return new MyInterrogator<T>(instance, optionsDefinition, parameters);
+            protected <T> Interrogator create(T instance, ModuleParameters moduleParameters, List<CliParameter> parameters) {
+                return new MyInterrogator<T>(instance, moduleParameters, parameters);
             }
         });
         @SuppressWarnings({"unchecked"})
@@ -54,8 +54,8 @@ public class InterrogatorFactoryTest {
     }
 
     private static class MyInterrogator<T> extends Interrogator<T> {
-        public MyInterrogator(T instance, OptionsDefinition optionsDefinition, List<CliParameter> parameters) {
-            super(instance, optionsDefinition, parameters);
+        public MyInterrogator(T instance, ModuleParameters moduleParameters, List<CliParameter> parameters) {
+            super(instance, moduleParameters, parameters);
         }
     }
 

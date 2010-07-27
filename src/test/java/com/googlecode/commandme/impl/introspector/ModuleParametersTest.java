@@ -20,30 +20,36 @@ package com.googlecode.commandme.impl.introspector;
  * @author Dmitry Sidorenko
  */
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-public class ModuleIntrospectorTest {
-    private ModuleIntrospector moduleIntrospector;
+public class ModuleParametersTest {
+    private ModuleParameters moduleParameters;
 
     @Before
-    public void setupTest() {
+    public void setup() {
+        moduleParameters = new ModuleParameters();
     }
 
     @Test
-    public void testModuleIntrospector() throws Exception {
-        moduleIntrospector = new ModuleIntrospector(TestModule1.class);
-        Assert.assertEquals(moduleIntrospector.getClz(), TestModule1.class);
+    public void testModuleParameters() throws Exception {
+        assertThat(moduleParameters.getParameterDefinitions(), notNullValue());
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testGetParameterDefinitions() throws Exception {
+        moduleParameters.getParameterDefinitions().clear();
     }
 
     @Test
-    public void testInspect() throws Exception {
-        moduleIntrospector = new ModuleIntrospector(TestModule1.class);
-        ModuleParameters moduleParameters = moduleIntrospector.inspect();
-        assertThat(moduleParameters, notNullValue());
+    public void testAddParameter() throws Exception {
+        final ParameterDefinition definition = new ParameterDefinition();
+        moduleParameters.addParameter(definition);
+        assertThat(moduleParameters.getParameterDefinitions().size(), is(1));
+        assertThat(moduleParameters.getParameterDefinitions().get(0), is(definition));
     }
 }
