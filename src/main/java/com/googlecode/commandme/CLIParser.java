@@ -13,6 +13,7 @@ public final class CLIParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(CLIParser.class);
 
     public static <T> CommandLine<T> createModule(Class<T> module) throws CliException {
+        //noinspection unchecked
         return new CommandLineImpl<T>(module);
     }
 }
