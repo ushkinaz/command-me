@@ -39,7 +39,7 @@ public @interface Parameter {
      *
      * @return The value to present if none is specified
      */
-    String[] defaultValue() default {};
+    String defaultValue() default "";
 
     /**
      * Should help be displayed if this parameter is

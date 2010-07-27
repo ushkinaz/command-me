@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.googlecode.commandme.impl;
+package com.googlecode.commandme.impl.introspector;
 /**
  *
  * @author Dmitry Sidorenko

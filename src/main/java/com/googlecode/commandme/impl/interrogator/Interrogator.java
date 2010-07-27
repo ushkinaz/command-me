@@ -1,4 +1,7 @@
-package com.googlecode.commandme.impl;
+package com.googlecode.commandme.impl.interrogator;
+
+import com.googlecode.commandme.impl.CliParameter;
+import com.googlecode.commandme.impl.introspector.OptionsDefinition;
 
 import java.util.List;
 
@@ -7,7 +10,7 @@ import java.util.List;
  *
  * @author Dmitry Sidorenko
  */
-class Interrogator {
+public class Interrogator<T> {
     /**
      * A constructor.
      *
@@ -15,7 +18,7 @@ class Interrogator {
      * @param optionsDefinition definitions
      * @param parameters        actual parameters
      */
-    public <T> Interrogator(T instance, OptionsDefinition optionsDefinition, List<CliParameter> parameters) {
+    Interrogator(T instance, OptionsDefinition optionsDefinition, List<CliParameter> parameters) {
     }
 
     /**
