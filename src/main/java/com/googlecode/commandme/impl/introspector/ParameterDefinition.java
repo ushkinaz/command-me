@@ -22,31 +22,65 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Dmitry Sidorenko
  */
-public class OptionsDefinitionImpl implements OptionsDefinition {
+public class ParameterDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
-    private static final Logger LOGGER = LoggerFactory.getLogger(OptionsDefinitionImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParameterDefinition.class);
+
+    private String longName;
+    private String shortName;
+    private Class type;
+    private String defaultValue;
+    private String description;
+    private boolean showInHelp;
+
+    public ParameterDefinition() {
+    }
+
+    public void setLongName(String longName) {
+        this.longName = longName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public void setType(Class type) {
+        this.type = type;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setShowInHelp(boolean showInHelp) {
+        this.showInHelp = showInHelp;
+    }
 
     public String getLongName() {
-        return null;
+        return longName;
     }
 
     public String getShortName() {
-        return null;
+        return shortName;
     }
 
     public Class getType() {
-        return null;
+        return type;
     }
 
     public String getDefaultValue() {
-        return null;
+        return defaultValue;
     }
 
     public String getDescription() {
-        return null;
+        return description;
     }
 
     public boolean showInHelp() {
-        return false;
+        return showInHelp;
     }
 }

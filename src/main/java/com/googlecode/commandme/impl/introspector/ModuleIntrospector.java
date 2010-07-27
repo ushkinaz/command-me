@@ -3,6 +3,8 @@ package com.googlecode.commandme.impl.introspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Method;
+
 /**
  * Introspects module class and creates options definition
  *
@@ -28,7 +30,17 @@ public class ModuleIntrospector {
      *
      * @return definition of a module. Never {@code null}
      */
-    public OptionsDefinition inspect() {
+    public ModuleParameters inspect() {
+        ModuleParameters moduleParameters = new ModuleParameters();
+        for (Method method : clz.getMethods()) {
+            ParameterDefinition parameterDefinition = inspectMethod(method);
+            moduleParameters.addParameter(parameterDefinition);
+        }
+        return moduleParameters;
+    }
+
+    private ParameterDefinition inspectMethod(Method method) {
+        //TODO implement
         return null;
     }
 
