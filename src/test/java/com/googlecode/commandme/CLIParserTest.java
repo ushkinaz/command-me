@@ -16,12 +16,12 @@ public class CLIParserTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(CLIParserTest.class);
 
     @Test
-    public void testParseArgumentsNull() throws Exception {
-        CLIParser.parseArguments(null);
+    public void testCreateModuleNull() throws Exception {
+        CLIParser.createModule(null);
     }
 
     @Test
-    public void testParseArgumentsNotNull() throws Exception {
-        assertThat(CLIParser.parseArguments(new String[]{}), notNullValue());
+    public void testCreateModuleNotNull() throws Exception {
+        assertThat(CLIParser.createModule(Object.class), notNullValue());
     }
 }

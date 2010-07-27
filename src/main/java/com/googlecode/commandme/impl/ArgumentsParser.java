@@ -35,8 +35,7 @@ class ArgumentsParser {
         List<CliParameter> result = new ArrayList<CliParameter>();
 
 //        CliParameter parameter = new
-        for (String arg: arguments){
-
+        for (String arg: arguments) {
         }
         return null;
     }

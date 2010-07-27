@@ -37,26 +37,28 @@ public class CommandLineImplTest {
 
     @Test(expected = CliException.class)
     public void testExecuteNull() throws Exception {
-        commandLine = new CommandLineImpl(arg1);
-        commandLine.execute(null);
+        commandLine = new CommandLineImpl<Object>(null);
+        commandLine.execute(arg1);
     }
 
 
     @Test(expected = CliException.class)
     public void testExecuteNoPublicConstructor() throws Exception {
-        commandLine = new CommandLineImpl(arg1);
-        commandLine.execute(NoConstructor.class);
+        commandLine = new CommandLineImpl(NoConstructor.class);
+        commandLine.execute(arg1);
     }
 
     @Test
     public void testGetParametersNotNull() throws Exception {
-        commandLine = new CommandLineImpl(arg1);
+        commandLine = new CommandLineImpl(Object.class);
+        commandLine.execute(arg1);
         assertThat(commandLine.getParameters(), notNullValue());
     }
 
     @Test
     public void testGetParameters1() throws Exception {
-        commandLine = new CommandLineImpl(arg1);
+        commandLine = new CommandLineImpl(Object.class);
+        commandLine.execute(arg1);
         List<CliParameter> parameters = commandLine.getParameters();
         assertThat(parameters.size(), CoreMatchers.is(4));
     }

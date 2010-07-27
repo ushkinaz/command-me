@@ -34,7 +34,7 @@ public class FirstTest {
 
     @Test
     public void test1() throws Exception {
-        Module module = CLIParser.parseArguments(arg1).execute(Module.class);
+        Module module = CLIParser.createModule(Module.class).execute(arg1);
 
         assertThat(module.isCommitCalled(), is(true));
         assertThat(module.isReallyBadNameCalled(), is(true));

@@ -12,7 +12,7 @@ public final class CLIParser {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(CLIParser.class);
 
-    public static CommandLine parseArguments(String[] arguments){
-        return new CommandLineImpl(arguments);
+    public static <T> CommandLine<T> createModule(Class<T> module) throws CliException {
+        return new CommandLineImpl<T>(module);
     }
 }

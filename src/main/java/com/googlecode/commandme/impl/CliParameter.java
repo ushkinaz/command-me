@@ -5,14 +5,7 @@ package com.googlecode.commandme.impl;
  *
  * @author Dmitry Sidorenko
  */
-public interface CliParameter {
-
-    /**
-     * Gets name of an parameter as passed in cli
-     *
-     * @return name
-     */
-    String getName();
+public interface CliParameter extends CliElement {
 
     /**
      * Returns list of values

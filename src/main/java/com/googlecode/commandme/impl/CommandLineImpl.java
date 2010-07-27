@@ -13,34 +13,40 @@ import java.util.List;
  *
  * @author Dmitry Sidorenko
  */
-public class CommandLineImpl implements CommandLine {
+public class CommandLineImpl<T> implements CommandLine {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandLineImpl.class);
 
-    private List<CliParameter> parameters;
 
     private ArgumentsParser argumentsParser;
     private ModuleIntrospector moduleIntrospector;
 
+    private List<CliParameter> parameters;
+    private OptionsDefinition optionsDefinition;
+
+    private T instance;
+
     /**
      * Constructs an object
      *
-     * @param arguments arguments to parse
+     * @param clz class of a module
+     * @throws CliException
      */
-    public CommandLineImpl(String[] arguments) {
-        argumentsParser = new ArgumentsParser(arguments);
+    public CommandLineImpl(Class<T> clz) throws CliException {
+
+        moduleIntrospector = new ModuleIntrospector(clz);
+        optionsDefinition = moduleIntrospector.inspect();
+
+        instance = createInstance(clz);
+
     }
 
     /**
      * Does actual work.
      */
-    public <T> T execute(Class<T> clz) throws CliException {
+    public T execute(String[] arguments) throws CliException {
+        argumentsParser = new ArgumentsParser(arguments);
         parameters = argumentsParser.parse();
-
-        moduleIntrospector = new ModuleIntrospector(clz);
-        OptionsDefinition optionsDefinition = moduleIntrospector.inspect();
-
-        T instance = createInstance(clz);
 
         Interrogator interrogator = new Interrogator(instance, optionsDefinition, parameters);
         interrogator.torture();
@@ -56,7 +62,7 @@ public class CommandLineImpl implements CommandLine {
      * @return created instance, never {@code null}
      * @throws CliException exception if class does not have no-arg constructor, constructor is not accessible , if class is null
      */
-    private <T> T createInstance(Class<T> clz) throws CliException {
+    private T createInstance(Class<T> clz) throws CliException {
         T instance;
         try {
             instance = clz.newInstance();
@@ -75,6 +81,10 @@ public class CommandLineImpl implements CommandLine {
 
     public List<CliParameter> getParameters() {
         return parameters;
+    }
+
+    public T getModule() {
+        return instance;
     }
 
 }

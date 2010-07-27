@@ -9,17 +9,16 @@ import java.util.List;
  *
  * @author Dmitry Sidorenko
  */
-public interface CommandLine {
+public interface CommandLine<T> {
 
     /**
      * Instantiates an instance of class T, fills it with parameters and calls appropriate methods
      *
-     * @param clz class to instantiate
-     * @param <T> type
+     * @param arguments arguments to parse
      * @return instance of a class
      * @throws CliException an exception
      */
-    <T> T execute(Class<T> clz) throws CliException;
+    T execute(String[] arguments) throws CliException;
 
     /**
      * Returns list of parameters.
@@ -27,4 +26,10 @@ public interface CommandLine {
      * @return parameters
      */
     List<CliParameter> getParameters();
+
+    /**
+     * Returns instance of a module
+     * @return module instance
+     */
+    T getModule();
 }
