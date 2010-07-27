@@ -20,6 +20,7 @@ class ModuleIntrospector {
      * @param clz class to introspect
      */
     ModuleIntrospector(Class clz) {
+        this.clz = clz;
     }
 
     /**
@@ -29,5 +30,9 @@ class ModuleIntrospector {
      */
     public OptionsDefinition inspect() {
         return null;
+    }
+
+    public Class getClz() {
+        return clz;
     }
 }
