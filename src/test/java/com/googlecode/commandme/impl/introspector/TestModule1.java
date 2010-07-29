@@ -16,12 +16,18 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.googlecode.commandme.annotations.Parameter;
 
 /**
 * @author Dmitry Sidorenko
 */
 class TestModule1 {
 
+    @Parameter
+    public void setName(String sd){
+    }
+
+    @Parameter(longName = "foo", shortName = "f", defaultValue = "0", description = "none", helpRequest = true )
+    public void setNoName(int i){
+    }
 }
