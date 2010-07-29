@@ -20,13 +20,9 @@ package com.googlecode.commandme.impl.interrogator;
  * @author Dmitry Sidorenko
  */
 
-import com.googlecode.commandme.impl.CliParameter;
 import com.googlecode.commandme.impl.introspector.ModuleParameters;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
-
-import java.util.Collections;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -36,7 +32,7 @@ public class InterrogatorFactoryTest {
     @Test
     public void testCreateInterrogator() throws Exception {
         @SuppressWarnings({"unchecked"})
-        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, null, Collections.EMPTY_LIST);
+        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, null, new String[]{"-m", "\"one\"", "ci"});
         assertThat(interrogator, notNullValue());
     }
 
@@ -44,17 +40,17 @@ public class InterrogatorFactoryTest {
     public void testSetFactory() throws Exception {
         InterrogatorFactory.setFactory(new InterrogatorFactory(){
             @Override
-            protected <T> Interrogator create(T instance, ModuleParameters moduleParameters, List<CliParameter> parameters) {
-                return new MyInterrogator<T>(instance, moduleParameters, parameters);
+            protected <T> Interrogator create(T instance, ModuleParameters moduleParameters, String[] parameters) {
+                return new MyInterrogator<T>(instance, moduleParameters, new String[]{"-m", "\"one\"", "ci"});
             }
         });
         @SuppressWarnings({"unchecked"})
-        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, null, Collections.EMPTY_LIST);
+        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, null, new String[]{"-m", "\"one\"", "ci"});
         assertThat(interrogator, CoreMatchers.is(MyInterrogator.class));
     }
 
     private static class MyInterrogator<T> extends Interrogator<T> {
-        public MyInterrogator(T instance, ModuleParameters moduleParameters, List<CliParameter> parameters) {
+        public MyInterrogator(T instance, ModuleParameters moduleParameters, String[] parameters) {
             super(instance, moduleParameters, parameters);
         }
     }

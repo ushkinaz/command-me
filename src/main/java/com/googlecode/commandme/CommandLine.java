@@ -1,9 +1,5 @@
 package com.googlecode.commandme;
 
-import com.googlecode.commandme.impl.CliParameter;
-
-import java.util.List;
-
 /**
  * Command line.
  *
@@ -21,14 +17,8 @@ public interface CommandLine<T> {
     T execute(String[] arguments) throws CliException;
 
     /**
-     * Returns list of parameters.
-     *
-     * @return parameters
-     */
-    List<CliParameter> getParameters();
-
-    /**
      * Returns instance of a module
+     *
      * @return module instance
      */
     T getModule();

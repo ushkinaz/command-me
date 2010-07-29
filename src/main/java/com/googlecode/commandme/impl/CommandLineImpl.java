@@ -10,8 +10,6 @@ import com.googlecode.commandme.impl.introspector.ModuleParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 /**
  * Implementation of command line.
  * Combines three phases: Definition, Parsing and Interrogation.
@@ -23,10 +21,8 @@ public class CommandLineImpl<T> implements CommandLine {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandLineImpl.class);
 
 
-    private ArgumentsParser argumentsParser;
     private ModuleIntrospector moduleIntrospector;
 
-    private List<CliParameter> parameters;
     private ModuleParameters moduleParameters;
 
     private T instance;
@@ -51,10 +47,7 @@ public class CommandLineImpl<T> implements CommandLine {
      * Does actual work.
      */
     public T execute(String[] arguments) throws CliException {
-        argumentsParser = new ArgumentsParser(arguments);
-        parameters = argumentsParser.parse();
-
-        Interrogator interrogator = InterrogatorFactory.createInterrogator(instance, moduleParameters, parameters);
+        Interrogator interrogator = InterrogatorFactory.createInterrogator(instance, moduleParameters, arguments);
         interrogator.torture();
 
         return instance;
@@ -83,10 +76,6 @@ public class CommandLineImpl<T> implements CommandLine {
             throw new CliException(e);
         }
         return instance;
-    }
-
-    public List<CliParameter> getParameters() {
-        return parameters;
     }
 
     public T getModule() {
