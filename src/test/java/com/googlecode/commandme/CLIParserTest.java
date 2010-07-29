@@ -15,8 +15,8 @@ public class CLIParserTest {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(CLIParserTest.class);
 
-    @Test
-    public void testCreateModuleNull() throws Exception {
+    @Test(expected = CliException.class)
+    public void testCreateModuleNull() throws CliException {
         CLIParser.createModule(null);
     }
 
