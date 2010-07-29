@@ -38,12 +38,13 @@ public class CommandLineImpl<T> implements CommandLine {
      * @throws CliException
      */
     public CommandLineImpl(Class<T> clz) throws CliException {
-
+        if (clz == null) {
+            throw new CliException("Can not pass null classe");
+        }
         moduleIntrospector = ModuleIntrospectorFactory.createIntrospector(clz);
         moduleParameters = moduleIntrospector.inspect();
 
         instance = createInstance(clz);
-
     }
 
     /**

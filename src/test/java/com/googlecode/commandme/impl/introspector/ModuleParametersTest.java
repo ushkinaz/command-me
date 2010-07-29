@@ -52,4 +52,32 @@ public class ModuleParametersTest {
         assertThat(moduleParameters.getParameterDefinitions().size(), is(1));
         assertThat(moduleParameters.getParameterDefinitions().get(0), is(definition));
     }
+
+    @Test
+    public void testGetByLongName() throws Exception {
+        ParameterDefinition definition = new ParameterDefinition();
+        definition.setLongName("foo");
+        moduleParameters.addParameter(definition);
+
+        ParameterDefinition definitionBar = new ParameterDefinition();
+        definitionBar.setLongName("bar");
+        moduleParameters.addParameter(definitionBar);
+
+        assertThat(moduleParameters.getByLongName("bar"), is(definitionBar));
+        assertThat(moduleParameters.getByLongName("foo"), is(definition));
+    }
+
+    @Test
+    public void testGetByShortName() throws Exception {
+        ParameterDefinition definition = new ParameterDefinition();
+        definition.setShortName("f");
+        moduleParameters.addParameter(definition);
+
+        ParameterDefinition definitionBar = new ParameterDefinition();
+        definitionBar.setShortName("b");
+        moduleParameters.addParameter(definitionBar);
+
+        assertThat(moduleParameters.getByShortName("b"), is(definitionBar));
+        assertThat(moduleParameters.getByShortName("f"), is(definition));
+    }
 }

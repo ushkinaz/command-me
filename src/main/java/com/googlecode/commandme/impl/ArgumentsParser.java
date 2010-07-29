@@ -37,6 +37,6 @@ class ArgumentsParser {
 //        CliParameter parameter = new
         for (String arg: arguments) {
         }
-        return null;
+        return result;
     }
 }

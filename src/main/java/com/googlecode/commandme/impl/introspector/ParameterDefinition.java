@@ -37,10 +37,16 @@ public class ParameterDefinition {
     }
 
     public void setLongName(String longName) {
+        if (this.longName != null) {
+            throw new IllegalStateException("LongName can't be set twice");
+        }
         this.longName = longName;
     }
 
     public void setShortName(String shortName) {
+        if (this.shortName!= null) {
+            throw new IllegalStateException("ShortName can't be set twice");
+        }
         this.shortName = shortName;
     }
 
@@ -82,5 +88,41 @@ public class ParameterDefinition {
 
     public boolean showInHelp() {
         return showInHelp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ParameterDefinition that = (ParameterDefinition) o;
+
+        if (showInHelp != that.showInHelp) return false;
+        if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that.defaultValue != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (longName != null ? !longName.equals(that.longName) : that.longName != null) return false;
+        if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return longName != null ? longName.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("ParameterDefinition");
+        sb.append("{longName='").append(longName).append('\'');
+        sb.append(", shortName='").append(shortName).append('\'');
+        sb.append(", type=").append(type);
+        sb.append(", defaultValue='").append(defaultValue).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", showInHelp=").append(showInHelp);
+        sb.append('}');
+        return sb.toString();
     }
 }

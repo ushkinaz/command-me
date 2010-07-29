@@ -25,7 +25,7 @@ public @interface Parameter {
      *
      * @return The short name of this parameter
      */
-    String[] shortName() default "";
+    String shortName() default "";
 
     /**
      * A description of this parameter
