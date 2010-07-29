@@ -48,21 +48,6 @@ public class CommandLineImplTest {
     }
 
     @Test
-    public void testGetParametersNotNull() throws Exception {
-        commandLine = new CommandLineImpl<Object>(Object.class);
-        commandLine.execute(arg1);
-        assertThat(commandLine.getParameters(), notNullValue());
-    }
-
-    @Test
-    public void testGetParameters1() throws Exception {
-        commandLine = new CommandLineImpl<Object>(Object.class);
-        commandLine.execute(arg1);
-        List<CliParameter> parameters = commandLine.getParameters();
-        assertThat(parameters.size(), is(4));
-    }
-
-    @Test
     public void testCommandLineImpl() throws Exception {
         CommandLineImpl<Object> cli = new CommandLineImpl<Object>(Object.class);
         assertThat(cli.getModule(), notNullValue());
