@@ -84,8 +84,10 @@
         <content-type name="Java" enabled="true" />
         <content-type name="SQL" enabled="true" />
         <content-type name="PL/SQL" enabled="true" />
+        <content-type name="JPA QL" enabled="true" />
         <content-type name="JavaScript" enabled="true" />
         <content-type name="JSP" enabled="true" />
+        <content-type name="JSPx" enabled="true" />
       </lob-content-types>
     </dataset-editor-settings>
     <code-completion-settings>
@@ -233,7 +235,16 @@
         <sorting-element type="RESERVED_WORD" id="parameter" />
       </sorting>
     </code-completion-settings>
-    <execution-engine-settings />
+    <execution-engine-settings>
+      <statement-execution>
+        <fetch-block-size value="100" />
+        <execution-timeout value="20" />
+      </statement-execution>
+      <compiler>
+        <compile-type value="NORMAL" />
+        <always-show-controls value="false" />
+      </compiler>
+    </execution-engine-settings>
     <ddl-file-settings>
       <extensions>
         <mapping file-type-id="VIEW" extensions="vw" />
@@ -297,6 +308,10 @@
   </component>
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+  <component name="TestDoxConfiguration">
+    <option name="createTestIfMissing" value="true" />
+    <option name="deletePackageOccurrences" value="true" />
   </component>
 </project>
 
