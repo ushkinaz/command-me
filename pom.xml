@@ -26,18 +26,26 @@
         <url>http://code.google.com/p/command-me/issues/list</url>
     </issueManagement>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!--Libraries versions -->
+        <slf4j.version>1.6.0</slf4j.version>
+
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.6.0</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.0</version>
+            <version>${slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
 
