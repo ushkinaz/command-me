@@ -19,28 +19,27 @@
  * and open the template in the editor.
  */
 
-package com.googlecode.commandme.samples;
+package com.googlecode.commandme.examples;
 
 import com.googlecode.commandme.CLIParser;
 import com.googlecode.commandme.CliException;
 
 /**
- *
  * @author ushkinaz
  */
 public class HelloWorld {
 
     private String name;
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void greet(){
+    public void greet() {
         System.out.println("Hello, " + name + "!");
     }
 
-    public static void main(String[] argv) throws CliException{
+    public static void main(String[] argv) throws CliException {
         CLIParser.createModule(HelloWorld.class).execute(argv);
     }
 }
