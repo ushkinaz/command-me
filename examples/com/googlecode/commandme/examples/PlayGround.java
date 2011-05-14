@@ -1,5 +1,7 @@
-package com.googlecode.commandme;
+package com.googlecode.commandme.examples;
 
+import com.googlecode.commandme.CLIParser;
+import com.googlecode.commandme.CliException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +18,5 @@ public class PlayGround {
         } catch (CliException e) {
             LOGGER.error("Error", e);
         }
-        args.hashCode();
     }
 }
