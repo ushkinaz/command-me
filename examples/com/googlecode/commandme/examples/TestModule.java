@@ -1,5 +1,6 @@
-package com.googlecode.commandme;
+package com.googlecode.commandme.examples;
 
+import com.googlecode.commandme.CLIParser;
 import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
 import org.slf4j.Logger;
@@ -69,5 +70,9 @@ public class TestModule {
     @Action
     public void makeLove() {
 
+    }
+
+    public static void main(String[] args) {
+        CLIParser.createModule(TestModule.class).execute(args);
     }
 }
