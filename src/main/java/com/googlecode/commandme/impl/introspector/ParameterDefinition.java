@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2010, Dmitry Sidorenko. All Rights Reserved.
+ * Copyright (c) 2010-2011, Dmitry Sidorenko. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ public class ParameterDefinition {
     }
 
     public void setShortName(String shortName) {
-        if (this.shortName!= null) {
+        if (this.shortName != null) {
             throw new IllegalStateException("ShortName can't be set twice");
         }
         this.shortName = shortName;
