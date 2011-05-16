@@ -16,107 +16,107 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>commandme.googlecode.com</groupId>
-    <artifactId>commandme</artifactId>
-    <packaging>jar</packaging>
-    <version>0.1.1-SNAPSHOT</version>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>commandme.googlecode.com</groupId>
+  <artifactId>commandme</artifactId>
+  <packaging>jar</packaging>
+  <version>0.1.1-SNAPSHOT</version>
 
-    <name>Command Me</name>
+  <name>Command Me</name>
 
-    <description>Library for easy command line parameters parsing</description>
-    <inceptionYear>2010</inceptionYear>
+  <description>Library for easy command line parameters parsing</description>
+  <inceptionYear>2010</inceptionYear>
 
-    <organization>
-        <name>Dmitry Sidorenko</name>
-        <url>http://www.sid0renk0.ru/</url>
-    </organization>
+  <organization>
+    <name>Dmitry Sidorenko</name>
+    <url>http://www.sid0renk0.ru/</url>
+  </organization>
 
-    <scm>
-        <connection>scm:hg:https://command-me.googlecode.com/hg/</connection>
-        <developerConnection>scm:hg:https://command-me.googlecode.com/hg/</developerConnection>
-    </scm>
+  <scm>
+    <connection>scm:hg:https://command-me.googlecode.com/hg/</connection>
+    <developerConnection>scm:hg:https://command-me.googlecode.com/hg/</developerConnection>
+  </scm>
 
-    <issueManagement>
-        <system>GoogleCode</system>
-        <url>http://code.google.com/p/command-me/issues/list</url>
-    </issueManagement>
+  <issueManagement>
+    <system>GoogleCode</system>
+    <url>http://code.google.com/p/command-me/issues/list</url>
+  </issueManagement>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!--Compiler flags-->
-        <build.debug>true</build.debug>
-        <build.optimize>false</build.optimize>
+    <!--Compiler flags-->
+    <build.debug>true</build.debug>
+    <build.optimize>false</build.optimize>
 
-        <!--Libraries versions -->
-        <slf4j.version>1.6.0</slf4j.version>
+    <!--Libraries versions -->
+    <slf4j.version>1.6.0</slf4j.version>
 
-    </properties>
+  </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>runtime</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>runtime</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.8.5</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <version>1.8.5</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <target>6</target>
-                    <source>6</source>
-                    <debug>${build.debug}</debug>
-                    <optimize>${build.optimize}</optimize>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.0-beta-8</version>
-                <configuration>
-                    <tagBase>scm:hg:https://command-me.googlecode.com/hg/</tagBase>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <target>6</target>
+          <source>6</source>
+          <debug>${build.debug}</debug>
+          <optimize>${build.optimize}</optimize>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.0-beta-8</version>
+        <configuration>
+          <tagBase>scm:hg:https://command-me.googlecode.com/hg/</tagBase>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
-    <profiles>
-        <profile>
-            <!--Activated for release-->
-            <id>release</id>
-            <properties>
-                <build.debug>false</build.debug>
-                <build.optimize>true</build.optimize>
-            </properties>
-        </profile>
-    </profiles>
+  <profiles>
+    <profile>
+      <!--Activated for release-->
+      <id>release</id>
+      <properties>
+        <build.debug>false</build.debug>
+        <build.optimize>true</build.optimize>
+      </properties>
+    </profile>
+  </profiles>
 </project>
