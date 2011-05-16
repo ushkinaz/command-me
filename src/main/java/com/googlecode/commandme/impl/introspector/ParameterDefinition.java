@@ -22,15 +22,15 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Dmitry Sidorenko
  */
-public class ParameterDefinition {
+public final class ParameterDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ParameterDefinition.class);
 
-    private String longName;
-    private String shortName;
-    private Class type;
-    private String defaultValue;
-    private String description;
+    private String  longName;
+    private String  shortName;
+    private Class   type;
+    private String  defaultValue;
+    private String  description;
     private boolean showInHelp;
 
     public ParameterDefinition() {
@@ -92,17 +92,33 @@ public class ParameterDefinition {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ParameterDefinition that = (ParameterDefinition) o;
 
-        if (showInHelp != that.showInHelp) return false;
-        if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that.defaultValue != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (longName != null ? !longName.equals(that.longName) : that.longName != null) return false;
-        if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (showInHelp != that.showInHelp) {
+            return false;
+        }
+        if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that.defaultValue != null) {
+            return false;
+        }
+        if (description != null ? !description.equals(that.description) : that.description != null) {
+            return false;
+        }
+        if (longName != null ? !longName.equals(that.longName) : that.longName != null) {
+            return false;
+        }
+        if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) {
+            return false;
+        }
+        if (type != null ? !type.equals(that.type) : that.type != null) {
+            return false;
+        }
 
         return true;
     }

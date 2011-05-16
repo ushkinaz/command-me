@@ -20,6 +20,7 @@ package com.googlecode.commandme.impl.introspector;
  * @author Dmitry Sidorenko
  */
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,15 +38,15 @@ public class ModuleIntrospectorTest {
 
     @Test
     public void testModuleIntrospector() throws Exception {
-        moduleIntrospector = new ModuleIntrospector(TestModule1.class);
+        moduleIntrospector = new ModuleIntrospector<TestModule1>(TestModule1.class);
         assertEquals(moduleIntrospector.getClz(), TestModule1.class);
     }
 
     @Test
-    public void testInspect() throws Exception {
-        moduleIntrospector = new ModuleIntrospector(TestModule1.class);
+    public void testInspectParameters() throws Exception {
+        moduleIntrospector = new ModuleIntrospector<TestModule1>(TestModule1.class);
         moduleIntrospector.inspect();
-        for (ParameterDefinition parameterDefinition : moduleIntrospector.getParameterDefinitions()) {
+        for (ParameterDefinition parameterDefinition : moduleIntrospector.getParameters().getParameterDefinitions()) {
             assertThat(parameterDefinition.getShortName(), notNullValue());
             assertThat(parameterDefinition.getShortName().length(), is(1));
 
@@ -59,10 +60,10 @@ public class ModuleIntrospectorTest {
     }
 
     @Test
-    public void testInspectValuesAreCorrect() throws Exception {
-        moduleIntrospector = new ModuleIntrospector(TestModule1.class);
+    public void testInspectParametersValuesAreCorrect() throws Exception {
+        moduleIntrospector = new ModuleIntrospector<TestModule1>(TestModule1.class);
         moduleIntrospector.inspect();
-        final ParameterDefinition fooParam = moduleIntrospector.getByLongName("foo");
+        final ParameterDefinition fooParam = moduleIntrospector.getParameters().getByLongName("foo");
         assertThat(fooParam, notNullValue());
         assertThat(fooParam.getLongName(), is("foo"));
         assertThat(fooParam.getShortName(), is("f"));
@@ -70,7 +71,7 @@ public class ModuleIntrospectorTest {
         assertThat(fooParam.getDefaultValue(), is("0"));
         assertThat(fooParam.getDescription(), is("none"));
 
-        final ParameterDefinition nameParam = moduleIntrospector.getByLongName("name");
+        final ParameterDefinition nameParam = moduleIntrospector.getParameters().getByLongName("name");
         assertThat(nameParam, notNullValue());
         assertThat(nameParam.getLongName(), is("name"));
         assertThat(nameParam.getShortName(), is("n"));
@@ -79,7 +80,7 @@ public class ModuleIntrospectorTest {
         assertThat(nameParam.getDescription(), is(""));
 
 
-        for (ParameterDefinition parameterDefinition : moduleIntrospector.getParameterDefinitions()) {
+        for (ParameterDefinition parameterDefinition : moduleIntrospector.getParameters().getParameterDefinitions()) {
             assertThat(parameterDefinition.getShortName(), notNullValue());
             assertThat(parameterDefinition.getShortName().length(), is(1));
 
@@ -90,5 +91,23 @@ public class ModuleIntrospectorTest {
             assertThat(parameterDefinition.getType(), notNullValue());
         }
 
+    }
+
+    @Test
+    public void testGetParameters() throws Exception {
+        //TODO: Implement
+        Assert.fail();
+    }
+
+    @Test
+    public void testGetActions() throws Exception {
+        //TODO: Implement
+        Assert.fail();
+    }
+
+    @Test
+    public void testInspectActions() throws Exception {
+        //TODO: Implement
+        Assert.fail();
     }
 }
