@@ -26,6 +26,9 @@ import com.googlecode.commandme.impl.introspector.ModuleParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * Implementation of command line.
  * Combines three phases: Definition, Parsing and Interrogation.
@@ -41,7 +44,8 @@ public class CommandLineImpl<T> implements CommandLine {
 
     private ModuleParameters moduleParameters;
 
-    private T instance;
+    private Class<T> clz;
+    private T        instance;
 
     /**
      * Constructs an object
@@ -51,12 +55,14 @@ public class CommandLineImpl<T> implements CommandLine {
      */
     public CommandLineImpl(Class<T> clz) throws CliException {
         if (clz == null) {
-            throw new CliException("Can not pass null classe");
+            throw new NullPointerException("Can not pass null class");
         }
+        this.clz = clz;
+
         moduleIntrospector = ModuleIntrospectorFactory.createIntrospector(clz);
         moduleParameters = moduleIntrospector.inspect();
 
-        instance = createInstance(clz);
+        instance = createInstance();
     }
 
     /**
@@ -73,21 +79,28 @@ public class CommandLineImpl<T> implements CommandLine {
     /**
      * Creates an instance of given class. The class should have public no-arg constructor.
      *
-     * @param clz class
      * @return created instance, never {@code null}
      * @throws CliException exception if class does not have no-arg constructor, constructor is not accessible , if class is null
      */
-    private T createInstance(Class<T> clz) throws CliException {
+    private T createInstance() throws CliException {
+        Constructor<T> constructor;
+        try {
+            constructor = clz.getConstructor();
+        } catch (NoSuchMethodException e) {
+            LOGGER.error("Error", e);
+            throw new CliException("No public no-args constructor found", e);
+        }
+
         T instance;
         try {
-            instance = clz.newInstance();
+            instance = constructor.newInstance();
         } catch (InstantiationException e) {
             LOGGER.error("Error", e);
             throw new CliException(e);
         } catch (IllegalAccessException e) {
             LOGGER.error("Error", e);
             throw new CliException(e);
-        } catch (NullPointerException e) {
+        } catch (InvocationTargetException e) {
             LOGGER.error("Error", e);
             throw new CliException(e);
         }

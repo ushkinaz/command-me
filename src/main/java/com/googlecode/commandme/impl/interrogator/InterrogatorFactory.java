@@ -42,7 +42,7 @@ public class InterrogatorFactory {
     }
 
     protected <T> Interrogator create(T instance, ModuleParameters moduleParameters, String[] parameters) {
-        return new Interrogator(instance, moduleParameters, parameters);
+        return new Interrogator<T>(instance, moduleParameters, parameters);
     }
 
 }

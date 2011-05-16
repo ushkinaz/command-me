@@ -29,9 +29,9 @@ public class Interrogator<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(Interrogator.class);
 
-    private T module;
+    private T                module;
     private ModuleParameters moduleParameters;
-    private String[] arguments;
+    private String[]         arguments;
 
     /**
      * A constructor.
@@ -50,8 +50,13 @@ public class Interrogator<T> {
      * Does actual injecting and calls actions
      */
     public void torture() {
-        for (int i = 0; i < arguments.length; i++) {
-            LOGGER.debug(arguments[i]);
+        for (String argument : arguments) {
+            LOGGER.debug(argument);
+            if (argument.startsWith("-")) {
+                LOGGER.debug("Found parameter");
+            } else {
+                LOGGER.debug("Found action or value");
+            }
         }
     }
 }
