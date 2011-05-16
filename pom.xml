@@ -33,13 +33,13 @@
     </organization>
 
     <scm>
-        <connection>scm:hg:https://command-me.googlecode.com/hg/</connection>
-        <developerConnection>scm:hg:https://command-me.googlecode.com/hg/</developerConnection>
+        <connection>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</connection>
+        <developerConnection>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</developerConnection>
     </scm>
 
     <issueManagement>
-        <system>GoogleCode</system>
-        <url>http://code.google.com/p/command-me/issues/list</url>
+        <system>PivotalTracker</system>
+        <url>https://www.pivotaltracker.com/projects/102363</url>
     </issueManagement>
 
     <properties>
