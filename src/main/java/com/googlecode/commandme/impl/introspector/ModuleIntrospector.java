@@ -26,27 +26,27 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
-import java.util.List;
 
 /**
  * Introspects module class and creates options definition
  *
  * @author Dmitry Sidorenko
  */
-public class ModuleIntrospector implements ModuleParameters {
+public class ModuleIntrospector<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuleIntrospector.class);
 
-    private Class clz;
+    private Class<T> clz;
     private static final String SETTER_PREFIX = "set";
-    private ParametersIntrospector parameters;
+    private ParametersIntrospector parametersIntrospector;
+    private ActionsIntrospector    actionsIntrospector;
 
     /**
      * Creates an introspector
      *
      * @param clz class to introspect
      */
-    ModuleIntrospector(Class clz) {
+    ModuleIntrospector(Class<T> clz) {
         this.clz = clz;
     }
 
@@ -56,15 +56,17 @@ public class ModuleIntrospector implements ModuleParameters {
      * @throws CliException
      */
     public void inspect() throws CliException {
-        parameters = new ParametersIntrospector();
         inspectParameters();
         inspectActions();
     }
 
     private void inspectActions() {
+        actionsIntrospector = new ActionsIntrospector();
+        //TODO: implement
     }
 
     private void inspectParameters() {
+        parametersIntrospector = new ParametersIntrospector();
         BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(clz, Introspector.USE_ALL_BEANINFO);
@@ -74,7 +76,7 @@ public class ModuleIntrospector implements ModuleParameters {
         }
         for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
             ParameterDefinition parameterDefinition = inspectMethod(propertyDescriptor);
-            parameters.addParameter(parameterDefinition);
+            parametersIntrospector.addParameter(parameterDefinition);
         }
     }
 
@@ -131,22 +133,15 @@ public class ModuleIntrospector implements ModuleParameters {
         return propertyName;
     }
 
-    public Class getClz() {
+    public Class<T> getClz() {
         return clz;
     }
 
-    @Override
-    public List<ParameterDefinition> getParameterDefinitions() {
-        return parameters.getParameterDefinitions();
+    public ModuleParameters getParameters() {
+        return parametersIntrospector;
     }
 
-    @Override
-    public ParameterDefinition getByLongName(String name) {
-        return parameters.getByLongName(name);
-    }
-
-    @Override
-    public ParameterDefinition getByShortName(String name) {
-        return parameters.getByShortName(name);
+    public ModuleActions getActions() {
+        return actionsIntrospector;
     }
 }
