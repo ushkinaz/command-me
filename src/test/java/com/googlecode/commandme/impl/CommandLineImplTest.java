@@ -7,9 +7,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -34,7 +31,7 @@ public class CommandLineImplTest {
     public void setUp() throws Exception {
     }
 
-    @Test(expected = CliException.class)
+    @Test(expected = NullPointerException.class)
     public void testExecuteNull() throws Exception {
         commandLine = new CommandLineImpl<Object>(null);
         commandLine.execute(arg1);

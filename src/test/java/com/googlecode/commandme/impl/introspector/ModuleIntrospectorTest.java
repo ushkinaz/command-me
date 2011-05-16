@@ -44,8 +44,8 @@ public class ModuleIntrospectorTest {
     @Test
     public void testInspect() throws Exception {
         moduleIntrospector = new ModuleIntrospector(TestModule1.class);
-        ModuleParameters moduleParameters = moduleIntrospector.inspect();
-        for (ParameterDefinition parameterDefinition : moduleParameters.getParameterDefinitions()) {
+        moduleIntrospector.inspect();
+        for (ParameterDefinition parameterDefinition : moduleIntrospector.getParameterDefinitions()) {
             assertThat(parameterDefinition.getShortName(), notNullValue());
             assertThat(parameterDefinition.getShortName().length(), is(1));
 
@@ -61,8 +61,8 @@ public class ModuleIntrospectorTest {
     @Test
     public void testInspectValuesAreCorrect() throws Exception {
         moduleIntrospector = new ModuleIntrospector(TestModule1.class);
-        ModuleParameters moduleParameters = moduleIntrospector.inspect();
-        final ParameterDefinition fooParam = moduleParameters.getByLongName("foo");
+        moduleIntrospector.inspect();
+        final ParameterDefinition fooParam = moduleIntrospector.getByLongName("foo");
         assertThat(fooParam, notNullValue());
         assertThat(fooParam.getLongName(), is("foo"));
         assertThat(fooParam.getShortName(), is("f"));
@@ -70,7 +70,7 @@ public class ModuleIntrospectorTest {
         assertThat(fooParam.getDefaultValue(), is("0"));
         assertThat(fooParam.getDescription(), is("none"));
 
-        final ParameterDefinition nameParam = moduleParameters.getByLongName("name");
+        final ParameterDefinition nameParam = moduleIntrospector.getByLongName("name");
         assertThat(nameParam, notNullValue());
         assertThat(nameParam.getLongName(), is("name"));
         assertThat(nameParam.getShortName(), is("n"));
@@ -79,7 +79,7 @@ public class ModuleIntrospectorTest {
         assertThat(nameParam.getDescription(), is(""));
 
 
-        for (ParameterDefinition parameterDefinition : moduleParameters.getParameterDefinitions()) {
+        for (ParameterDefinition parameterDefinition : moduleIntrospector.getParameterDefinitions()) {
             assertThat(parameterDefinition.getShortName(), notNullValue());
             assertThat(parameterDefinition.getShortName().length(), is(1));
 

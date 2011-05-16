@@ -16,7 +16,7 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.impl.introspector.ModuleParameters;
+import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,20 +29,20 @@ public class Interrogator<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(Interrogator.class);
 
-    private T                module;
-    private ModuleParameters moduleParameters;
-    private String[]         arguments;
+    private T                  module;
+    private ModuleIntrospector moduleIntrospector;
+    private String[]           arguments;
 
     /**
      * A constructor.
      *
-     * @param instance         an instance to interrogate
-     * @param moduleParameters definitions
-     * @param arguments        actual arguments
+     * @param instance           an instance to interrogate
+     * @param moduleIntrospector
+     * @param arguments          actual arguments
      */
-    Interrogator(T instance, ModuleParameters moduleParameters, String[] arguments) {
+    Interrogator(T instance, ModuleIntrospector moduleIntrospector, String[] arguments) {
         this.module = instance;
-        this.moduleParameters = moduleParameters;
+        this.moduleIntrospector = moduleIntrospector;
         this.arguments = arguments;
     }
 
