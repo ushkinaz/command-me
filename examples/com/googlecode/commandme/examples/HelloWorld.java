@@ -22,24 +22,60 @@
 package com.googlecode.commandme.examples;
 
 import com.googlecode.commandme.CLIParser;
-import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.annotations.Action;
+import com.googlecode.commandme.annotations.Parameter;
 
 /**
- * @author ushkinaz
+ * @author Dmitry Sidorenko
  */
+@SuppressWarnings({"unused"})
 public class HelloWorld {
 
     private String name;
+    private int times;
+    private boolean heartly;
+    private double money;
 
+    @Action
+    public void greet() {
+        System.out.println("Hello, " + name + "!");
+        if (heartly) {
+            System.out.println("We heartly welcome you");
+        }
+        if (times > 1) {
+            System.out.println("We hug you " + times + " times!");
+        }
+    }
+
+    @Action
+    public void bye() {
+        System.out.println("Bye, " + name + "!");
+        if (money > 0) {
+            System.out.println("You own us $" + money + ". A bill will be sent shortly.");
+        }
+    }
+
+    @Parameter
     public void setName(String name) {
         this.name = name;
     }
 
-    public void greet() {
-        System.out.println("Hello, " + name + "!");
+    @Parameter
+    public void setTimes(int times) {
+        this.times = times;
     }
 
-    public static void main(String[] argv) throws CliException {
+    @Parameter()
+    public void setHeartly(boolean heartly) {
+        this.heartly = heartly;
+    }
+
+    @Parameter
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public static void main(String[] argv) {
         CLIParser.createModule(HelloWorld.class).execute(argv);
     }
 }
