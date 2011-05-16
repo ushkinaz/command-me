@@ -28,56 +28,56 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 public class ModuleParametersTest {
-    private ModuleParameters moduleParameters;
+    private ParametersIntrospector parameters;
 
     @Before
     public void setup() {
-        moduleParameters = new ModuleParameters();
+        parameters = new ParametersIntrospector();
     }
 
     @Test
     public void testModuleParameters() throws Exception {
-        assertThat(moduleParameters.getParameterDefinitions(), notNullValue());
+        assertThat(parameters.getParameterDefinitions(), notNullValue());
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetParameterDefinitions() throws Exception {
-        moduleParameters.getParameterDefinitions().clear();
+        parameters.getParameterDefinitions().clear();
     }
 
     @Test
     public void testAddParameter() throws Exception {
         final ParameterDefinition definition = new ParameterDefinition();
-        moduleParameters.addParameter(definition);
-        assertThat(moduleParameters.getParameterDefinitions().size(), is(1));
-        assertThat(moduleParameters.getParameterDefinitions().get(0), is(definition));
+        parameters.addParameter(definition);
+        assertThat(parameters.getParameterDefinitions().size(), is(1));
+        assertThat(parameters.getParameterDefinitions().get(0), is(definition));
     }
 
     @Test
     public void testGetByLongName() throws Exception {
         ParameterDefinition definition = new ParameterDefinition();
         definition.setLongName("foo");
-        moduleParameters.addParameter(definition);
+        parameters.addParameter(definition);
 
         ParameterDefinition definitionBar = new ParameterDefinition();
         definitionBar.setLongName("bar");
-        moduleParameters.addParameter(definitionBar);
+        parameters.addParameter(definitionBar);
 
-        assertThat(moduleParameters.getByLongName("bar"), is(definitionBar));
-        assertThat(moduleParameters.getByLongName("foo"), is(definition));
+        assertThat(parameters.getByLongName("bar"), is(definitionBar));
+        assertThat(parameters.getByLongName("foo"), is(definition));
     }
 
     @Test
     public void testGetByShortName() throws Exception {
         ParameterDefinition definition = new ParameterDefinition();
         definition.setShortName("f");
-        moduleParameters.addParameter(definition);
+        parameters.addParameter(definition);
 
         ParameterDefinition definitionBar = new ParameterDefinition();
         definitionBar.setShortName("b");
-        moduleParameters.addParameter(definitionBar);
+        parameters.addParameter(definitionBar);
 
-        assertThat(moduleParameters.getByShortName("b"), is(definitionBar));
-        assertThat(moduleParameters.getByShortName("f"), is(definition));
+        assertThat(parameters.getByShortName("b"), is(definitionBar));
+        assertThat(parameters.getByShortName("f"), is(definition));
     }
 }

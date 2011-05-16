@@ -26,18 +26,20 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * Introspects module class and creates options definition
  *
  * @author Dmitry Sidorenko
  */
-public class ModuleIntrospector {
+public class ModuleIntrospector implements ModuleParameters {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuleIntrospector.class);
 
     private Class clz;
     private static final String SETTER_PREFIX = "set";
+    private ParametersIntrospector parameters;
 
     /**
      * Creates an introspector
@@ -51,12 +53,18 @@ public class ModuleIntrospector {
     /**
      * Introspects a module
      *
-     * @return definition of a module. Never {@code null}
-     * @throws com.googlecode.commandme.CliException
-     *
+     * @throws CliException
      */
-    public ModuleParameters inspect() throws CliException {
-        ModuleParameters moduleParameters = new ModuleParameters();
+    public void inspect() throws CliException {
+        parameters = new ParametersIntrospector();
+        inspectParameters();
+        inspectActions();
+    }
+
+    private void inspectActions() {
+    }
+
+    private void inspectParameters() {
         BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(clz, Introspector.USE_ALL_BEANINFO);
@@ -66,9 +74,8 @@ public class ModuleIntrospector {
         }
         for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
             ParameterDefinition parameterDefinition = inspectMethod(propertyDescriptor);
-            moduleParameters.addParameter(parameterDefinition);
+            parameters.addParameter(parameterDefinition);
         }
-        return moduleParameters;
     }
 
     private ParameterDefinition inspectMethod(PropertyDescriptor propertyDescriptor) throws CliException {
@@ -126,5 +133,20 @@ public class ModuleIntrospector {
 
     public Class getClz() {
         return clz;
+    }
+
+    @Override
+    public List<ParameterDefinition> getParameterDefinitions() {
+        return parameters.getParameterDefinitions();
+    }
+
+    @Override
+    public ParameterDefinition getByLongName(String name) {
+        return parameters.getByLongName(name);
+    }
+
+    @Override
+    public ParameterDefinition getByShortName(String name) {
+        return parameters.getByShortName(name);
     }
 }

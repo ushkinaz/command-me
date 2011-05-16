@@ -1,81 +1,25 @@
-/*
- * Copyright (c) 2010-2011, Dmitry Sidorenko. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.googlecode.commandme.impl.introspector;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.*;
+import java.util.List;
 
 /**
- * Definition of options.
- * Created from annotated module class.
- *
  * @author Dmitry Sidorenko
  */
-public class ModuleParameters {
-    @SuppressWarnings({"UnusedDeclaration"})
-    private static final Logger LOGGER = LoggerFactory.getLogger(ModuleParameters.class);
-
-    private List<ParameterDefinition> parameterDefinitions;
-    private Map<String, ParameterDefinition> shortNamesMap;
-    private Map<String, ParameterDefinition> longNamesMap;
-
-
-    public ModuleParameters() {
-        parameterDefinitions = new LinkedList<ParameterDefinition>();
-        shortNamesMap = new HashMap<String, ParameterDefinition>();
-        longNamesMap = new HashMap<String, ParameterDefinition>();
-    }
-
-    /**
-     * Adds new parameter definition.
-     *
-     * @param parameterDefinition parameter
-     */
-    public void addParameter(ParameterDefinition parameterDefinition) {
-        if (parameterDefinition == null) {
-            return;
-        }
-        parameterDefinitions.add(parameterDefinition);
-        shortNamesMap.put(parameterDefinition.getShortName(), parameterDefinition);
-        longNamesMap.put(parameterDefinition.getLongName(), parameterDefinition);
-    }
-
+public interface ModuleParameters {
     /**
      * @return unmodifiable list of {@link com.googlecode.commandme.impl.introspector.ParameterDefinition}
      */
-    public List<ParameterDefinition> getParameterDefinitions() {
-        return Collections.unmodifiableList(parameterDefinitions);
-    }
+    List<ParameterDefinition> getParameterDefinitions();
 
     /**
      * @param name long name of a parameter
      * @return ParameterDefinition or null
      */
-    public ParameterDefinition getByLongName(String name) {
-        return longNamesMap.get(name);
-    }
+    ParameterDefinition getByLongName(String name);
 
     /**
      * @param name short name of a parameter
      * @return ParameterDefinition or null
      */
-    public ParameterDefinition getByShortName(String name) {
-        return shortNamesMap.get(name);
-    }
+    ParameterDefinition getByShortName(String name);
 }

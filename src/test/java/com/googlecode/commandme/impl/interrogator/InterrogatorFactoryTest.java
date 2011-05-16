@@ -20,7 +20,7 @@ package com.googlecode.commandme.impl.interrogator;
  * @author Dmitry Sidorenko
  */
 
-import com.googlecode.commandme.impl.introspector.ModuleParameters;
+import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
@@ -38,10 +38,10 @@ public class InterrogatorFactoryTest {
 
     @Test
     public void testSetFactory() throws Exception {
-        InterrogatorFactory.setFactory(new InterrogatorFactory(){
+        InterrogatorFactory.setFactory(new InterrogatorFactory() {
             @Override
-            protected <T> Interrogator create(T instance, ModuleParameters moduleParameters, String[] parameters) {
-                return new MyInterrogator<T>(instance, moduleParameters, new String[]{"-m", "\"one\"", "ci"});
+            protected <T> Interrogator create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+                return new MyInterrogator<T>(instance, moduleIntrospector, new String[]{"-m", "\"one\"", "ci"});
             }
         });
         @SuppressWarnings({"unchecked"})
@@ -50,8 +50,8 @@ public class InterrogatorFactoryTest {
     }
 
     private static class MyInterrogator<T> extends Interrogator<T> {
-        public MyInterrogator(T instance, ModuleParameters moduleParameters, String[] parameters) {
-            super(instance, moduleParameters, parameters);
+        public MyInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+            super(instance, moduleIntrospector, parameters);
         }
     }
 

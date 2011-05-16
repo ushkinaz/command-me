@@ -16,7 +16,7 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.impl.introspector.ModuleParameters;
+import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,16 +33,16 @@ public class InterrogatorFactory {
         factory = new InterrogatorFactory();
     }
 
-    public static <T> Interrogator createInterrogator(T instance, ModuleParameters moduleParameters, String[] parameters) {
-        return factory.create(instance, moduleParameters, parameters);
+    public static <T> Interrogator createInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+        return factory.create(instance, moduleIntrospector, parameters);
     }
 
     public static void setFactory(InterrogatorFactory factory) {
         InterrogatorFactory.factory = factory;
     }
 
-    protected <T> Interrogator create(T instance, ModuleParameters moduleParameters, String[] parameters) {
-        return new Interrogator<T>(instance, moduleParameters, parameters);
+    protected <T> Interrogator create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+        return new Interrogator<T>(instance, moduleIntrospector, parameters);
     }
 
 }
