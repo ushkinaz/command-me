@@ -17,10 +17,10 @@ import java.util.Set;
 public class ActionsIntrospector<T> implements ModuleActions {
     private static final Logger LOGGER = LoggerFactory.getLogger(ActionsIntrospector.class);
 
-    private Class<T>                      clz;
-    private Set<ActionDefinition>         actions;
-    private Map<String, ActionDefinition> shortNames;
-    private Map<String, ActionDefinition> longNames;
+    private final Class<T>                      clz;
+    private final Set<ActionDefinition>         actions;
+    private final Map<String, ActionDefinition> shortNames;
+    private final Map<String, ActionDefinition> longNames;
 
     public ActionsIntrospector(Class<T> clz) {
         this.clz = clz;

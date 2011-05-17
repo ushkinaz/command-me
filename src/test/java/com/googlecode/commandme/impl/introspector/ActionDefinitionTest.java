@@ -20,7 +20,7 @@ public class ActionDefinitionTest {
         ActionDefinition definition = new ActionDefinition();
         Method testSetAction = ActionDefinitionTest.class.getMethod("testSetAction");
         definition.setAction(testSetAction);
-        Assert.assertThat(definition.getAction(), CoreMatchers.is(testSetAction));
+        Assert.assertThat(definition.getMethod(), CoreMatchers.is(testSetAction));
     }
 
     @Test
