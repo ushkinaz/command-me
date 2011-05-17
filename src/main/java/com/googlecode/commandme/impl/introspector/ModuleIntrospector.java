@@ -57,12 +57,8 @@ public class ModuleIntrospector<T> {
      * Introspects a module
      */
     public void inspect() {
-        inspectActions();
-        inspectParameters();
-    }
-
-    private void inspectActions() {
         actionsIntrospector.inspect();
+        inspectParameters();
     }
 
     private void inspectParameters() {

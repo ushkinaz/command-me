@@ -1,5 +1,6 @@
 package com.googlecode.commandme.impl.introspector;
 
+import com.googlecode.commandme.ActionDefinitionException;
 import com.googlecode.commandme.annotations.Action;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +32,18 @@ public class ActionsIntrospector<T> implements ModuleActions {
 
     private void addAction(ActionDefinition actionDefinition) {
         actions.add(actionDefinition);
-        longNames.put(actionDefinition.getLongName(), actionDefinition);
+        ActionDefinition previous = longNames.put(actionDefinition.getLongName(), actionDefinition);
+        checkClash(actionDefinition, previous);
         if (actionDefinition.getShortName() != null) {
-            shortNames.put(actionDefinition.getShortName(), actionDefinition);
+            previous = shortNames.put(actionDefinition.getShortName(), actionDefinition);
+            checkClash(actionDefinition, previous);
+        }
+    }
+
+    private void checkClash(ActionDefinition actionDefinition, ActionDefinition previousDefinition) {
+        if (previousDefinition != null) {
+            LOGGER.error("Duplicate actions definitions");
+            throw new ActionDefinitionException("Actions clashed: new=" + actionDefinition + ", old=" + previousDefinition, actionDefinition);
         }
     }
 

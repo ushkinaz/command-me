@@ -1,5 +1,6 @@
 package com.googlecode.commandme.impl.introspector;
 
+import com.googlecode.commandme.ActionDefinitionException;
 import com.googlecode.commandme.annotations.Action;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -50,6 +51,18 @@ public class ActionsIntrospectorTest {
         assertThat(actionsIntrospector.getByShortName("bb"), notNullValue());
     }
 
+    @Test(expected = ActionDefinitionException.class)
+    public void testDuplicateLongNames() throws Exception {
+        actionsIntrospector = new ActionsIntrospector<TestModuleDupLongNames>(TestModuleDupLongNames.class);
+        actionsIntrospector.inspect();
+    }
+
+    @Test(expected = ActionDefinitionException.class)
+    public void testDuplicateShortNames() throws Exception {
+        actionsIntrospector = new ActionsIntrospector<TestModuleDupShortNames>(TestModuleDupShortNames.class);
+        actionsIntrospector.inspect();
+    }
+
     @Test
     @Ignore("Short names not fully supported yet")
     public void testGetByShortName() throws Exception {
@@ -79,6 +92,28 @@ public class ActionsIntrospectorTest {
 
         @Action
         public void params(String name) {
+        }
+    }
+
+    class TestModuleDupLongNames {
+
+        @Action(name = "bye")
+        public void greet() {
+        }
+
+        @Action(name = "bye")
+        public void bye() {
+        }
+    }
+
+    class TestModuleDupShortNames {
+
+        @Action(shortName = "bb")
+        public void greet() {
+        }
+
+        @Action(shortName = "bb")
+        public void bye() {
         }
     }
 }
