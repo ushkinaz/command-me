@@ -36,10 +36,11 @@ public class ModuleIntrospector<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuleIntrospector.class);
 
-    private Class<T> clz;
     private static final String SETTER_PREFIX = "set";
-    private ParametersIntrospector parametersIntrospector;
-    private ActionsIntrospector    actionsIntrospector;
+
+    private final Class<T>               clz;
+    private final ParametersIntrospector parametersIntrospector;
+    private final ActionsIntrospector    actionsIntrospector;
 
     /**
      * Creates an introspector
@@ -48,6 +49,8 @@ public class ModuleIntrospector<T> {
      */
     ModuleIntrospector(Class<T> clz) {
         this.clz = clz;
+        actionsIntrospector = new ActionsIntrospector<T>(clz);
+        parametersIntrospector = new ParametersIntrospector();
     }
 
     /**
@@ -59,13 +62,11 @@ public class ModuleIntrospector<T> {
     }
 
     private void inspectActions() {
-        actionsIntrospector = new ActionsIntrospector<T>(clz);
         actionsIntrospector.inspect();
     }
 
     private void inspectParameters() {
         //TODO: refactor, move to com.googlecode.commandme.impl.introspector.ParametersIntrospector
-        parametersIntrospector = new ParametersIntrospector();
         BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(clz, Introspector.USE_ALL_BEANINFO);
