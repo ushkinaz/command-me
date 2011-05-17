@@ -20,7 +20,6 @@ package com.googlecode.commandme.impl.introspector;
  * @author Dmitry Sidorenko
  */
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,17 +33,16 @@ public class ModuleIntrospectorTest {
 
     @Before
     public void setupTest() {
+        moduleIntrospector = new ModuleIntrospector<TestModule1>(TestModule1.class);
     }
 
     @Test
     public void testModuleIntrospector() throws Exception {
-        moduleIntrospector = new ModuleIntrospector<TestModule1>(TestModule1.class);
         assertEquals(moduleIntrospector.getClz(), TestModule1.class);
     }
 
     @Test
     public void testInspectParameters() throws Exception {
-        moduleIntrospector = new ModuleIntrospector<TestModule1>(TestModule1.class);
         moduleIntrospector.inspect();
         for (ParameterDefinition parameterDefinition : moduleIntrospector.getParameters().getParameterDefinitions()) {
             assertThat(parameterDefinition.getShortName(), notNullValue());
@@ -61,7 +59,6 @@ public class ModuleIntrospectorTest {
 
     @Test
     public void testInspectParametersValuesAreCorrect() throws Exception {
-        moduleIntrospector = new ModuleIntrospector<TestModule1>(TestModule1.class);
         moduleIntrospector.inspect();
         final ParameterDefinition fooParam = moduleIntrospector.getParameters().getByLongName("foo");
         assertThat(fooParam, notNullValue());
@@ -94,20 +91,20 @@ public class ModuleIntrospectorTest {
     }
 
     @Test
-    public void testGetParameters() throws Exception {
-        //TODO: Implement
-        Assert.fail();
+    public void testGetParameters() {
+        assertThat(moduleIntrospector.getParameters(), notNullValue());
     }
 
     @Test
-    public void testGetActions() throws Exception {
-        //TODO: Implement
-        Assert.fail();
+    public void testGetActions() {
+        assertThat(moduleIntrospector.getActions(), notNullValue());
     }
 
+    /**
+     * Smoke test that no exception is thrown
+     */
     @Test
-    public void testInspectActions() throws Exception {
-        //TODO: Implement
-        Assert.fail();
+    public void testInspectActions() {
+        moduleIntrospector.inspect();
     }
 }

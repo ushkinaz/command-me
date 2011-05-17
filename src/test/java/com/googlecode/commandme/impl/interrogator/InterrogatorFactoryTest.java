@@ -21,6 +21,7 @@ package com.googlecode.commandme.impl.interrogator;
  */
 
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
+import com.googlecode.commandme.impl.introspector.ModuleIntrospectorFactory;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class InterrogatorFactoryTest {
     @Test
     public void testCreateInterrogator() throws Exception {
         @SuppressWarnings({"unchecked"})
-        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, null, new String[]{"-m", "\"one\"", "ci"});
+        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, ModuleIntrospectorFactory.createIntrospector(InterrogatorFactoryTest.class), new String[]{"-m", "\"one\"", "ci"});
         assertThat(interrogator, notNullValue());
     }
 
@@ -46,7 +47,7 @@ public class InterrogatorFactoryTest {
             }
         });
         @SuppressWarnings({"unchecked"})
-        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, null, new String[]{"-m", "\"one\"", "ci"});
+        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, ModuleIntrospectorFactory.createIntrospector(InterrogatorFactoryTest.class), new String[]{"-m", "\"one\"", "ci"});
         assertThat(interrogator, CoreMatchers.is(MyInterrogator.class));
     }
 

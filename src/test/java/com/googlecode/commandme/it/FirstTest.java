@@ -3,6 +3,7 @@ package com.googlecode.commandme.it;
 import com.googlecode.commandme.CLIParser;
 import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ public class FirstTest {
     };
 
     @Test
+    @Ignore("Not ready for integration tests yet")
     public void test1() throws Exception {
         Module module = CLIParser.createModule(Module.class).execute(arg1);
 
