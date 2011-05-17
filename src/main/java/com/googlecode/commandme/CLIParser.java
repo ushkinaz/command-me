@@ -25,10 +25,11 @@ import org.slf4j.LoggerFactory;
  * <p/>
  * Usage:
  * <pre>
+ * {@code
  * public static void main(String[] argv) {
  *     CLIParser.createModule(HelloWorld.class).execute(argv);
  * }
- *
+ * }
  * </pre>
  *
  * @author Dmitry Sidorenko
