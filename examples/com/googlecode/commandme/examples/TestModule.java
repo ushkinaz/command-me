@@ -10,7 +10,6 @@ import java.util.Date;
 
 /**
  * @author Dmitry Sidorenko
- * @date Jun 3, 2010
  */
 public class TestModule {
     @SuppressWarnings({"UnusedDeclaration"})
@@ -19,7 +18,7 @@ public class TestModule {
     private String parameterString1;
     private String parameterString2;
 
-    private int parameterInt1;
+    private int     parameterInt1;
     private Integer parameterInt2;
 
     private Double parameterDouble1;

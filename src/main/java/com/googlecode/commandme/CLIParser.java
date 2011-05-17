@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 
 /**
  * @author Dmitry Sidorenko
- * @date Jun 3, 2010
  */
 public final class CLIParser {
     @SuppressWarnings({"UnusedDeclaration"})
