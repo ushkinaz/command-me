@@ -18,6 +18,7 @@
 package com.googlecode.commandme.story;
 
 import com.googlecode.commandme.CLIParser;
+import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.CommandLine;
 import com.googlecode.commandme.annotations.Action;
 import org.junit.Test;
@@ -42,12 +43,24 @@ public class Story_13446725 {
         called = true;
     }
 
+    @Action
+    public void badboy() {
+        System.out.println("They've killed Kenny!");
+        throw new IllegalStateException("They've killed Kenny!");
+    }
+
     @Test
     public void testStory() throws Exception {
         CommandLine<Story_13446725> module = CLIParser.createModule(Story_13446725.class);
         module.execute(new String[]{"greet"});
 
-        assertThat("Method was not called", called, is(true));
+        assertThat("Method was not called", module.getModule().called, is(true));
+    }
+
+    @Test(expected = CliException.class)
+    public void testStoryWithException() throws Exception {
+        CommandLine<Story_13446725> module = CLIParser.createModule(Story_13446725.class);
+        module.execute(new String[]{"badboy"});
     }
 
     @Test
@@ -55,6 +68,6 @@ public class Story_13446725 {
         CommandLine<Story_13446725> module = CLIParser.createModule(Story_13446725.class);
         module.execute(new String[]{});
 
-        assertThat("Method was called", called, is(false));
+        assertThat("Method was called", module.getModule().called, is(false));
     }
 }

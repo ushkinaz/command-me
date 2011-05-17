@@ -19,7 +19,7 @@ public final class ActionDefinition {
     public ActionDefinition() {
     }
 
-    public Method getAction() {
+    public Method getMethod() {
         return action;
     }
 
