@@ -17,7 +17,7 @@
 package com.googlecode.commandme;
 
 /**
- * Command line.
+ * Command line interface
  *
  * @author Dmitry Sidorenko
  */

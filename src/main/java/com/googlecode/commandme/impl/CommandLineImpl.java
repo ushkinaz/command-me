@@ -34,7 +34,7 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author Dmitry Sidorenko
  */
-public class CommandLineImpl<T> implements CommandLine {
+public class CommandLineImpl<T> implements CommandLine<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandLineImpl.class);
 
@@ -50,7 +50,7 @@ public class CommandLineImpl<T> implements CommandLine {
      * @param clz class of a module
      * @throws CliException
      */
-    public CommandLineImpl(Class<T> clz) throws CliException {
+    public CommandLineImpl(Class<T> clz) {
         if (clz == null) {
             throw new NullPointerException("Can not pass null class");
         }
@@ -65,7 +65,7 @@ public class CommandLineImpl<T> implements CommandLine {
     /**
      * Does actual work.
      */
-    public T execute(String[] arguments) throws CliException {
+    public T execute(String[] arguments) {
         Interrogator interrogator = InterrogatorFactory.createInterrogator(instance, moduleIntrospector, arguments);
         interrogator.torture();
 
