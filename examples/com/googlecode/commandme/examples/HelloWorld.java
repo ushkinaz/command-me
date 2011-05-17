@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.googlecode.commandme.examples;
 
 import com.googlecode.commandme.CLIParser;
@@ -31,10 +26,10 @@ import com.googlecode.commandme.annotations.Parameter;
 @SuppressWarnings({"unused"})
 public class HelloWorld {
 
-    private String name;
-    private int times;
+    private String  name;
+    private int     times;
     private boolean heartly;
-    private double money;
+    private double  money;
 
     @Action
     public void greet() {
