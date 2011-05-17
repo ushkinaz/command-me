@@ -30,11 +30,20 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Action {
     /**
-     * The name of this action
+     * The name of this action.
+     * Default is to have name equals to method name.
      *
      * @return The name of this action
      */
     String name() default "";
+
+    /**
+     * Short name of this action.
+     * No defaults.
+     *
+     * @return Short name of this action
+     */
+    String shortName() default "";
 
     /**
      * A description of this action

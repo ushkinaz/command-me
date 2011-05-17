@@ -23,7 +23,7 @@ public final class ActionDefinition {
         return action;
     }
 
-    public void setAction(Method action) {
+    void setAction(Method action) {
         this.action = action;
     }
 
@@ -31,7 +31,7 @@ public final class ActionDefinition {
         return longName;
     }
 
-    public void setLongName(String longName) {
+    void setLongName(String longName) {
         this.longName = longName;
     }
 
@@ -39,7 +39,7 @@ public final class ActionDefinition {
         return shortName;
     }
 
-    public void setShortName(String shortName) {
+    void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
@@ -47,10 +47,11 @@ public final class ActionDefinition {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
+    @SuppressWarnings({"RedundantIfStatement"})
     @Override
     public boolean equals(Object o) {
         if (this == o) {
