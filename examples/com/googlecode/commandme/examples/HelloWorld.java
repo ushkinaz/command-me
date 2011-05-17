@@ -21,9 +21,11 @@ import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
 
 /**
+ * Full command line: {@literal "HelloWorld --name "John Smith" -t 2 -h --money 100.0 greet bye"}<br/>
+ * Minimal command line: {@literal "HelloWorld greet"}
+ *
  * @author Dmitry Sidorenko
  */
-@SuppressWarnings({"unused"})
 public class HelloWorld {
 
     private String  name;
