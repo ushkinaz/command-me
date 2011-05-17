@@ -21,10 +21,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Responsible for creating interrogators
+ *
  * @author Dmitry Sidorenko
  */
 public class InterrogatorFactory {
-    @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(InterrogatorFactory.class);
 
     private static InterrogatorFactory factory;
@@ -33,7 +34,15 @@ public class InterrogatorFactory {
         factory = new InterrogatorFactory();
     }
 
-    public static <T> Interrogator createInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+    /**
+     * Creates interrogator
+     *
+     * @param instance           module instance
+     * @param moduleIntrospector module introspector
+     * @param parameters         parameters passed from command line
+     * @return created interrogator
+     */
+    public static <T> Interrogator<T> createInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
         return factory.create(instance, moduleIntrospector, parameters);
     }
 
@@ -41,7 +50,8 @@ public class InterrogatorFactory {
         InterrogatorFactory.factory = factory;
     }
 
-    protected <T> Interrogator create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+    protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+        LOGGER.debug("Creating interrogator for " + moduleIntrospector.getClz().getName());
         return new Interrogator<T>(instance, moduleIntrospector, parameters);
     }
 
