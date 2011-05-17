@@ -10,7 +10,6 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Dmitry Sidorenko
- * @date Jun 3, 2010
  */
 public class CLIParserTest {
     @SuppressWarnings({"UnusedDeclaration"})
