@@ -19,7 +19,7 @@
     <groupId>commandme.googlecode.com</groupId>
     <artifactId>commandme</artifactId>
     <packaging>jar</packaging>
-    <version>0.2</version>
+    <version>0.5-SNAPSHOT</version>
 
     <name>Command Me</name>
 
