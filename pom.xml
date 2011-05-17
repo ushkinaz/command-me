@@ -108,7 +108,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.1</version>
                 <configuration>
-                    <tagBase>scm:hg:https://command-me.googlecode.com/hg/</tagBase>
+                    <tagBase>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</tagBase>
                 </configuration>
             </plugin>
         </plugins>
