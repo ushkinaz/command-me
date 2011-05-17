@@ -83,4 +83,14 @@ public final class ActionDefinition {
         result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "ActionDefinition{" +
+                "action=" + action.getName() +
+                ", longName='" + longName + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
