@@ -1,6 +1,6 @@
 package com.googlecode.commandme.impl.introspector;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Lists actions available for the module
@@ -13,7 +13,7 @@ public interface ModuleActions {
      *
      * @return list of actions
      */
-    List<ActionDefinition> getActions();
+    Set<ActionDefinition> getActions();
 
     /**
      * Returns action by its full name
