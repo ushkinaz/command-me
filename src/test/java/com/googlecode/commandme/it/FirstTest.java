@@ -49,10 +49,10 @@ public class FirstTest {
     }
 
     @SuppressWarnings({"UnusedDeclaration"})
-    public static class Module{
+    public static class Module {
         private String comment;
-        private int revision;
-        private Date date;
+        private int    revision;
+        private Date   date;
         private boolean verbose = false;
 
         private boolean verifyCalled = false;
@@ -100,27 +100,27 @@ public class FirstTest {
         }
 
         @Action
-        public void doVerify(){
+        public void doVerify() {
             verifyCalled = true;
         }
 
         @Action
-        public void commit(){
+        public void commit() {
             commitCalled = true;
         }
 
         @Action(name = "format")
-        public void formatC(){
+        public void formatC() {
             formatCCalled = true;
         }
 
         @Action(defaultAction = true)
-         public void destroyTheWorld(){
-             destroyTheWorldCalled = true;
-         }
+        public void destroyTheWorld() {
+            destroyTheWorldCalled = true;
+        }
 
         @Action(name = "make")
-        public void reallyBadName(){
+        public void reallyBadName() {
             reallyBadNameCalled = true;
         }
 

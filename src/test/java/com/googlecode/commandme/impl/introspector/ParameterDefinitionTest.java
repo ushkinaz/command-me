@@ -29,7 +29,7 @@ public class ParameterDefinitionTest {
     private ParameterDefinition parameterDefinition;
 
     @Before
-    public void setup(){
+    public void setup() {
         parameterDefinition = new ParameterDefinition();
     }
 

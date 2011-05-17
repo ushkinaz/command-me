@@ -37,7 +37,7 @@ public class ModuleIntrospectorFactoryTest {
 
     @Test
     public void testSetFactory() throws Exception {
-        ModuleIntrospectorFactory.setFactory(new ModuleIntrospectorFactory(){
+        ModuleIntrospectorFactory.setFactory(new ModuleIntrospectorFactory() {
             @Override
             protected ModuleIntrospector create(Class clz) {
                 return new MyModuleIntrospector(clz);
