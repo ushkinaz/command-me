@@ -31,9 +31,9 @@ public class ParametersIntrospector implements ModuleParameters {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ParametersIntrospector.class);
 
-    private List<ParameterDefinition>        parameterDefinitions;
-    private Map<String, ParameterDefinition> shortNamesMap;
-    private Map<String, ParameterDefinition> longNamesMap;
+    private final List<ParameterDefinition>        parameterDefinitions;
+    private final Map<String, ParameterDefinition> shortNamesMap;
+    private final Map<String, ParameterDefinition> longNamesMap;
 
 
     public ParametersIntrospector() {

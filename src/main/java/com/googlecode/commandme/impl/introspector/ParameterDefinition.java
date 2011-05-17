@@ -91,6 +91,7 @@ public final class ParameterDefinition {
     }
 
     @Override
+    @SuppressWarnings({"RedundantIfStatement"})
     public boolean equals(Object o) {
         if (this == o) {
             return true;
