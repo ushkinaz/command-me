@@ -5,11 +5,14 @@ import java.util.List;
 /**
  * @author Dmitry Sidorenko
  */
-public class ActionsIntrospector implements ModuleActions {
-    public ActionsIntrospector() {
+public class ActionsIntrospector<T> implements ModuleActions {
+    private Class<T> clz;
+
+    public ActionsIntrospector(Class<T> clz) {
+        this.clz = clz;
     }
 
-    public void addAction(ActionDefinition actionDefinition) {
+    private void addAction(ActionDefinition actionDefinition) {
         //TODO:implement
     }
 
@@ -26,5 +29,12 @@ public class ActionsIntrospector implements ModuleActions {
     @Override
     public ActionDefinition getByShortName(String name) {
         return null;//TODO: Implement
+    }
+
+    /**
+     * Inspects module
+     */
+    public void inspect() {
+        //TODO: implement
     }
 }

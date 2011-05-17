@@ -16,6 +16,7 @@
 
 package com.googlecode.commandme.impl.introspector;
 
+import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
 
 /**
@@ -31,6 +32,7 @@ class TestModule1 {
     public void setNoName(int i) {
     }
 
+    @Action
     public void greet() {
 
     }

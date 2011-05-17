@@ -52,20 +52,19 @@ public class ModuleIntrospector<T> {
 
     /**
      * Introspects a module
-     *
-     * @throws CliException
      */
-    public void inspect() throws CliException {
-        inspectParameters();
+    public void inspect() {
         inspectActions();
+        inspectParameters();
     }
 
     private void inspectActions() {
-        actionsIntrospector = new ActionsIntrospector();
-        //TODO: implement
+        actionsIntrospector = new ActionsIntrospector<T>(clz);
+        actionsIntrospector.inspect();
     }
 
     private void inspectParameters() {
+        //TODO: refactor, move to com.googlecode.commandme.impl.introspector.ParametersIntrospector
         parametersIntrospector = new ParametersIntrospector();
         BeanInfo beanInfo;
         try {
