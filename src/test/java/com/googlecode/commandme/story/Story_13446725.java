@@ -45,7 +45,7 @@ public class Story_13446725 {
 
     @Action
     public void badboy() {
-        System.out.println("They've killed Kenny!");
+        System.out.println("Oh, my God!");
         throw new IllegalStateException("They've killed Kenny!");
     }
 
