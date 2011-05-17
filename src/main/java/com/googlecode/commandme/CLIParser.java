@@ -20,17 +20,30 @@ import com.googlecode.commandme.impl.CommandLineImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
-
 /**
+ * Main class of Command Me library.<br/>
+ * <p/>
+ * Usage:
+ * <pre>
+ * public static void main(String[] argv) {
+ *     CLIParser.createModule(HelloWorld.class).execute(argv);
+ * }
+ *
+ * </pre>
+ *
  * @author Dmitry Sidorenko
  */
 public final class CLIParser {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(CLIParser.class);
 
-    public static <T> CommandLine<T> createModule(@Nonnull Class<T> module) throws CliException {
-        //noinspection unchecked
+    /**
+     * Creates CommandLine instance from module class
+     *
+     * @param module module class
+     * @return newly created CommandLine. New instance is created for every new module
+     */
+    public static <T> CommandLine<T> createModule(Class<T> module) {
         return new CommandLineImpl<T>(module);
     }
 }
