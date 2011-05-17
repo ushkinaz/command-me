@@ -50,6 +50,10 @@ public class InterrogatorFactory {
         InterrogatorFactory.factory = factory;
     }
 
+    public static void resetFactory() {
+        InterrogatorFactory.factory = new InterrogatorFactory();
+    }
+
     protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
         LOGGER.debug("Creating interrogator for " + moduleIntrospector.getClz().getName());
         return new Interrogator<T>(instance, moduleIntrospector, parameters);

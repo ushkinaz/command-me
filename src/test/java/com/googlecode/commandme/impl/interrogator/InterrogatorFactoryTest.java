@@ -22,6 +22,7 @@ package com.googlecode.commandme.impl.interrogator;
 
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import org.hamcrest.CoreMatchers;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -40,7 +41,7 @@ public class InterrogatorFactoryTest {
     public void testSetFactory() throws Exception {
         InterrogatorFactory.setFactory(new InterrogatorFactory() {
             @Override
-            protected <T> Interrogator create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+            protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
                 return new MyInterrogator<T>(instance, moduleIntrospector, new String[]{"-m", "\"one\"", "ci"});
             }
         });
@@ -55,4 +56,8 @@ public class InterrogatorFactoryTest {
         }
     }
 
+    @After
+    public void tearDown() throws Exception {
+        InterrogatorFactory.resetFactory();
+    }
 }
