@@ -33,6 +33,7 @@
     </organization>
 
     <scm>
+        <url>https://bitbucket.org/dmitry.sidorenko/command-me/src</url>
         <connection>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</connection>
         <developerConnection>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</developerConnection>
     </scm>
@@ -44,7 +45,7 @@
 
     <licenses>
         <license>
-            <name>Apache License</name>
+            <name>Apache License Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
