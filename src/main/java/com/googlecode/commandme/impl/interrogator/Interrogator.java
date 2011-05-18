@@ -19,6 +19,7 @@ package com.googlecode.commandme.impl.interrogator;
 import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
+import com.googlecode.commandme.impl.introspector.ParameterDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,28 +53,66 @@ public class Interrogator<T> {
      * Does actual injecting and calls actions
      */
     public void torture() {
+        TokenType currentToken = TokenType.ACTION;
+        ParameterDefinition parameterDef = null;
         for (String argument : arguments) {
             LOGGER.debug("Parsing: " + argument);
             if (argument.startsWith("-")) {
                 LOGGER.debug("Found parameter");
+                currentToken = TokenType.PARAMETER;
+                parameterDef = findParameterDefinition(argument);
             } else {
-                LOGGER.debug("Found action or value");
-                ActionDefinition definition = moduleIntrospector.getActions().getByLongName(argument);
-                if (definition != null) {
-                    LOGGER.debug("Executing action:" + definition);
-                    try {
-                        definition.getMethod().invoke(module);
-                    } catch (Exception e) {
-                        LOGGER.warn("Exception", e);
-                        throw new CliException("Exception invoking action " + definition, e);
-                    }
+                switch (currentToken) {
+                    case PARAMETER:
+                        LOGGER.debug("Found value");
+                        currentToken = TokenType.VALUE;
+                        setParameterValue(parameterDef, argument);
+                        break;
+                    case VALUE:
+                    case ACTION:
+                        LOGGER.debug("Found action");
+                        currentToken = TokenType.ACTION;
+                        callAction(argument);
+                        break;
                 }
             }
         }
     }
 
-    private enum TOKEN_TYPE {
+    private void setParameterValue(ParameterDefinition parameterDefinition, String value) {
+        //todo: implement
+    }
+
+    private ParameterDefinition findParameterDefinition(String name) {
+        //todo: implement
+        return null;
+    }
+
+    private void callAction(String longActionName) {
+        ActionDefinition definition = moduleIntrospector.getActions().getByLongName(longActionName);
+        if (definition != null) {
+            LOGGER.debug("Executing action:" + definition);
+            try {
+                definition.getMethod().invoke(module);
+            } catch (Exception e) {
+                LOGGER.warn("Exception", e);
+                throw new CliException("Exception invoking action " + definition, e);
+            }
+        }
+    }
+
+    private enum TokenType {
+        /**
+         * Parameter with value
+         */
         PARAMETER,
-        ACTION
+        /**
+         * Action
+         */
+        ACTION,
+        /**
+         * Value of a parameter
+         */
+        VALUE
     }
 }
