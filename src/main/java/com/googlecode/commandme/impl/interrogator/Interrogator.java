@@ -71,4 +71,9 @@ public class Interrogator<T> {
             }
         }
     }
+
+    private enum TOKEN_TYPE {
+        PARAMETER,
+        ACTION
+    }
 }
