@@ -24,7 +24,6 @@ import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospectorFactory;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -56,13 +55,6 @@ public class InterrogatorFactoryTest {
         public MyInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
             super(instance, moduleIntrospector, parameters);
         }
-    }
-
-    @Test
-    public void testTorture() throws Exception {
-        Assert.fail("Implement");
-        Interrogator interrogator = InterrogatorFactory.createInterrogator(this, ModuleIntrospectorFactory.createIntrospector(InterrogatorFactoryTest.class), new String[]{"-m", "\"one\"", "ci"});
-        interrogator.torture();
     }
 
     @After
