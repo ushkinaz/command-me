@@ -17,15 +17,13 @@
 package com.googlecode.commandme.impl.introspector;
 
 import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.ParameterDefinitionException;
 import com.googlecode.commandme.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 /**
@@ -85,31 +83,22 @@ public class ParametersIntrospector<T> implements ModuleParameters {
      * Inspects class for parameters
      */
     public void inspect() {
-        BeanInfo beanInfo;
-        try {
-            beanInfo = Introspector.getBeanInfo(clz, Introspector.USE_ALL_BEANINFO);
-        } catch (IntrospectionException e) {
-            LOGGER.error("Error", e);
-            throw new CliException(e);
-        }
-        for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
-            ParameterDefinition parameterDefinition = inspectMethod(propertyDescriptor);
-            addParameter(parameterDefinition);
+        for (Method method : clz.getMethods()) {
+            if (method.getAnnotation(Parameter.class) != null) {
+                ParameterDefinition parameterDefinition = inspectProperty(method.getAnnotation(Parameter.class), method);
+                addParameter(parameterDefinition);
+            }
         }
     }
 
-    private ParameterDefinition inspectMethod(PropertyDescriptor propertyDescriptor) throws CliException {
-        Parameter parameter = getParameterAnnotation(propertyDescriptor);
-
-        if (parameter == null) {
-            return null;
-        }
+    private ParameterDefinition inspectProperty(Parameter parameter, Method writerMethod) throws CliException {
+        sanityChecks(writerMethod);
         ParameterDefinition parameterDefinition = new ParameterDefinition();
-        parameterDefinition.setPropertyDescriptor(propertyDescriptor);
+        parameterDefinition.setWriterMethod(writerMethod);
         parameterDefinition.setDefaultValue(parameter.defaultValue());
         parameterDefinition.setDescription(parameter.description());
 
-        String propertyName = getPropertyName(propertyDescriptor.getName());
+        String propertyName = getPropertyName(parameter, writerMethod);
 
         String longName = parameter.longName();
         if ("".equals(longName)) {
@@ -125,29 +114,40 @@ public class ParametersIntrospector<T> implements ModuleParameters {
 
         parameterDefinition.setShowInHelp(parameter.helpRequest());
 
-        parameterDefinition.setType(propertyDescriptor.getPropertyType());
+        parameterDefinition.setType(writerMethod.getParameterTypes()[0]);
 
         return parameterDefinition;
     }
 
-    private Parameter getParameterAnnotation(PropertyDescriptor propertyDescriptor) {
-        Method readMethod = propertyDescriptor.getReadMethod();
-        if (readMethod != null && readMethod.getAnnotation(Parameter.class) != null) {
-            return readMethod.getAnnotation(Parameter.class);
+    private void sanityChecks(Method writerMethod) throws ParameterDefinitionException {
+        if (writerMethod.getParameterTypes().length != 1) {
+            throw new ParameterDefinitionException("Parameter setter method must have only one argument: " + writerMethod);
+        }
+        Class paramClass = writerMethod.getParameterTypes()[0];
+
+        if (!(paramClass.isPrimitive() || paramClass.equals(String.class))) {
+            throw new ParameterDefinitionException("Parameter must be of primitive type: " + writerMethod);
         }
 
-        Method writeMethod = propertyDescriptor.getWriteMethod();
-        if (writeMethod != null && writeMethod.getAnnotation(Parameter.class) != null) {
-            return writeMethod.getAnnotation(Parameter.class);
+        if (!Modifier.isPublic(writerMethod.getModifiers())) {
+            throw new ParameterDefinitionException("Parameter setter must be public: " + writerMethod);
         }
 
-        return null;
     }
 
-    private String getPropertyName(String methodName) {
-        String propertyName = methodName;
-        if (methodName.startsWith(SETTER_PREFIX)) {
-            propertyName = methodName.substring(SETTER_PREFIX.length());
+    /**
+     * Returns property name as defined in java.
+     *
+     * @param parameter    annotation
+     * @param writerMethod method with annotation
+     * @return name of a property
+     */
+    private String getPropertyName(Parameter parameter, Method writerMethod) {
+        String propertyName = parameter.longName();
+        if (writerMethod.getName().startsWith(SETTER_PREFIX)) {
+            propertyName = writerMethod.getName()
+                    .substring(SETTER_PREFIX.length(), SETTER_PREFIX.length() + 1)
+                    .toLowerCase() + writerMethod.getName().substring(SETTER_PREFIX.length() + 1);
         }
         return propertyName;
     }
