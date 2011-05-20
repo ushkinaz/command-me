@@ -38,4 +38,9 @@ public interface CommandLine<T> {
      * @return module instance
      */
     T getModule();
+
+    /**
+     * Cleans all internal references, making GC happy. It's Not necessary to call in most cases.
+     */
+    void shutdown();
 }

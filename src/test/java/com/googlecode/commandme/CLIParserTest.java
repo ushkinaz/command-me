@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -23,6 +24,15 @@ public class CLIParserTest {
     @Test
     public void testCreateModuleNotNull() throws Exception {
         assertThat(CLIParser.createModule(TestModule.class), notNullValue());
+    }
+
+    @Test
+    public void testShutdown() throws Exception {
+        CommandLine<TestModule> commandLine = CLIParser.createModule(TestModule.class);
+        commandLine.execute(new String[]{});
+        commandLine.shutdown();
+
+        assertThat(commandLine.getModule(), nullValue());
     }
 
     public static class TestModule {
