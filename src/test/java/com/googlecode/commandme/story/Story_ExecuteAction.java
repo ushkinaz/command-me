@@ -17,55 +17,52 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.CLIParser;
-import com.googlecode.commandme.CommandLine;
+import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.annotations.Action;
-import com.googlecode.commandme.annotations.Parameter;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
  * Execute a method marked as @Action
  * <p/>
- * <a href="https://www.pivotaltracker.com/story/show/13446727">story</a>
+ * <a href="https://www.pivotaltracker.com/story/show/13446725">story</a>
  *
  * @author Dmitry Sidorenko
  */
-public class Story_13446727 {
+public class Story_ExecuteAction extends Story<Story_ExecuteAction> {
 
-    private static final String JOHN_SMITH = "John Smith";
-    private String name;
-
-    @Parameter
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
+    private boolean called = false;
 
     @Action
     public void greet() {
-        System.out.println("Hello, " + name);
+        System.out.println("Hello");
+        called = true;
+    }
+
+    @Action
+    public void badboy() {
+        System.out.println("Oh, my God!");
+        throw new IllegalStateException("They've killed Kenny!");
     }
 
     @Test
     public void testStory() throws Exception {
-        CommandLine<Story_13446727> module = CLIParser.createModule(Story_13446727.class);
-        module.execute(new String[]{"greet", "--name", JOHN_SMITH});
+        commandLine.execute(new String[]{"greet"});
 
-        assertThat("Parameter was not set", module.getModule().getName(), is(JOHN_SMITH));
+        assertThat("Method was not called", commandLine.getModule().called, is(true));
+    }
+
+    @Test(expected = CliException.class)
+    public void testStoryWithException() throws Exception {
+        commandLine.execute(new String[]{"badboy"});
     }
 
     @Test
     public void testNegativeStory() throws Exception {
-        CommandLine<Story_13446727> module = CLIParser.createModule(Story_13446727.class);
-        module.execute(new String[]{"greet"});
+        commandLine.execute(new String[]{});
 
-        assertThat("Method was called", module.getModule().name, nullValue());
+        assertThat("Method was called", commandLine.getModule().called, is(false));
     }
 }
