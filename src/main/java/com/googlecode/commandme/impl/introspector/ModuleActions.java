@@ -30,4 +30,9 @@ public interface ModuleActions {
      * @return ParameterDefinition or null
      */
     ActionDefinition getByShortName(String name);
+
+    /**
+     * Inspects module
+     */
+    void inspect();
 }

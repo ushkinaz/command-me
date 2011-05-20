@@ -79,9 +79,7 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         return shortNamesMap.get(name);
     }
 
-    /**
-     * Inspects class for parameters
-     */
+    @Override
     public void inspect() {
         for (Method method : clz.getMethods()) {
             if (method.getAnnotation(Parameter.class) != null) {

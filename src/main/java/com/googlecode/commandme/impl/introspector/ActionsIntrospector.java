@@ -63,9 +63,7 @@ public class ActionsIntrospector<T> implements ModuleActions {
         return shortNames.get(name);
     }
 
-    /**
-     * Inspects module
-     */
+    @Override
     public void inspect() {
         for (Method method : clz.getMethods()) {
             Action actionAnnotation = method.getAnnotation(Action.class);

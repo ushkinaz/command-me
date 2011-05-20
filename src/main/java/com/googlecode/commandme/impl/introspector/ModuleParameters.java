@@ -22,4 +22,9 @@ public interface ModuleParameters {
      * @return ParameterDefinition or null
      */
     ParameterDefinition getByShortName(String name);
+
+    /**
+     * Inspects class for parameters
+     */
+    void inspect();
 }
