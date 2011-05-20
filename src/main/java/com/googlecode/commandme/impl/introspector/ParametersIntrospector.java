@@ -105,6 +105,7 @@ public class ParametersIntrospector<T> implements ModuleParameters {
             return null;
         }
         ParameterDefinition parameterDefinition = new ParameterDefinition();
+        parameterDefinition.setPropertyDescriptor(propertyDescriptor);
         parameterDefinition.setDefaultValue(parameter.defaultValue());
         parameterDefinition.setDescription(parameter.description());
 

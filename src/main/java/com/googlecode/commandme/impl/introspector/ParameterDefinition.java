@@ -19,6 +19,8 @@ package com.googlecode.commandme.impl.introspector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.beans.PropertyDescriptor;
+
 /**
  * @author Dmitry Sidorenko
  */
@@ -26,12 +28,13 @@ public final class ParameterDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ParameterDefinition.class);
 
-    private String  longName;
-    private String  shortName;
-    private Class   type;
-    private String  defaultValue;
-    private String  description;
-    private boolean showInHelp;
+    private String             longName;
+    private String             shortName;
+    private Class              type;
+    private String             defaultValue;
+    private String             description;
+    private boolean            showInHelp;
+    private PropertyDescriptor propertyDescriptor;
 
     public ParameterDefinition() {
     }
@@ -141,5 +144,13 @@ public final class ParameterDefinition {
         sb.append(", showInHelp=").append(showInHelp);
         sb.append('}');
         return sb.toString();
+    }
+
+    public PropertyDescriptor getPropertyDescriptor() {
+        return propertyDescriptor;
+    }
+
+    public void setPropertyDescriptor(PropertyDescriptor propertyDescriptor) {
+        this.propertyDescriptor = propertyDescriptor;
     }
 }
