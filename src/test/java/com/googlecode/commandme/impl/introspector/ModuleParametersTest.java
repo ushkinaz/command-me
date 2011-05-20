@@ -20,19 +20,22 @@ package com.googlecode.commandme.impl.introspector;
  * @author Dmitry Sidorenko
  */
 
+import com.googlecode.commandme.annotations.Action;
+import com.googlecode.commandme.annotations.Parameter;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class ModuleParametersTest {
-    private ParametersIntrospector parameters;
+    private ParametersIntrospector<TestModule1> parameters;
 
     @Before
     public void setup() {
-        parameters = new ParametersIntrospector();
+        parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
     }
 
     @Test
@@ -79,5 +82,70 @@ public class ModuleParametersTest {
 
         assertThat(parameters.getByShortName("b"), is(definitionBar));
         assertThat(parameters.getByShortName("f"), is(definition));
+    }
+
+    @Test
+    public void testInspectParameters() throws Exception {
+        parameters.inspect();
+        for (ParameterDefinition parameterDefinition : parameters.getParameterDefinitions()) {
+            assertThat(parameterDefinition.getShortName(), notNullValue());
+            assertThat(parameterDefinition.getShortName().length(), is(1));
+
+            assertThat(parameterDefinition.getLongName(), notNullValue());
+
+            assertThat(parameterDefinition.getDefaultValue(), notNullValue());
+            assertThat(parameterDefinition.getDescription(), notNullValue());
+            assertThat(parameterDefinition.getType(), notNullValue());
+        }
+
+    }
+
+    @Test
+    public void testInspectParametersValuesAreCorrect() throws Exception {
+        parameters.inspect();
+        final ParameterDefinition fooParam = parameters.getByLongName("foo");
+        assertThat(fooParam, notNullValue());
+        assertThat(fooParam.getLongName(), is("foo"));
+        assertThat(fooParam.getShortName(), is("f"));
+        assertEquals(Integer.TYPE, fooParam.getType());
+        assertThat(fooParam.getDefaultValue(), is("0"));
+        assertThat(fooParam.getDescription(), is("none"));
+
+        final ParameterDefinition nameParam = parameters.getByLongName("name");
+        assertThat(nameParam, notNullValue());
+        assertThat(nameParam.getLongName(), is("name"));
+        assertThat(nameParam.getShortName(), is("n"));
+        assertEquals(String.class, nameParam.getType());
+        assertThat(nameParam.getDefaultValue(), is(""));
+        assertThat(nameParam.getDescription(), is(""));
+
+
+        for (ParameterDefinition parameterDefinition : parameters.getParameterDefinitions()) {
+            assertThat(parameterDefinition.getShortName(), notNullValue());
+            assertThat(parameterDefinition.getShortName().length(), is(1));
+
+            assertThat(parameterDefinition.getLongName(), notNullValue());
+
+            assertThat(parameterDefinition.getDefaultValue(), notNullValue());
+            assertThat(parameterDefinition.getDescription(), notNullValue());
+            assertThat(parameterDefinition.getType(), notNullValue());
+        }
+
+    }
+
+    class TestModule1 {
+
+        @Parameter
+        public void setName(String sd) {
+        }
+
+        @Parameter(longName = "foo", shortName = "f", defaultValue = "0", description = "none", helpRequest = true)
+        public void setNoName(int i) {
+        }
+
+        @Action
+        public void greet() {
+
+        }
     }
 }
