@@ -17,56 +17,51 @@
 
 package com.googlecode.commandme.story;
 
+import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * Pass integer parameter to an action using full name
+ * Pass string parameter to a module using full name
  * <p/>
- * <a href="https://www.pivotaltracker.com/story/show/13446729">story</a>
+ * <a href="https://www.pivotaltracker.com/story/show/13446727">story</a>
  *
  * @author Dmitry Sidorenko
  */
-public class Story_IntegerParams extends Story<Story_IntegerParams> {
+public class Story_StringParameterAsFullName extends Story<Story_StringParameterAsFullName> {
 
-    private Integer id;
-    private int     amount;
-    private Long    longer;
-
-    @Parameter
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+    private static final String JOHN_SMITH = "John Smith";
+    private String name;
 
     @Parameter
-    public void setId(Integer id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Parameter
-    public void setLong(Long longer) {
-        this.longer = longer;
+    public String getName() {
+        return name;
     }
 
+    @Action
+    public void greet() {
+        System.out.println("Hello, " + name);
+    }
 
     @Test
     public void testStory() throws Exception {
-        commandLine.execute(new String[]{"--id", "1", "--amount", "33", "--longer", "4444"});
+        commandLine.execute(new String[]{"greet", "--name", JOHN_SMITH});
 
-        assertThat(commandLine.getModule().id, is(1));
-        assertThat(commandLine.getModule().amount, is(33));
-        assertThat(commandLine.getModule().longer, is((long) 4444));
+        assertThat("Parameter was not set", commandLine.getModule().getName(), is(JOHN_SMITH));
     }
 
     @Test
     public void testNegativeStory() throws Exception {
-        commandLine.execute(new String[]{});
+        commandLine.execute(new String[]{"greet"});
 
-        assertThat(commandLine.getModule().amount, is(0));
-        assertThat(commandLine.getModule().amount, is(0));
-        assertThat(commandLine.getModule().longer, is((long) 0));
+        assertThat("Method was called", commandLine.getModule().name, nullValue());
     }
 }

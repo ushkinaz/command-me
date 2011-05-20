@@ -18,22 +18,19 @@
 package com.googlecode.commandme.story;
 
 import com.googlecode.commandme.ActionInvocationException;
-import com.googlecode.commandme.CLIParser;
-import com.googlecode.commandme.CommandLine;
 import org.junit.Test;
 
 /**
- * Execute a method marked as @Action
+ * Passing wrong action name in cmd should throw an exception
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13644361">story</a>
  *
  * @author Dmitry Sidorenko
  */
-public class Story_13644361 {
+public class Story_WrongAction extends Story<Story_WrongAction> {
 
     @Test(expected = ActionInvocationException.class)
     public void testStory() throws Exception {
-        CommandLine<Story_13644361> module = CLIParser.createModule(Story_13644361.class);
-        module.execute(new String[]{"no-action"});
+        commandLine.execute(new String[]{"no-action"});
     }
 }
