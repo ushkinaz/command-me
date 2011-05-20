@@ -30,7 +30,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class ModuleParametersTest {
+public class ParametersIntrospectorTest {
     private ParametersIntrospector<TestModule1> parameters;
 
     @Before
