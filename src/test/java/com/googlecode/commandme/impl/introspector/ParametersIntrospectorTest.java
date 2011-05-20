@@ -20,13 +20,13 @@ package com.googlecode.commandme.impl.introspector;
  * @author Dmitry Sidorenko
  */
 
+import com.googlecode.commandme.ParameterDefinitionException;
 import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -101,6 +101,16 @@ public class ParametersIntrospectorTest {
     }
 
     @Test
+    public void testNonBeanCompliantParams() throws Exception {
+        parameters.inspect();
+        final ParameterDefinition fooParam = parameters.getByLongName("label");
+        assertThat(fooParam, notNullValue());
+        assertThat(fooParam.getLongName(), is("label"));
+        assertThat(fooParam.getShortName(), is("l"));
+        assertEquals(String.class, fooParam.getType());
+    }
+
+    @Test
     public void testInspectParametersValuesAreCorrect() throws Exception {
         parameters.inspect();
         final ParameterDefinition fooParam = parameters.getByLongName("foo");
@@ -133,10 +143,46 @@ public class ParametersIntrospectorTest {
 
     }
 
-    class TestModule1 {
+    @Test(expected = ParameterDefinitionException.class)
+    public void testBadSetter() throws Exception {
+        ParametersIntrospector<BadModule1> parameters = new ParametersIntrospector<BadModule1>(BadModule1.class);
+        parameters.inspect();
+
+        final ParameterDefinition fooParam = parameters.getByLongName("name");
+        assertThat(fooParam, nullValue());
+    }
+
+    static class BadModule1 {
+        @Parameter(longName = "name")
+        public void setName(String name, int age) {
+        }
+
+    }
+
+    @Test
+    public void testBadSetterAccess() throws Exception {
+        ParametersIntrospector<BadModule2> parameters = new ParametersIntrospector<BadModule2>(BadModule2.class);
+        parameters.inspect();
+
+        final ParameterDefinition fooParam = parameters.getByLongName("name");
+        assertThat(fooParam, nullValue());
+    }
+
+    static class BadModule2 {
+        @Parameter
+        void setName(String name) {
+        }
+
+    }
+
+    static class TestModule1 {
 
         @Parameter
         public void setName(String sd) {
+        }
+
+        @Parameter(longName = "label")
+        public void labelIt(String label) {
         }
 
         @Parameter(longName = "foo", shortName = "f", defaultValue = "0", description = "none", helpRequest = true)

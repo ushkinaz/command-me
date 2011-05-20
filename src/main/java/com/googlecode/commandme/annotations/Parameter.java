@@ -22,7 +22,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Defines a parameter
+ * Defines a parameter. This annotation should be placed on setter method of a parameter.
+ * That method should have only one argument of primitive type and it should be public.
  *
  * @author Dmitry Sidorenko
  */
