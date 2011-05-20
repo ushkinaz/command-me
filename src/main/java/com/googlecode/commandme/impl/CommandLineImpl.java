@@ -108,4 +108,11 @@ public class CommandLineImpl<T> implements CommandLine<T> {
         return instance;
     }
 
+    @Override
+    public void shutdown() {
+        clz = null;
+        moduleIntrospector = null;
+        instance = null;
+    }
+
 }
