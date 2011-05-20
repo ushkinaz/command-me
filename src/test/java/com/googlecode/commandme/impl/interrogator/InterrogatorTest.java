@@ -1,22 +1,20 @@
 package com.googlecode.commandme.impl.interrogator;
 
 import com.googlecode.commandme.annotations.Parameter;
-import com.googlecode.commandme.impl.introspector.ModuleActions;
-import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
-import com.googlecode.commandme.impl.introspector.ModuleParameters;
+import com.googlecode.commandme.impl.introspector.*;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class InterrogatorTest {
     private static final String JOHN_FROSTER = "John Froster";
+    private static final String DEVELOPER    = "developer";
     private ModuleIntrospector<InterrogatorTest> moduleIntrospector;
-    private ModuleActions                        moduleActions;
-    private ModuleParameters                     moduleParameters;
 
     private String name;
     private String desc;
@@ -24,8 +22,11 @@ public class InterrogatorTest {
     @Before
     public void setUp() throws Exception {
         moduleIntrospector = mock(ModuleIntrospector.class);
-        moduleActions = mock(ModuleActions.class);
-        moduleParameters = mock(ModuleParameters.class);
+        ModuleActions moduleActions = new ActionsIntrospector<InterrogatorTest>(InterrogatorTest.class);
+        moduleActions.inspect();
+
+        ModuleParameters moduleParameters = new ParametersIntrospector<InterrogatorTest>(InterrogatorTest.class);
+        moduleParameters.inspect();
 
         when(moduleIntrospector.getActions()).thenReturn(moduleActions);
         when(moduleIntrospector.getParameters()).thenReturn(moduleParameters);
@@ -41,7 +42,16 @@ public class InterrogatorTest {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--name", JOHN_FROSTER});
         interrogator.torture();
 
-        org.junit.Assert.assertThat(name, CoreMatchers.is(JOHN_FROSTER));
+        assertThat(name, CoreMatchers.is(JOHN_FROSTER));
+    }
+
+    @Test
+    public void testTortureSetTwoNames() throws Exception {
+        Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--name", JOHN_FROSTER, "--desc", DEVELOPER});
+        interrogator.torture();
+
+        assertThat(name, CoreMatchers.is(JOHN_FROSTER));
+        assertThat(desc, CoreMatchers.is(DEVELOPER));
     }
 
     @Parameter
@@ -50,10 +60,6 @@ public class InterrogatorTest {
     }
 
     @Parameter
-    public String getDesc() {
-        return desc;
-    }
-
     public void setDesc(String desc) {
         this.desc = desc;
     }

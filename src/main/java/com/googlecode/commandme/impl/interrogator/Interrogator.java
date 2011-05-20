@@ -23,6 +23,8 @@ import com.googlecode.commandme.impl.introspector.ParameterDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * Interrogates an instance, injects values of arguments and calls actions
  *
@@ -57,10 +59,10 @@ public class Interrogator<T> {
         ParameterDefinition parameterDef = null;
         for (String argument : arguments) {
             LOGGER.debug("Parsing: " + argument);
-            if (argument.startsWith("-")) {
+            if (argument.startsWith("--")) {
                 LOGGER.debug("Found parameter");
                 currentToken = TokenType.PARAMETER;
-                parameterDef = findParameterDefinition(argument);
+                parameterDef = findParameterDefinition(argument.substring(2));
             } else {
                 switch (currentToken) {
                     case PARAMETER:
@@ -80,12 +82,17 @@ public class Interrogator<T> {
     }
 
     private void setParameterValue(ParameterDefinition parameterDefinition, String value) {
-        //todo: implement
+        try {
+            parameterDefinition.getWriterMethod().invoke(module, value);
+        } catch (IllegalAccessException e) {
+            throw new CliException(e);
+        } catch (InvocationTargetException e) {
+            throw new CliException(e);
+        }
     }
 
     private ParameterDefinition findParameterDefinition(String name) {
-        //todo: implement
-        return null;
+        return moduleIntrospector.getParameters().getByLongName(name);
     }
 
     private void callAction(String longActionName) {

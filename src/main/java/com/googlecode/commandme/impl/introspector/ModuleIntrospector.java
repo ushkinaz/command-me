@@ -28,9 +28,9 @@ public class ModuleIntrospector<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuleIntrospector.class);
 
-    private final Class<T>                  clz;
-    private final ParametersIntrospector<T> parametersIntrospector;
-    private final ActionsIntrospector<T>    actionsIntrospector;
+    private final Class<T>         clz;
+    private final ModuleParameters parametersIntrospector;
+    private final ModuleActions    actionsIntrospector;
 
     /**
      * Creates an introspector

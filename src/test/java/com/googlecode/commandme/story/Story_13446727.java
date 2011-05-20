@@ -56,7 +56,7 @@ public class Story_13446727 {
     @Test
     public void testStory() throws Exception {
         CommandLine<Story_13446727> module = CLIParser.createModule(Story_13446727.class);
-        module.execute(new String[]{"greet", "--name", "\"" + JOHN_SMITH + "\""});
+        module.execute(new String[]{"greet", "--name", JOHN_SMITH});
 
         assertThat("Parameter was not set", module.getModule().getName(), is(JOHN_SMITH));
     }
