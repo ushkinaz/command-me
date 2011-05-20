@@ -16,6 +16,7 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
+import com.googlecode.commandme.ActionInvocationException;
 import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
@@ -105,6 +106,9 @@ public class Interrogator<T> {
                 LOGGER.warn("Exception", e);
                 throw new CliException("Exception invoking action " + definition, e);
             }
+        } else {
+            LOGGER.warn("Can't find action:" + longActionName);
+            throw new ActionInvocationException("Can't find action:" + longActionName);
         }
     }
 
