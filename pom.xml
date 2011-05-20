@@ -33,7 +33,7 @@
     </organization>
 
     <scm>
-        <url>https://bitbucket.org/dmitry.sidorenko/command-me/src</url>
+        <url>https://bitbucket.org/dmitry.sidorenko/command-me/</url>
         <connection>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</connection>
         <developerConnection>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</developerConnection>
     </scm>
