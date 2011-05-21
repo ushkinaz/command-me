@@ -32,41 +32,41 @@ import static org.junit.Assert.assertThat;
  */
 public class Story_IntegerParams extends Story<Story_IntegerParams> {
 
-    private Integer id;
-    private int     amount;
-    private Long    longer;
+  private Integer id;
+  private int amount;
+  private long longer;
 
-    @Parameter
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+  @Parameter
+  public void setAmount(int amount) {
+    this.amount = amount;
+  }
 
-    @Parameter
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  @Parameter
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    @Parameter
-    public void setLong(Long longer) {
-        this.longer = longer;
-    }
+  @Parameter
+  public void setLong(Long longer) {
+    this.longer = longer;
+  }
 
 
-    @Test
-    public void testStory() throws Exception {
-        commandLine.execute(new String[]{"--id", "1", "--amount", "33", "--longer", "4444"});
+  @Test
+  public void testStory() throws Exception {
+    commandLine.execute(new String[]{"--id", "1", "--amount", "33", "--long", "4444"});
 
-        assertThat(commandLine.getModule().id, is(1));
-        assertThat(commandLine.getModule().amount, is(33));
-        assertThat(commandLine.getModule().longer, is((long) 4444));
-    }
+    assertThat(commandLine.getModule().id, is(1));
+    assertThat(commandLine.getModule().amount, is(33));
+    assertThat(commandLine.getModule().longer, is((long) 4444));
+  }
 
-    @Test
-    public void testNegativeStory() throws Exception {
-        commandLine.execute(new String[]{});
+  @Test
+  public void testNegativeStory() throws Exception {
+    commandLine.execute(new String[]{});
 
-        assertThat(commandLine.getModule().amount, is(0));
-        assertThat(commandLine.getModule().amount, is(0));
-        assertThat(commandLine.getModule().longer, is((long) 0));
-    }
+    assertThat(commandLine.getModule().amount, is(0));
+    assertThat(commandLine.getModule().amount, is(0));
+    assertThat(commandLine.getModule().longer, is((long) 0));
+  }
 }

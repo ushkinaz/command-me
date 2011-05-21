@@ -66,12 +66,16 @@ public class Interrogator<T> {
         LOGGER.debug("Found parameter");
         currentToken = TokenType.PARAMETER;
         parameterDef = findParameterDefinition(argument.substring(2));
+        if (parameterDef == null) {
+          throw new ParameterSettingException("Can't find parameter:" + argument);
+        }
       } else {
         switch (currentToken) {
           case PARAMETER:
             LOGGER.debug("Found value");
             currentToken = TokenType.VALUE;
             setParameterValue(parameterDef, argument);
+            parameterDef = null;
             break;
           case VALUE:
           case ACTION:
