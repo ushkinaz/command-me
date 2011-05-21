@@ -33,120 +33,129 @@ import java.util.*;
  * @author Dmitry Sidorenko
  */
 public class ParametersIntrospector<T> implements ModuleParameters {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParametersIntrospector.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ParametersIntrospector.class);
 
-    private static final String SETTER_PREFIX = "set";
+  private static final String SETTER_PREFIX = "set";
 
-    private final Class<T>                         clz;
-    private final List<ParameterDefinition>        parameterDefinitions;
-    private final Map<String, ParameterDefinition> shortNamesMap;
-    private final Map<String, ParameterDefinition> longNamesMap;
+  private static final Set<Class> allowedParameterClasses = new HashSet<Class>();
+
+  static {
+    allowedParameterClasses.add(String.class);
+    allowedParameterClasses.add(Integer.class);
+    allowedParameterClasses.add(Long.class);
+    allowedParameterClasses.add(Integer.class);
+    allowedParameterClasses.add(Byte.class);
+    allowedParameterClasses.add(Short.class);
+  }
+
+  private final Class<T> clz;
+  private final List<ParameterDefinition> parameterDefinitions;
+  private final Map<String, ParameterDefinition> shortNamesMap;
+  private final Map<String, ParameterDefinition> longNamesMap;
 
 
-    public ParametersIntrospector(Class<T> clz) {
-        this.clz = clz;
-        parameterDefinitions = new LinkedList<ParameterDefinition>();
-        shortNamesMap = new HashMap<String, ParameterDefinition>();
-        longNamesMap = new HashMap<String, ParameterDefinition>();
+  public ParametersIntrospector(Class<T> clz) {
+    this.clz = clz;
+    parameterDefinitions = new LinkedList<ParameterDefinition>();
+    shortNamesMap = new HashMap<String, ParameterDefinition>();
+    longNamesMap = new HashMap<String, ParameterDefinition>();
+  }
+
+  /**
+   * Adds new parameter definition.
+   *
+   * @param parameterDefinition parameter
+   */
+  public void addParameter(ParameterDefinition parameterDefinition) {
+    if (parameterDefinition == null) {
+      return;
+    }
+    parameterDefinitions.add(parameterDefinition);
+    shortNamesMap.put(parameterDefinition.getShortName(), parameterDefinition);
+    longNamesMap.put(parameterDefinition.getLongName(), parameterDefinition);
+  }
+
+  @Override
+  public List<ParameterDefinition> getParameterDefinitions() {
+    return Collections.unmodifiableList(parameterDefinitions);
+  }
+
+  @Override
+  public ParameterDefinition getByLongName(String name) {
+    return longNamesMap.get(name);
+  }
+
+  @Override
+  public ParameterDefinition getByShortName(String name) {
+    return shortNamesMap.get(name);
+  }
+
+  @Override
+  public void inspect() {
+    for (Method method : clz.getMethods()) {
+      if (method.getAnnotation(Parameter.class) != null) {
+        ParameterDefinition parameterDefinition = inspectProperty(method.getAnnotation(Parameter.class), method);
+        addParameter(parameterDefinition);
+      }
+    }
+  }
+
+  private ParameterDefinition inspectProperty(Parameter parameter, Method writerMethod) throws CliException {
+    sanityChecks(writerMethod);
+    ParameterDefinition parameterDefinition = new ParameterDefinition();
+    parameterDefinition.setWriterMethod(writerMethod);
+    parameterDefinition.setDefaultValue(parameter.defaultValue());
+    parameterDefinition.setDescription(parameter.description());
+
+    String propertyName = getPropertyName(parameter, writerMethod);
+
+    String longName = parameter.longName();
+    if ("".equals(longName)) {
+      longName = propertyName;
+    }
+    parameterDefinition.setLongName(longName);
+
+    String shortName = parameter.shortName();
+    if ("".equals(shortName)) {
+      shortName = propertyName.substring(0, 1);
+    }
+    parameterDefinition.setShortName(shortName);
+
+    parameterDefinition.setShowInHelp(parameter.helpRequest());
+
+    parameterDefinition.setType(writerMethod.getParameterTypes()[0]);
+
+    return parameterDefinition;
+  }
+
+  private void sanityChecks(Method writerMethod) throws ParameterDefinitionException {
+    assert Modifier.isPublic(writerMethod.getModifiers()) : "Parameter setter must be public";
+
+    if (writerMethod.getParameterTypes().length != 1) {
+      throw new ParameterDefinitionException("Parameter setter method must have only one argument: " + writerMethod);
+    }
+    Class paramClass = writerMethod.getParameterTypes()[0];
+
+    if (!(paramClass.isPrimitive() || allowedParameterClasses.contains(paramClass))) {
+      throw new ParameterDefinitionException("Parameter must be of primitive type: " + writerMethod);
     }
 
-    /**
-     * Adds new parameter definition.
-     *
-     * @param parameterDefinition parameter
-     */
-    public void addParameter(ParameterDefinition parameterDefinition) {
-        if (parameterDefinition == null) {
-            return;
-        }
-        parameterDefinitions.add(parameterDefinition);
-        shortNamesMap.put(parameterDefinition.getShortName(), parameterDefinition);
-        longNamesMap.put(parameterDefinition.getLongName(), parameterDefinition);
+  }
+
+  /**
+   * Returns property name as defined in java.
+   *
+   * @param parameter    annotation
+   * @param writerMethod method with annotation
+   * @return name of a property
+   */
+  private String getPropertyName(Parameter parameter, Method writerMethod) {
+    String propertyName = parameter.longName();
+    if (writerMethod.getName().startsWith(SETTER_PREFIX)) {
+      propertyName = writerMethod.getName()
+          .substring(SETTER_PREFIX.length(), SETTER_PREFIX.length() + 1)
+          .toLowerCase() + writerMethod.getName().substring(SETTER_PREFIX.length() + 1);
     }
-
-    @Override
-    public List<ParameterDefinition> getParameterDefinitions() {
-        return Collections.unmodifiableList(parameterDefinitions);
-    }
-
-    @Override
-    public ParameterDefinition getByLongName(String name) {
-        return longNamesMap.get(name);
-    }
-
-    @Override
-    public ParameterDefinition getByShortName(String name) {
-        return shortNamesMap.get(name);
-    }
-
-    @Override
-    public void inspect() {
-        for (Method method : clz.getMethods()) {
-            if (method.getAnnotation(Parameter.class) != null) {
-                ParameterDefinition parameterDefinition = inspectProperty(method.getAnnotation(Parameter.class), method);
-                addParameter(parameterDefinition);
-            }
-        }
-    }
-
-    private ParameterDefinition inspectProperty(Parameter parameter, Method writerMethod) throws CliException {
-        sanityChecks(writerMethod);
-        ParameterDefinition parameterDefinition = new ParameterDefinition();
-        parameterDefinition.setWriterMethod(writerMethod);
-        parameterDefinition.setDefaultValue(parameter.defaultValue());
-        parameterDefinition.setDescription(parameter.description());
-
-        String propertyName = getPropertyName(parameter, writerMethod);
-
-        String longName = parameter.longName();
-        if ("".equals(longName)) {
-            longName = propertyName;
-        }
-        parameterDefinition.setLongName(longName);
-
-        String shortName = parameter.shortName();
-        if ("".equals(shortName)) {
-            shortName = propertyName.substring(0, 1);
-        }
-        parameterDefinition.setShortName(shortName);
-
-        parameterDefinition.setShowInHelp(parameter.helpRequest());
-
-        parameterDefinition.setType(writerMethod.getParameterTypes()[0]);
-
-        return parameterDefinition;
-    }
-
-    private void sanityChecks(Method writerMethod) throws ParameterDefinitionException {
-        if (writerMethod.getParameterTypes().length != 1) {
-            throw new ParameterDefinitionException("Parameter setter method must have only one argument: " + writerMethod);
-        }
-        Class paramClass = writerMethod.getParameterTypes()[0];
-
-        if (!(paramClass.isPrimitive() || paramClass.equals(String.class))) {
-            throw new ParameterDefinitionException("Parameter must be of primitive type: " + writerMethod);
-        }
-
-        if (!Modifier.isPublic(writerMethod.getModifiers())) {
-            throw new ParameterDefinitionException("Parameter setter must be public: " + writerMethod);
-        }
-
-    }
-
-    /**
-     * Returns property name as defined in java.
-     *
-     * @param parameter    annotation
-     * @param writerMethod method with annotation
-     * @return name of a property
-     */
-    private String getPropertyName(Parameter parameter, Method writerMethod) {
-        String propertyName = parameter.longName();
-        if (writerMethod.getName().startsWith(SETTER_PREFIX)) {
-            propertyName = writerMethod.getName()
-                    .substring(SETTER_PREFIX.length(), SETTER_PREFIX.length() + 1)
-                    .toLowerCase() + writerMethod.getName().substring(SETTER_PREFIX.length() + 1);
-        }
-        return propertyName;
-    }
+    return propertyName;
+  }
 }

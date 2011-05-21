@@ -31,167 +31,213 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class ParametersIntrospectorTest {
-    private ParametersIntrospector<TestModule1> parameters;
+  private ParametersIntrospector<TestModule1> parameters;
 
-    @Before
-    public void setup() {
-        parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
+  @Before
+  public void setup() {
+    parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
+  }
+
+  @Test
+  public void testModuleParameters() throws Exception {
+    assertThat(parameters.getParameterDefinitions(), notNullValue());
+  }
+
+  @Test(expected = UnsupportedOperationException.class)
+  public void testGetParameterDefinitions() throws Exception {
+    parameters.getParameterDefinitions().clear();
+  }
+
+  @Test
+  public void testAddParameter() throws Exception {
+    final ParameterDefinition definition = new ParameterDefinition();
+    parameters.addParameter(definition);
+    assertThat(parameters.getParameterDefinitions().size(), is(1));
+    assertThat(parameters.getParameterDefinitions().get(0), is(definition));
+  }
+
+  @Test
+  public void testGetByLongName() throws Exception {
+    ParameterDefinition definition = new ParameterDefinition();
+    definition.setLongName("foo");
+    parameters.addParameter(definition);
+
+    ParameterDefinition definitionBar = new ParameterDefinition();
+    definitionBar.setLongName("bar");
+    parameters.addParameter(definitionBar);
+
+    assertThat(parameters.getByLongName("bar"), is(definitionBar));
+    assertThat(parameters.getByLongName("foo"), is(definition));
+  }
+
+  @Test
+  public void testGetByShortName() throws Exception {
+    ParameterDefinition definition = new ParameterDefinition();
+    definition.setShortName("f");
+    parameters.addParameter(definition);
+
+    ParameterDefinition definitionBar = new ParameterDefinition();
+    definitionBar.setShortName("b");
+    parameters.addParameter(definitionBar);
+
+    assertThat(parameters.getByShortName("b"), is(definitionBar));
+    assertThat(parameters.getByShortName("f"), is(definition));
+  }
+
+  @Test
+  public void testInspectParameters() throws Exception {
+    parameters.inspect();
+    for (ParameterDefinition parameterDefinition : parameters.getParameterDefinitions()) {
+      assertThat(parameterDefinition.getShortName(), notNullValue());
+      assertThat(parameterDefinition.getShortName().length(), is(1));
+
+      assertThat(parameterDefinition.getLongName(), notNullValue());
+
+      assertThat(parameterDefinition.getDefaultValue(), notNullValue());
+      assertThat(parameterDefinition.getDescription(), notNullValue());
+      assertThat(parameterDefinition.getType(), notNullValue());
     }
 
-    @Test
-    public void testModuleParameters() throws Exception {
-        assertThat(parameters.getParameterDefinitions(), notNullValue());
+  }
+
+  @Test
+  public void testNonBeanCompliantParams() throws Exception {
+    parameters.inspect();
+    final ParameterDefinition fooParam = parameters.getByLongName("label");
+    assertThat(fooParam, notNullValue());
+    assertThat(fooParam.getLongName(), is("label"));
+    assertThat(fooParam.getShortName(), is("l"));
+    assertEquals(String.class, fooParam.getType());
+  }
+
+  @Test
+  public void testInspectParametersValuesAreCorrect() throws Exception {
+    parameters.inspect();
+    final ParameterDefinition fooParam = parameters.getByLongName("foo");
+    assertThat(fooParam, notNullValue());
+    assertThat(fooParam.getLongName(), is("foo"));
+    assertThat(fooParam.getShortName(), is("f"));
+    assertEquals(Integer.TYPE, fooParam.getType());
+    assertThat(fooParam.getDefaultValue(), is("0"));
+    assertThat(fooParam.getDescription(), is("none"));
+
+    final ParameterDefinition nameParam = parameters.getByLongName("name");
+    assertThat(nameParam, notNullValue());
+    assertThat(nameParam.getLongName(), is("name"));
+    assertThat(nameParam.getShortName(), is("n"));
+    assertEquals(String.class, nameParam.getType());
+    assertThat(nameParam.getDefaultValue(), is(""));
+    assertThat(nameParam.getDescription(), is(""));
+
+
+    for (ParameterDefinition parameterDefinition : parameters.getParameterDefinitions()) {
+      assertThat(parameterDefinition.getShortName(), notNullValue());
+      assertThat(parameterDefinition.getShortName().length(), is(1));
+
+      assertThat(parameterDefinition.getLongName(), notNullValue());
+
+      assertThat(parameterDefinition.getDefaultValue(), notNullValue());
+      assertThat(parameterDefinition.getDescription(), notNullValue());
+      assertThat(parameterDefinition.getType(), notNullValue());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void testGetParameterDefinitions() throws Exception {
-        parameters.getParameterDefinitions().clear();
+  }
+
+  @Test(expected = ParameterDefinitionException.class)
+  public void testBadSetter() throws Exception {
+    ParametersIntrospector<BadModule1> parameters = new ParametersIntrospector<BadModule1>(BadModule1.class);
+    parameters.inspect();
+
+    final ParameterDefinition fooParam = parameters.getByLongName("name");
+    assertThat(fooParam, nullValue());
+  }
+
+  static class BadModule1 {
+    @Parameter(longName = "name")
+    public void setName(String name, int age) {
     }
 
-    @Test
-    public void testAddParameter() throws Exception {
-        final ParameterDefinition definition = new ParameterDefinition();
-        parameters.addParameter(definition);
-        assertThat(parameters.getParameterDefinitions().size(), is(1));
-        assertThat(parameters.getParameterDefinitions().get(0), is(definition));
+  }
+
+  @Test
+  public void testBadSetterAccess() throws Exception {
+    ParametersIntrospector<BadModule2> parameters = new ParametersIntrospector<BadModule2>(BadModule2.class);
+    parameters.inspect();
+
+    final ParameterDefinition fooParam = parameters.getByLongName("name");
+    assertThat(fooParam, nullValue());
+  }
+
+  @Test
+  public void testIntParameter() throws Exception {
+    ParametersIntrospector<IntModule> parameters = new ParametersIntrospector<IntModule>(IntModule.class);
+    parameters.inspect();
+    assertThat(parameters.getParameterDefinitions().size(), is(8));
+
+    assertEquals(parameters.getByLongName("int").getType(), Integer.TYPE);
+    assertEquals(parameters.getByLongName("intC").getType(), Integer.class);
+  }
+
+  static class IntModule {
+
+    @Parameter
+    public void setInt(int id) {
     }
 
-    @Test
-    public void testGetByLongName() throws Exception {
-        ParameterDefinition definition = new ParameterDefinition();
-        definition.setLongName("foo");
-        parameters.addParameter(definition);
-
-        ParameterDefinition definitionBar = new ParameterDefinition();
-        definitionBar.setLongName("bar");
-        parameters.addParameter(definitionBar);
-
-        assertThat(parameters.getByLongName("bar"), is(definitionBar));
-        assertThat(parameters.getByLongName("foo"), is(definition));
+    @Parameter
+    public void setIntC(Integer id) {
     }
 
-    @Test
-    public void testGetByShortName() throws Exception {
-        ParameterDefinition definition = new ParameterDefinition();
-        definition.setShortName("f");
-        parameters.addParameter(definition);
-
-        ParameterDefinition definitionBar = new ParameterDefinition();
-        definitionBar.setShortName("b");
-        parameters.addParameter(definitionBar);
-
-        assertThat(parameters.getByShortName("b"), is(definitionBar));
-        assertThat(parameters.getByShortName("f"), is(definition));
+    @Parameter
+    public void setLong(long id) {
     }
 
-    @Test
-    public void testInspectParameters() throws Exception {
-        parameters.inspect();
-        for (ParameterDefinition parameterDefinition : parameters.getParameterDefinitions()) {
-            assertThat(parameterDefinition.getShortName(), notNullValue());
-            assertThat(parameterDefinition.getShortName().length(), is(1));
-
-            assertThat(parameterDefinition.getLongName(), notNullValue());
-
-            assertThat(parameterDefinition.getDefaultValue(), notNullValue());
-            assertThat(parameterDefinition.getDescription(), notNullValue());
-            assertThat(parameterDefinition.getType(), notNullValue());
-        }
-
+    @Parameter
+    public void setLongC(Long id) {
     }
 
-    @Test
-    public void testNonBeanCompliantParams() throws Exception {
-        parameters.inspect();
-        final ParameterDefinition fooParam = parameters.getByLongName("label");
-        assertThat(fooParam, notNullValue());
-        assertThat(fooParam.getLongName(), is("label"));
-        assertThat(fooParam.getShortName(), is("l"));
-        assertEquals(String.class, fooParam.getType());
+    @Parameter
+    public void setByte(byte id) {
     }
 
-    @Test
-    public void testInspectParametersValuesAreCorrect() throws Exception {
-        parameters.inspect();
-        final ParameterDefinition fooParam = parameters.getByLongName("foo");
-        assertThat(fooParam, notNullValue());
-        assertThat(fooParam.getLongName(), is("foo"));
-        assertThat(fooParam.getShortName(), is("f"));
-        assertEquals(Integer.TYPE, fooParam.getType());
-        assertThat(fooParam.getDefaultValue(), is("0"));
-        assertThat(fooParam.getDescription(), is("none"));
-
-        final ParameterDefinition nameParam = parameters.getByLongName("name");
-        assertThat(nameParam, notNullValue());
-        assertThat(nameParam.getLongName(), is("name"));
-        assertThat(nameParam.getShortName(), is("n"));
-        assertEquals(String.class, nameParam.getType());
-        assertThat(nameParam.getDefaultValue(), is(""));
-        assertThat(nameParam.getDescription(), is(""));
-
-
-        for (ParameterDefinition parameterDefinition : parameters.getParameterDefinitions()) {
-            assertThat(parameterDefinition.getShortName(), notNullValue());
-            assertThat(parameterDefinition.getShortName().length(), is(1));
-
-            assertThat(parameterDefinition.getLongName(), notNullValue());
-
-            assertThat(parameterDefinition.getDefaultValue(), notNullValue());
-            assertThat(parameterDefinition.getDescription(), notNullValue());
-            assertThat(parameterDefinition.getType(), notNullValue());
-        }
-
+    @Parameter
+    public void setByteC(Byte id) {
     }
 
-    @Test(expected = ParameterDefinitionException.class)
-    public void testBadSetter() throws Exception {
-        ParametersIntrospector<BadModule1> parameters = new ParametersIntrospector<BadModule1>(BadModule1.class);
-        parameters.inspect();
-
-        final ParameterDefinition fooParam = parameters.getByLongName("name");
-        assertThat(fooParam, nullValue());
+    @Parameter
+    public void setShort(short id) {
     }
 
-    static class BadModule1 {
-        @Parameter(longName = "name")
-        public void setName(String name, int age) {
-        }
 
+    @Parameter
+    public void setShortC(Short id) {
+    }
+  }
+
+  static class BadModule2 {
+    @Parameter
+    void setName(String name) {
     }
 
-    @Test
-    public void testBadSetterAccess() throws Exception {
-        ParametersIntrospector<BadModule2> parameters = new ParametersIntrospector<BadModule2>(BadModule2.class);
-        parameters.inspect();
+  }
 
-        final ParameterDefinition fooParam = parameters.getByLongName("name");
-        assertThat(fooParam, nullValue());
+  static class TestModule1 {
+
+    @Parameter
+    public void setName(String sd) {
     }
 
-    static class BadModule2 {
-        @Parameter
-        void setName(String name) {
-        }
-
+    @Parameter(longName = "label")
+    public void labelIt(String label) {
     }
 
-    static class TestModule1 {
-
-        @Parameter
-        public void setName(String sd) {
-        }
-
-        @Parameter(longName = "label")
-        public void labelIt(String label) {
-        }
-
-        @Parameter(longName = "foo", shortName = "f", defaultValue = "0", description = "none", helpRequest = true)
-        public void setNoName(int i) {
-        }
-
-        @Action
-        public void greet() {
-
-        }
+    @Parameter(longName = "foo", shortName = "f", defaultValue = "0", description = "none", helpRequest = true)
+    public void setNoName(int i) {
     }
+
+    @Action
+    public void greet() {
+
+    }
+  }
 }
