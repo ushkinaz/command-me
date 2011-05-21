@@ -46,6 +46,8 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         allowedParameterClasses.add(Integer.class);
         allowedParameterClasses.add(Byte.class);
         allowedParameterClasses.add(Short.class);
+        allowedParameterClasses.add(Double.class);
+        allowedParameterClasses.add(Float.class);
         allowedParameterClasses.add(Boolean.class);
     }
 
