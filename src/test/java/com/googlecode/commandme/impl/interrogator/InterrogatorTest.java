@@ -41,8 +41,16 @@ public class InterrogatorTest {
 
   }
 
+  @Test(expected = ParameterSettingException.class)
+  public void testFirstNameFailed() throws Exception {
+    Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--notexisyts", "0", "--name", JOHN_FROSTER});
+    interrogator.torture();
+
+    assertThat(name, CoreMatchers.is(JOHN_FROSTER));
+  }
+
   @Test
-  public void testTortureSetOneName() throws Exception {
+  public void testSetOneName() throws Exception {
     Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--name", JOHN_FROSTER});
     interrogator.torture();
 
@@ -50,7 +58,7 @@ public class InterrogatorTest {
   }
 
   @Test
-  public void testTortureSetTwoNames() throws Exception {
+  public void testSetTwoNames() throws Exception {
     Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--name", JOHN_FROSTER, "--desc", DEVELOPER});
     interrogator.torture();
 
