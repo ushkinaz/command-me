@@ -61,7 +61,7 @@ public class Interrogator<T> {
     TokenType currentToken = TokenType.ACTION;
     ParameterDefinition parameterDef = null;
     for (String argument : arguments) {
-      LOGGER.debug("Parsing: {}" + argument);
+      LOGGER.debug("Parsing: {}", argument);
       if (argument.startsWith("--")) {
         LOGGER.debug("Found parameter");
         currentToken = TokenType.PARAMETER;
@@ -95,10 +95,10 @@ public class Interrogator<T> {
       Object convertedValue = constructor.newInstance(value);
       parameterDefinition.getWriterMethod().invoke(module, convertedValue);
     } catch (NoSuchMethodException e) {
-      LOGGER.warn("Can't find appropriate constructor for " + parameterType, e);
+      LOGGER.warn("Can't find appropriate constructor for {}", parameterType, e);
       throw new ParameterSettingException("Can't find appropriate constructor for " + parameterType, e);
     } catch (InstantiationException e) {
-      LOGGER.warn("Can't convert value from String '" + value + "' to " + parameterType, e);
+      LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, parameterType}, e);
       throw new ParameterSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
     } catch (IllegalAccessException e) {
       throw new ParameterSettingException("Can't access method", e);
@@ -117,7 +117,7 @@ public class Interrogator<T> {
       //Constructing wrapper class name from primitive class name
       return Class.forName("java.lang." + Character.toUpperCase(primitiveClass.getName().charAt(0)) + primitiveClass.getName().substring(1));
     } catch (ClassNotFoundException e) {
-      LOGGER.warn("Can't find class for primitive type " + primitiveClass, e);
+      LOGGER.warn("Can't find class for primitive type {}", primitiveClass, e);
       throw new ParameterSettingException("Can't find class for primitive type " + primitiveClass, e);
     }
   }
@@ -137,7 +137,7 @@ public class Interrogator<T> {
         throw new CliException("Exception invoking action " + definition, e);
       }
     } else {
-      LOGGER.warn("Can't find action:" + longActionName);
+      LOGGER.warn("Can't find action: {}", longActionName);
       throw new ActionInvocationException("Can't find action:" + longActionName);
     }
   }
