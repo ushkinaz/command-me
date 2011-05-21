@@ -5,11 +5,11 @@ package com.googlecode.commandme;
  */
 public class ParameterSettingException extends CliException {
 
-  public ParameterSettingException(String message) {
-    super(message);
-  }
+    public ParameterSettingException(String message) {
+        super(message);
+    }
 
-  public ParameterSettingException(String message, Throwable cause) {
-    super(message, cause);
-  }
+    public ParameterSettingException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
