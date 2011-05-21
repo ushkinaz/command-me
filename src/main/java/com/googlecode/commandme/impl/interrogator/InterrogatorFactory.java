@@ -26,37 +26,37 @@ import org.slf4j.LoggerFactory;
  * @author Dmitry Sidorenko
  */
 public class InterrogatorFactory {
-  private static final Logger LOGGER = LoggerFactory.getLogger(InterrogatorFactory.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(InterrogatorFactory.class);
 
-  private static InterrogatorFactory factory;
+    private static InterrogatorFactory factory;
 
-  static {
-    factory = new InterrogatorFactory();
-  }
+    static {
+        factory = new InterrogatorFactory();
+    }
 
-  /**
-   * Creates interrogator
-   *
-   * @param instance           module instance
-   * @param moduleIntrospector module introspector
-   * @param parameters         parameters passed from command line
-   * @return created interrogator
-   */
-  public static <T> Interrogator<T> createInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
-    return factory.create(instance, moduleIntrospector, parameters);
-  }
+    /**
+     * Creates interrogator
+     *
+     * @param instance           module instance
+     * @param moduleIntrospector module introspector
+     * @param parameters         parameters passed from command line
+     * @return created interrogator
+     */
+    public static <T> Interrogator<T> createInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+        return factory.create(instance, moduleIntrospector, parameters);
+    }
 
-  public static void setFactory(InterrogatorFactory factory) {
-    InterrogatorFactory.factory = factory;
-  }
+    public static void setFactory(InterrogatorFactory factory) {
+        InterrogatorFactory.factory = factory;
+    }
 
-  public static void resetFactory() {
-    InterrogatorFactory.factory = new InterrogatorFactory();
-  }
+    public static void resetFactory() {
+        InterrogatorFactory.factory = new InterrogatorFactory();
+    }
 
-  protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
-    LOGGER.debug("Creating interrogator for {} ", moduleIntrospector.getClz().getName());
-    return new Interrogator<T>(instance, moduleIntrospector, parameters);
-  }
+    protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+        LOGGER.debug("Creating interrogator for {} ", moduleIntrospector.getClz().getName());
+        return new Interrogator<T>(instance, moduleIntrospector, parameters);
+    }
 
 }
