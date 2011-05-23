@@ -37,20 +37,6 @@ public class ParametersIntrospector<T> implements ModuleParameters {
 
     private static final String SETTER_PREFIX = "set";
 
-    private static final Set<Class> allowedParameterClasses = new HashSet<Class>();
-
-    static {
-        allowedParameterClasses.add(String.class);
-        allowedParameterClasses.add(Integer.class);
-        allowedParameterClasses.add(Long.class);
-        allowedParameterClasses.add(Integer.class);
-        allowedParameterClasses.add(Byte.class);
-        allowedParameterClasses.add(Short.class);
-        allowedParameterClasses.add(Double.class);
-        allowedParameterClasses.add(Float.class);
-        allowedParameterClasses.add(Boolean.class);
-    }
-
     private final Class<T>                         clz;
     private final List<ParameterDefinition>        parameterDefinitions;
     private final Map<String, ParameterDefinition> shortNamesMap;
@@ -137,12 +123,12 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         if (writerMethod.getParameterTypes().length != 1) {
             throw new ParameterDefinitionException("Parameter setter method must have only one argument: " + writerMethod);
         }
-        Class paramClass = writerMethod.getParameterTypes()[0];
-
-        if (!(paramClass.isPrimitive() || allowedParameterClasses.contains(paramClass))) {
-            throw new ParameterDefinitionException("Parameter must be of primitive type: " + writerMethod);
-        }
-
+//        Class paramClass = writerMethod.getParameterTypes()[0];
+//
+//        if (!paramClass.isPrimitive()) {
+//            throw new ParameterDefinitionException("Parameter must be of primitive type: " + writerMethod);
+//        }
+//
     }
 
     /**

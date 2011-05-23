@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 /**
  * @author Dmitry Sidorenko
  */
-public final class ParameterDefinition {
+public class ParameterDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ParameterDefinition.class);
 
@@ -56,7 +56,7 @@ public final class ParameterDefinition {
 
     public void setType(Class type) {
         this.type = type;
-        interrogator = PropertyInterrogatorFactory.createInterrogator(type);
+        interrogator = PropertyInterrogatorFactory.createInterrogator(this);
     }
 
     public void setDefaultValue(String defaultValue) {
