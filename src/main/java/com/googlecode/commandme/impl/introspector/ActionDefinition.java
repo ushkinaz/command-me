@@ -16,7 +16,7 @@ public final class ActionDefinition {
 
     private String description;
 
-    public ActionDefinition() {
+    ActionDefinition() {
     }
 
     public Method getMethod() {

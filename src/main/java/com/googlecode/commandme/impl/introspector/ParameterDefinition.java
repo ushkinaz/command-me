@@ -36,7 +36,7 @@ public final class ParameterDefinition {
     private boolean showInHelp;
     private Method  writerMethod;
 
-    public ParameterDefinition() {
+    ParameterDefinition() {
     }
 
     public void setLongName(String longName) {
