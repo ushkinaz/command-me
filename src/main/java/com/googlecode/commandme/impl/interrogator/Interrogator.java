@@ -25,11 +25,9 @@ import com.googlecode.commandme.impl.introspector.ParameterDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 /**
- * Interrogates an instance, injects values of arguments and calls actions
+ * Interrogates an instance, injects values of arguments and calls actions.
+ * Instances of this class are not reusable.
  *
  * @author Dmitry Sidorenko
  */
@@ -40,6 +38,8 @@ public class Interrogator<T> {
     private final T                  module;
     private final ModuleIntrospector moduleIntrospector;
     private final String[]           arguments;
+    private       TokenType          currentToken;
+    private ParameterDefinition parameterDef = null;
 
     /**
      * A constructor.
@@ -58,77 +58,46 @@ public class Interrogator<T> {
      * Does actual injecting and calls actions
      */
     public void torture() {
-        TokenType currentToken = TokenType.ACTION;
-        ParameterDefinition parameterDef = null;
+        currentToken = TokenType.ACTION;
         for (String argument : arguments) {
             LOGGER.debug("Parsing: {}", argument);
             if (argument.startsWith("--")) {
-                LOGGER.debug("Found parameter");
-                currentToken = TokenType.PARAMETER;
-                parameterDef = findParameterDefinition(argument.substring(2));
-                if (parameterDef == null) {
-                    throw new ParameterSettingException("Can't find parameter:" + argument);
-                }
+                handleParameter(argument.substring(2));
             } else {
                 switch (currentToken) {
                     case PARAMETER:
-                        LOGGER.debug("Found value");
-                        currentToken = TokenType.VALUE;
-                        setParameterValue(parameterDef, argument);
-                        parameterDef = null;
+                        handleValue(argument);
                         break;
                     case VALUE:
                     case ACTION:
-                        LOGGER.debug("Found action");
-                        currentToken = TokenType.ACTION;
-                        callAction(argument);
+                        handleAction(argument);
                         break;
                 }
             }
         }
     }
 
-    private void setParameterValue(ParameterDefinition parameterDefinition, String value) {
-        Class parameterType = parameterDefinition.getType();
-        if (parameterType.isPrimitive()) {
-            parameterType = findWrapperClass(parameterType);
-        }
-        try {
-            LOGGER.debug("Setting value '{}' to {}", new Object[]{value, parameterDefinition});
-            Constructor constructor = parameterType.getConstructor(String.class);
-            Object convertedValue = constructor.newInstance(value);
-            parameterDefinition.getWriterMethod().invoke(module, convertedValue);
-        } catch (NoSuchMethodException e) {
-            LOGGER.warn("Can't find appropriate constructor for {}", parameterType, e);
-            throw new ParameterSettingException("Can't find appropriate constructor for " + parameterType, e);
-        } catch (InstantiationException e) {
-            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, parameterType}, e);
-            throw new ParameterSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
-        } catch (IllegalAccessException e) {
-            throw new ParameterSettingException("Can't access method", e);
-        } catch (InvocationTargetException e) {
-            throw new ParameterSettingException("Constructor throws an exception", e);
+    private void handleParameter(String token) {
+        LOGGER.debug("handleParameter");
+        currentToken = TokenType.PARAMETER;
+        parameterDef = moduleIntrospector.getParameters().getByLongName(token);
+        if (parameterDef == null) {
+            throw new ParameterSettingException("Can't find parameter:" + token);
         }
     }
 
-    private Class findWrapperClass(Class primitiveClass) {
-        assert primitiveClass.isPrimitive();
-
-        try {
-            if (primitiveClass.equals(Integer.TYPE)) {
-                return Integer.class;
-            }
-            //Constructing wrapper class name from primitive class name
-            return Class.forName("java.lang." + Character.toUpperCase(primitiveClass.getName()
-                    .charAt(0)) + primitiveClass.getName().substring(1));
-        } catch (ClassNotFoundException e) {
-            LOGGER.warn("Can't find class for primitive type {}", primitiveClass, e);
-            throw new ParameterSettingException("Can't find class for primitive type " + primitiveClass, e);
-        }
+    private void handleAction(String token) {
+        LOGGER.debug("handleAction");
+        currentToken = TokenType.ACTION;
+        callAction(token);
     }
 
-    private ParameterDefinition findParameterDefinition(String name) {
-        return moduleIntrospector.getParameters().getByLongName(name);
+    private void handleValue(String token) {
+        LOGGER.debug("handleValue");
+        currentToken = TokenType.VALUE;
+        assert parameterDef != null;
+        parameterDef.getInterrogator().setValue(module, token);
+        parameterDef = null;
     }
 
     private void callAction(String longActionName) {

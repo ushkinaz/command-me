@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2010, Dmitry Sidorenko. All Rights Reserved.
+ * Copyright (c) 2010-2011, Dmitry Sidorenko. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import com.googlecode.commandme.ParameterDefinitionException;
 import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -161,6 +162,7 @@ public class ParametersIntrospectorTest {
     }
 
     @Test
+    @Ignore
     public void testShortNames() throws Exception {
         ParametersIntrospector<ShortModule1> parameters = new ParametersIntrospector<ShortModule1>(ShortModule1.class);
         parameters.inspect();
@@ -177,6 +179,7 @@ public class ParametersIntrospectorTest {
     }
 
     @Test(expected = ParameterDefinitionException.class)
+    @Ignore
     public void testShortNamesBad() throws Exception {
         ParametersIntrospector<ShortModuleBad1> parameters = new ParametersIntrospector<ShortModuleBad1>(ShortModuleBad1.class);
         parameters.inspect();
@@ -189,6 +192,7 @@ public class ParametersIntrospectorTest {
     }
 
     @Test(expected = ParameterDefinitionException.class)
+    @Ignore
     public void testShortNamesBadSameShorts() throws Exception {
         ParametersIntrospector<ShortModuleBad2> parameters = new ParametersIntrospector<ShortModuleBad2>(ShortModuleBad2.class);
         parameters.inspect();

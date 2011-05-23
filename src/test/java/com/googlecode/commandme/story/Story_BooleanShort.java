@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2010, Dmitry Sidorenko. All Rights Reserved.
+ * Copyright (c) 2010-2011, Dmitry Sidorenko. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 package com.googlecode.commandme.story;
 
 import com.googlecode.commandme.annotations.Parameter;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -36,6 +37,7 @@ public class Story_BooleanShort extends Story<Story_BooleanShort> {
     private boolean good;
 
     @Test
+    @Ignore
     public void testStory() throws Exception {
         commandLine.execute(new String[]{"-f"});
 
@@ -43,6 +45,7 @@ public class Story_BooleanShort extends Story<Story_BooleanShort> {
     }
 
     @Test
+    @Ignore
     public void testStoryTwo() throws Exception {
         commandLine.execute(new String[]{"-fg"});
 
