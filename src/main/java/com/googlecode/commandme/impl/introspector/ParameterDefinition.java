@@ -28,13 +28,14 @@ public final class ParameterDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ParameterDefinition.class);
 
-    private String  longName;
-    private String  shortName;
-    private Class   type;
-    private String  defaultValue;
-    private String  description;
-    private boolean showInHelp;
-    private Method  writerMethod;
+    private String               longName;
+    private String               shortName;
+    private Class                type;
+    private String               defaultValue;
+    private String               description;
+    private boolean              showInHelp;
+    private Method               writerMethod;
+    private PropertyInterrogator interrogator;
 
     ParameterDefinition() {
     }
@@ -55,6 +56,7 @@ public final class ParameterDefinition {
 
     public void setType(Class type) {
         this.type = type;
+        interrogator = PropertyInterrogatorFactory.createInterrogator(type);
     }
 
     public void setDefaultValue(String defaultValue) {
@@ -152,5 +154,9 @@ public final class ParameterDefinition {
 
     public void setWriterMethod(Method writerMethod) {
         this.writerMethod = writerMethod;
+    }
+
+    public PropertyInterrogator getInterrogator() {
+        return interrogator;
     }
 }
