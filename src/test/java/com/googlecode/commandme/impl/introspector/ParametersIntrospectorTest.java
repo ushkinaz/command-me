@@ -30,6 +30,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+@SuppressWarnings({"UnusedParameters"})
 public class ParametersIntrospectorTest {
     private ParametersIntrospector<TestModule1> parameters;
 
