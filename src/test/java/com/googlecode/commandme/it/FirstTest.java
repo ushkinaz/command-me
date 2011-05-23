@@ -3,18 +3,17 @@ package com.googlecode.commandme.it;
 import com.googlecode.commandme.CLIParser;
 import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.text.DateFormat;
-import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
+ * First wave integration test.
+ * Support for primitive types, only full names, no help, no shortcuts.
+ *
  * @author Dmitry Sidorenko
  */
 public class FirstTest {
@@ -24,37 +23,33 @@ public class FirstTest {
     private String[] arg1 = {
             "commit",
             "verify",
-            "-m",
-            "\"Add me\"",
+            "--comment",
+            "Add me",
             "--verbose",
-            "--date",
-            "26/02/2010",
-            "-r",
+            "true",
+            "--revision",
             "34"
     };
 
     @Test
-    @Ignore("Not ready for integration tests yet")
     public void test1() throws Exception {
         Module module = CLIParser.createModule(Module.class).execute(arg1);
 
         assertThat(module.isCommitCalled(), is(true));
-        assertThat(module.isReallyBadNameCalled(), is(true));
+//        assertThat(module.isReallyBadNameCalled(), is(true));
         assertThat(module.isVerifyCalled(), is(true));
-        assertThat(module.isFormatCCalled(), is(false));
-        assertThat(module.isDestroyTheWorldCalled(), is(false));
+//        assertThat(module.isFormatCCalled(), is(false));
+//        assertThat(module.isDestroyTheWorldCalled(), is(false));
 
         assertThat(module.isVerbose(), is(true));
         assertThat(module.getComment(), is("Add me"));
         assertThat(module.getRevision(), is(34));
-        assertThat(module.getDate(), is(DateFormat.getDateInstance().parse("26/02/2010")));
     }
 
     @SuppressWarnings({"UnusedDeclaration"})
     public static class Module {
         private String comment;
         private int    revision;
-        private Date   date;
         private boolean verbose = false;
 
         private boolean verifyCalled = false;
@@ -84,15 +79,6 @@ public class FirstTest {
             this.revision = revision;
         }
 
-        public Date getDate() {
-            return date;
-        }
-
-        @Parameter
-        public void setDate(Date date) {
-            this.date = date;
-        }
-
         public boolean isVerifyCalled() {
             return verifyCalled;
         }
@@ -101,7 +87,7 @@ public class FirstTest {
             return commitCalled;
         }
 
-        @Action
+        @Action(name = "verify")
         public void doVerify() {
             verifyCalled = true;
         }
