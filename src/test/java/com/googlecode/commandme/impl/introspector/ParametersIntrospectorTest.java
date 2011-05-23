@@ -160,6 +160,50 @@ public class ParametersIntrospectorTest {
     }
 
     @Test
+    public void testShortNames() throws Exception {
+        ParametersIntrospector<ShortModule1> parameters = new ParametersIntrospector<ShortModule1>(ShortModule1.class);
+        parameters.inspect();
+
+        final ParameterDefinition fooParam = parameters.getByLongName("name");
+        assertThat(fooParam, nullValue());
+    }
+
+    static class ShortModule1 {
+        @Parameter(shortName = "n")
+        public void setName(String name, int age) {
+        }
+
+    }
+
+    @Test(expected = ParameterDefinitionException.class)
+    public void testShortNamesBad() throws Exception {
+        ParametersIntrospector<ShortModuleBad1> parameters = new ParametersIntrospector<ShortModuleBad1>(ShortModuleBad1.class);
+        parameters.inspect();
+    }
+
+    static class ShortModuleBad1 {
+        @Parameter(shortName = "loong")
+        public void setName(String name) {
+        }
+    }
+
+    @Test(expected = ParameterDefinitionException.class)
+    public void testShortNamesBadSameShorts() throws Exception {
+        ParametersIntrospector<ShortModuleBad2> parameters = new ParametersIntrospector<ShortModuleBad2>(ShortModuleBad2.class);
+        parameters.inspect();
+    }
+
+    static class ShortModuleBad2 {
+        @Parameter(shortName = "n")
+        public void setFuss(String name) {
+        }
+
+        @Parameter
+        public void setName(String name) {
+        }
+    }
+
+    @Test
     public void testBadSetterAccess() throws Exception {
         ParametersIntrospector<BadModule2> parameters = new ParametersIntrospector<BadModule2>(BadModule2.class);
         parameters.inspect();
