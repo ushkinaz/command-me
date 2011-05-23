@@ -171,7 +171,7 @@ public class ParametersIntrospectorTest {
 
     static class ShortModule1 {
         @Parameter(shortName = "n")
-        public void setName(String name, int age) {
+        public void setName(String name) {
         }
 
     }
