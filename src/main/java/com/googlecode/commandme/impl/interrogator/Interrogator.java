@@ -139,11 +139,11 @@ public class Interrogator<T> {
                 definition.getMethod().invoke(module);
             } catch (Exception e) {
                 LOGGER.warn("Exception", e);
-                throw new CliException("Exception invoking action " + definition, e);
+                throw new CliException("Exception invoking action: " + definition, e);
             }
         } else {
             LOGGER.warn("Can't find action: {}", longActionName);
-            throw new ActionInvocationException("Can't find action:" + longActionName);
+            throw new ActionInvocationException("Can't find action: " + longActionName);
         }
     }
 
