@@ -52,13 +52,6 @@ public @interface Parameter {
     String description() default "";
 
     /**
-     * The default value if none is specified
-     *
-     * @return The value to present if none is specified
-     */
-    String defaultValue() default "";
-
-    /**
      * Should help be displayed if this parameter is
      * present.
      *
