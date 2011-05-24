@@ -3,13 +3,13 @@ package com.googlecode.commandme;
 /**
  * @author Dmitry Sidorenko
  */
-public class ParameterSettingException extends CliException {
+public class OptionSettingException extends CliException {
 
-    public ParameterSettingException(String message) {
+    public OptionSettingException(String message) {
         super(message);
     }
 
-    public ParameterSettingException(String message, Throwable cause) {
+    public OptionSettingException(String message, Throwable cause) {
         super(message, cause);
     }
 }

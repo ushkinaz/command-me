@@ -16,7 +16,7 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.ParameterSettingException;
+import com.googlecode.commandme.OptionSettingException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -69,9 +69,9 @@ public class DefaultPropertyInterrogatorParametrizedNegativeTest extends Default
         super(methodName, parameterType, value);
     }
 
-    @Test(expected = ParameterSettingException.class)
+    @Test(expected = OptionSettingException.class)
     public void testSetValue() throws NoSuchMethodException {
-        ParameterDefinition parameterDefinitionString = mock(ParameterDefinition.class);
+        OptionDefinition parameterDefinitionString = mock(OptionDefinition.class);
         when(parameterDefinitionString.getType()).thenReturn(parameterType);
 
         when(parameterDefinitionString.getWriterMethod()).thenReturn(DefaultPropertyInterrogatorParametrizedNegativeTest.class

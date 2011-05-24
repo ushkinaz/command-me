@@ -87,7 +87,7 @@ public class DefaultPropertyInterrogatorParametrizedTest {
 
     @Before
     public void setUp() throws Exception {
-        ParameterDefinition parameterDefinitionString = mock(ParameterDefinition.class);
+        OptionDefinition parameterDefinitionString = mock(OptionDefinition.class);
         when(parameterDefinitionString.getType()).thenReturn(parameterType);
 
         when(parameterDefinitionString.getWriterMethod()).thenReturn(DefaultPropertyInterrogatorParametrizedTest.class.getMethod(methodName, parameterType));

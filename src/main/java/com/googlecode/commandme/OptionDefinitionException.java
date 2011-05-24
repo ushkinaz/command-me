@@ -3,9 +3,9 @@ package com.googlecode.commandme;
 /**
  * @author Dmitry Sidorenko
  */
-public class ParameterDefinitionException extends CliException {
+public class OptionDefinitionException extends CliException {
 
-    public ParameterDefinitionException(String message) {
+    public OptionDefinitionException(String message) {
         super(message);
     }
 }

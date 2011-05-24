@@ -17,7 +17,7 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -58,12 +58,12 @@ public class Story_BooleanShort extends Story<Story_BooleanShort> {
         assertThat(commandLine.getModule().good, is(false));
     }
 
-    @Parameter
+    @Option
     public void setFlag(boolean flag) {
         this.flag = flag;
     }
 
-    @Parameter(shortName = "o")
+    @Option(shortName = "o")
     public void setGood(boolean good) {
         this.good = good;
     }

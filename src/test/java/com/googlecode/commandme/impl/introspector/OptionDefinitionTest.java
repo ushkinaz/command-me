@@ -25,12 +25,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ParameterDefinitionTest {
-    private ParameterDefinition parameterDefinition;
+public class OptionDefinitionTest {
+    private OptionDefinition parameterDefinition;
 
     @Before
     public void setup() {
-        parameterDefinition = new ParameterDefinition();
+        parameterDefinition = new OptionDefinition();
     }
 
     @Test(expected = IllegalStateException.class)

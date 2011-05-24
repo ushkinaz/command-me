@@ -1,8 +1,8 @@
 package com.googlecode.commandme.it;
 
 import com.googlecode.commandme.CLIParser;
-import com.googlecode.commandme.annotations.Action;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +65,7 @@ public class FirstTest {
             return comment;
         }
 
-        @Parameter(shortName = "m")
+        @Option(shortName = "m")
         public void setComment(String comment) {
             this.comment = comment;
         }
@@ -74,7 +74,7 @@ public class FirstTest {
             return revision;
         }
 
-        @Parameter
+        @Option
         public void setRevision(int revision) {
             this.revision = revision;
         }
@@ -87,27 +87,27 @@ public class FirstTest {
             return commitCalled;
         }
 
-        @Action(name = "verify")
+        @Operand(name = "verify")
         public void doVerify() {
             verifyCalled = true;
         }
 
-        @Action
+        @Operand
         public void commit() {
             commitCalled = true;
         }
 
-        @Action(name = "format")
+        @Operand(name = "format")
         public void formatC() {
             formatCCalled = true;
         }
 
-        @Action(defaultAction = true)
+        @Operand(defaultAction = true)
         public void destroyTheWorld() {
             destroyTheWorldCalled = true;
         }
 
-        @Action(name = "make")
+        @Operand(name = "make")
         public void reallyBadName() {
             reallyBadNameCalled = true;
         }
@@ -116,7 +116,7 @@ public class FirstTest {
             return verbose;
         }
 
-        @Parameter
+        @Option
         public void setVerbose(boolean verbose) {
             this.verbose = verbose;
         }

@@ -1,7 +1,7 @@
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.ActionDefinitionException;
-import com.googlecode.commandme.annotations.Action;
+import com.googlecode.commandme.OperandDefinitionException;
+import com.googlecode.commandme.annotations.Operand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,24 +14,24 @@ import java.util.Set;
 /**
  * @author Dmitry Sidorenko
  */
-public class ActionsIntrospector<T> implements ModuleActions {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ActionsIntrospector.class);
+public class OperandsIntrospector<T> implements ModuleOperands {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OperandsIntrospector.class);
 
     private final Class<T>                      clz;
-    private final Set<ActionDefinition>         actions;
-    private final Map<String, ActionDefinition> shortNames;
-    private final Map<String, ActionDefinition> longNames;
+    private final Set<OperandDefinition>         actions;
+    private final Map<String, OperandDefinition> shortNames;
+    private final Map<String, OperandDefinition> longNames;
 
-    public ActionsIntrospector(Class<T> clz) {
+    public OperandsIntrospector(Class<T> clz) {
         this.clz = clz;
-        actions = new HashSet<ActionDefinition>();
-        shortNames = new HashMap<String, ActionDefinition>();
-        longNames = new HashMap<String, ActionDefinition>();
+        actions = new HashSet<OperandDefinition>();
+        shortNames = new HashMap<String, OperandDefinition>();
+        longNames = new HashMap<String, OperandDefinition>();
     }
 
-    private void addAction(ActionDefinition actionDefinition) {
+    private void addAction(OperandDefinition actionDefinition) {
         actions.add(actionDefinition);
-        ActionDefinition previous = longNames.put(actionDefinition.getLongName(), actionDefinition);
+        OperandDefinition previous = longNames.put(actionDefinition.getLongName(), actionDefinition);
         checkClash(actionDefinition, previous);
         if (actionDefinition.getShortName() != null) {
             previous = shortNames.put(actionDefinition.getShortName(), actionDefinition);
@@ -39,25 +39,25 @@ public class ActionsIntrospector<T> implements ModuleActions {
         }
     }
 
-    private void checkClash(ActionDefinition actionDefinition, ActionDefinition previousDefinition) {
+    private void checkClash(OperandDefinition actionDefinition, OperandDefinition previousDefinition) {
         if (previousDefinition != null) {
             LOGGER.error("Duplicate actions definitions");
-            throw new ActionDefinitionException("Actions clashed: new=" + actionDefinition + ", old=" + previousDefinition, actionDefinition);
+            throw new OperandDefinitionException("Actions clashed: new=" + actionDefinition + ", old=" + previousDefinition, actionDefinition);
         }
     }
 
     @Override
-    public Set<ActionDefinition> getActions() {
+    public Set<OperandDefinition> getActions() {
         return actions;
     }
 
     @Override
-    public ActionDefinition getByLongName(String name) {
+    public OperandDefinition getByLongName(String name) {
         return longNames.get(name);
     }
 
     @Override
-    public ActionDefinition getByShortName(String name) {
+    public OperandDefinition getByShortName(String name) {
         //We suppose that there is only one possible short name
         return shortNames.get(name);
     }
@@ -65,7 +65,7 @@ public class ActionsIntrospector<T> implements ModuleActions {
     @Override
     public void inspect() {
         for (Method method : clz.getMethods()) {
-            Action actionAnnotation = method.getAnnotation(Action.class);
+            Operand actionAnnotation = method.getAnnotation(Operand.class);
             if (actionAnnotation == null) {
                 continue;
             }
@@ -75,7 +75,7 @@ public class ActionsIntrospector<T> implements ModuleActions {
                 continue;
             }
 
-            ActionDefinition definition = new ActionDefinition();
+            OperandDefinition definition = new OperandDefinition();
             definition.setAction(method);
             if (actionAnnotation.name().length() > 0) {
                 definition.setLongName(actionAnnotation.name());

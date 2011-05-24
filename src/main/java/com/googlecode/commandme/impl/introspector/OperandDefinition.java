@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
  *
  * @author Dmitry Sidorenko
  */
-public final class ActionDefinition {
+public final class OperandDefinition {
 
     private Method action;
 
@@ -16,7 +16,7 @@ public final class ActionDefinition {
 
     private String description;
 
-    ActionDefinition() {
+    OperandDefinition() {
     }
 
     public Method getMethod() {
@@ -61,7 +61,7 @@ public final class ActionDefinition {
             return false;
         }
 
-        ActionDefinition that = (ActionDefinition) o;
+        OperandDefinition that = (OperandDefinition) o;
 
         if (!action.equals(that.action)) {
             return false;

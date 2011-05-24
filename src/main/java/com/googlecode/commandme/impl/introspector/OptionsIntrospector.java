@@ -17,8 +17,8 @@
 package com.googlecode.commandme.impl.introspector;
 
 import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.ParameterDefinitionException;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.OptionDefinitionException;
+import com.googlecode.commandme.annotations.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,22 +32,22 @@ import java.util.*;
  *
  * @author Dmitry Sidorenko
  */
-public class ParametersIntrospector<T> implements ModuleParameters {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParametersIntrospector.class);
+public class OptionsIntrospector<T> implements ModuleOptions {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OptionsIntrospector.class);
 
     private static final String SETTER_PREFIX = "set";
 
     private final Class<T>                         clz;
-    private final List<ParameterDefinition>        parameterDefinitions;
-    private final Map<String, ParameterDefinition> shortNamesMap;
-    private final Map<String, ParameterDefinition> longNamesMap;
+    private final List<OptionDefinition>        parameterDefinitions;
+    private final Map<String, OptionDefinition> shortNamesMap;
+    private final Map<String, OptionDefinition> longNamesMap;
 
 
-    public ParametersIntrospector(Class<T> clz) {
+    public OptionsIntrospector(Class<T> clz) {
         this.clz = clz;
-        parameterDefinitions = new LinkedList<ParameterDefinition>();
-        shortNamesMap = new HashMap<String, ParameterDefinition>();
-        longNamesMap = new HashMap<String, ParameterDefinition>();
+        parameterDefinitions = new LinkedList<OptionDefinition>();
+        shortNamesMap = new HashMap<String, OptionDefinition>();
+        longNamesMap = new HashMap<String, OptionDefinition>();
     }
 
     /**
@@ -55,7 +55,7 @@ public class ParametersIntrospector<T> implements ModuleParameters {
      *
      * @param parameterDefinition parameter
      */
-    public void addParameter(ParameterDefinition parameterDefinition) {
+    public void addParameter(OptionDefinition parameterDefinition) {
         if (parameterDefinition == null) {
             return;
         }
@@ -66,7 +66,7 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         if (shortName != null && shortName.length() > 0) {
             if (shortNamesMap.containsKey(shortName)) {
                 LOGGER.error("Already have parameter with short name: '{}'", shortName);
-                throw new ParameterDefinitionException("Already have parameter with short name: " + shortName);
+                throw new OptionDefinitionException("Already have parameter with short name: " + shortName);
             }
             shortNamesMap.put(shortName, parameterDefinition);
         }
@@ -74,31 +74,31 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         String longName = parameterDefinition.getLongName();
         if (longNamesMap.containsKey(longName)) {
             LOGGER.error("Already have parameter with name: '{}'", longName);
-            throw new ParameterDefinitionException("Already have parameter with name: " + longName);
+            throw new OptionDefinitionException("Already have parameter with name: " + longName);
         }
         longNamesMap.put(longName, parameterDefinition);
     }
 
     @Override
-    public List<ParameterDefinition> getParameterDefinitions() {
+    public List<OptionDefinition> getParameterDefinitions() {
         return Collections.unmodifiableList(parameterDefinitions);
     }
 
     @Override
-    public ParameterDefinition getByLongName(String name) {
+    public OptionDefinition getByLongName(String name) {
         return longNamesMap.get(name);
     }
 
     @Override
-    public ParameterDefinition getByShortName(String name) {
+    public OptionDefinition getByShortName(String name) {
         return shortNamesMap.get(name);
     }
 
     @Override
     public void inspect() {
         for (Method method : clz.getMethods()) {
-            if (method.getAnnotation(Parameter.class) != null) {
-                ParameterDefinition parameterDefinition = inspectProperty(method.getAnnotation(Parameter.class), method);
+            if (method.getAnnotation(Option.class) != null) {
+                OptionDefinition parameterDefinition = inspectProperty(method.getAnnotation(Option.class), method);
                 addParameter(parameterDefinition);
             }
         }
@@ -107,9 +107,9 @@ public class ParametersIntrospector<T> implements ModuleParameters {
 
     private void assignDefaultShortNames() {
         Set<String> shorties = new HashSet<String>();
-        Map<String, ParameterDefinition> uniqueShorties = new HashMap<String, ParameterDefinition>();
+        Map<String, OptionDefinition> uniqueShorties = new HashMap<String, OptionDefinition>();
 
-        for (ParameterDefinition parameterDefinition : parameterDefinitions) {
+        for (OptionDefinition parameterDefinition : parameterDefinitions) {
             if (parameterDefinition.getShortName() != null) {
                 continue;
             }
@@ -122,16 +122,16 @@ public class ParametersIntrospector<T> implements ModuleParameters {
                 uniqueShorties.remove(shortName);
             }
         }
-        for (Map.Entry<String, ParameterDefinition> entry : uniqueShorties.entrySet()) {
+        for (Map.Entry<String, OptionDefinition> entry : uniqueShorties.entrySet()) {
             entry.getValue().setShortName(entry.getKey());
             LOGGER.debug("Set short name for {}", entry.getValue());
         }
         shortNamesMap.putAll(uniqueShorties);
     }
 
-    private ParameterDefinition inspectProperty(Parameter parameter, Method writerMethod) throws CliException {
+    private OptionDefinition inspectProperty(Option parameter, Method writerMethod) throws CliException {
         sanityChecks(writerMethod);
-        ParameterDefinition parameterDefinition = new ParameterDefinition();
+        OptionDefinition parameterDefinition = new OptionDefinition();
         parameterDefinition.setWriterMethod(writerMethod);
         parameterDefinition.setDescription(parameter.description());
 
@@ -146,7 +146,7 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         String shortName = parameter.shortName();
         if (shortName.length() > 1) {
             LOGGER.error("Short name can't be long: {}", parameter);
-            throw new ParameterDefinitionException("Short name can't be long: " + parameter);
+            throw new OptionDefinitionException("Short name can't be long: " + parameter);
 
         }
         if (shortName.length() > 0) {
@@ -160,11 +160,11 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         return parameterDefinition;
     }
 
-    private void sanityChecks(Method writerMethod) throws ParameterDefinitionException {
+    private void sanityChecks(Method writerMethod) throws OptionDefinitionException {
         assert Modifier.isPublic(writerMethod.getModifiers()) : "Parameter setter must be public";
 
         if (writerMethod.getParameterTypes().length != 1) {
-            throw new ParameterDefinitionException("Parameter setter method must have only one argument: " + writerMethod);
+            throw new OptionDefinitionException("Parameter setter method must have only one argument: " + writerMethod);
         }
 //        Class paramClass = writerMethod.getParameterTypes()[0];
 //
@@ -181,7 +181,7 @@ public class ParametersIntrospector<T> implements ModuleParameters {
      * @param writerMethod method with annotation
      * @return name of a property
      */
-    private String getPropertyName(Parameter parameter, Method writerMethod) {
+    private String getPropertyName(Option parameter, Method writerMethod) {
         String propertyName = parameter.longName();
         if (writerMethod.getName().startsWith(SETTER_PREFIX)) {
             propertyName = writerMethod.getName()

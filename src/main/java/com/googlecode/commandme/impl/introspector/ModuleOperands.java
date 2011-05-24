@@ -7,13 +7,13 @@ import java.util.Set;
  *
  * @author Dmitry Sidorenko
  */
-public interface ModuleActions {
+public interface ModuleOperands {
     /**
      * Returns list of available actions
      *
      * @return list of actions
      */
-    Set<ActionDefinition> getActions();
+    Set<OperandDefinition> getActions();
 
     /**
      * Returns action by its full name
@@ -21,7 +21,7 @@ public interface ModuleActions {
      * @param name long name of an action
      * @return ParameterDefinition or null
      */
-    ActionDefinition getByLongName(String name);
+    OperandDefinition getByLongName(String name);
 
     /**
      * Returns action by it's short name.
@@ -29,7 +29,7 @@ public interface ModuleActions {
      * @param name short name of an action
      * @return ParameterDefinition or null
      */
-    ActionDefinition getByShortName(String name);
+    OperandDefinition getByShortName(String name);
 
     /**
      * Inspects module

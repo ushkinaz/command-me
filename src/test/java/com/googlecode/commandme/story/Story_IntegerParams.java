@@ -17,7 +17,7 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -36,17 +36,17 @@ public class Story_IntegerParams extends Story<Story_IntegerParams> {
     private int     amount;
     private long    longer;
 
-    @Parameter
+    @Option
     public void setAmount(int amount) {
         this.amount = amount;
     }
 
-    @Parameter
+    @Option
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Parameter
+    @Option
     public void setLong(Long longer) {
         this.longer = longer;
     }

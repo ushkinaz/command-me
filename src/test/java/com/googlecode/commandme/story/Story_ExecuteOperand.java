@@ -18,7 +18,7 @@
 package com.googlecode.commandme.story;
 
 import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.annotations.Action;
+import com.googlecode.commandme.annotations.Operand;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -31,17 +31,17 @@ import static org.junit.Assert.assertThat;
  *
  * @author Dmitry Sidorenko
  */
-public class Story_ExecuteAction extends Story<Story_ExecuteAction> {
+public class Story_ExecuteOperand extends Story<Story_ExecuteOperand> {
 
     private boolean called = false;
 
-    @Action
+    @Operand
     public void greet() {
         System.out.println("Hello");
         called = true;
     }
 
-    @Action
+    @Operand
     public void badboy() {
         System.out.println("Oh, my God!");
         throw new IllegalStateException("They've killed Kenny!");

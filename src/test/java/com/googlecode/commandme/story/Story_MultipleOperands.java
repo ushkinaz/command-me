@@ -17,8 +17,8 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.ParameterSettingException;
-import com.googlecode.commandme.annotations.Action;
+import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.annotations.Operand;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -31,7 +31,7 @@ import static org.junit.Assert.assertThat;
  *
  * @author Dmitry Sidorenko
  */
-public class Story_MultipleActions extends Story<Story_MultipleActions> {
+public class Story_MultipleOperands extends Story<Story_MultipleOperands> {
 
     private int count = 0;
 
@@ -42,22 +42,22 @@ public class Story_MultipleActions extends Story<Story_MultipleActions> {
         assertThat(commandLine.getModule().count, is(2));
     }
 
-    @Test(expected = ParameterSettingException.class)
+    @Test(expected = OptionSettingException.class)
     public void testNegativeStory() throws Exception {
         commandLine.execute(new String[]{"--flag", "issue"});
     }
 
-    @Action
+    @Operand
     public void one() {
         this.count++;
     }
 
-    @Action
+    @Operand
     public void two() {
         this.count++;
     }
 
-    @Action
+    @Operand
     public void three() {
         this.count++;
     }

@@ -3,13 +3,13 @@ package com.googlecode.commandme;
 /**
  * @author Dmitry Sidorenko
  */
-public class ActionInvocationException extends CliException {
+public class OperandInvocationException extends CliException {
 
-    public ActionInvocationException(String message) {
+    public OperandInvocationException(String message) {
         super(message);
     }
 
-    public ActionInvocationException(String message, Throwable cause) {
+    public OperandInvocationException(String message, Throwable cause) {
         super(message, cause);
     }
 }

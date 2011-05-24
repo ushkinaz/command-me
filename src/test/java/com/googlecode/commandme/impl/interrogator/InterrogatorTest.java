@@ -1,7 +1,7 @@
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.ParameterSettingException;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.annotations.Option;
 import com.googlecode.commandme.impl.introspector.*;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
@@ -26,10 +26,10 @@ public class InterrogatorTest {
     public void setUp() throws Exception {
         //noinspection unchecked
         moduleIntrospector = mock(ModuleIntrospector.class);
-        ModuleActions moduleActions = new ActionsIntrospector<InterrogatorTest>(InterrogatorTest.class);
+        ModuleOperands moduleActions = new OperandsIntrospector<InterrogatorTest>(InterrogatorTest.class);
         moduleActions.inspect();
 
-        ModuleParameters moduleParameters = new ParametersIntrospector<InterrogatorTest>(InterrogatorTest.class);
+        ModuleOptions moduleParameters = new OptionsIntrospector<InterrogatorTest>(InterrogatorTest.class);
         moduleParameters.inspect();
 
         when(moduleIntrospector.getActions()).thenReturn(moduleActions);
@@ -41,7 +41,7 @@ public class InterrogatorTest {
 
     }
 
-    @Test(expected = ParameterSettingException.class)
+    @Test(expected = OptionSettingException.class)
     public void testFirstNameFailed() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--notexisyts", "0", "--name", JOHN_FROSTER});
         interrogator.torture();
@@ -74,7 +74,7 @@ public class InterrogatorTest {
         assertThat(id, CoreMatchers.is(555));
     }
 
-    @Test(expected = ParameterSettingException.class)
+    @Test(expected = OptionSettingException.class)
     public void testSetIntegerWrongFormat() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--id", "555.0"});
         interrogator.torture();
@@ -82,7 +82,7 @@ public class InterrogatorTest {
         assertThat(id, CoreMatchers.is(555));
     }
 
-    @Test(expected = ParameterSettingException.class)
+    @Test(expected = OptionSettingException.class)
     public void testSetByteOutOf() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--idByte", "555"});
         interrogator.torture();
@@ -106,27 +106,27 @@ public class InterrogatorTest {
         assertThat(amount, CoreMatchers.is(122));
     }
 
-    @Parameter
+    @Option
     public void setName(String name) {
         this.name = name;
     }
 
-    @Parameter
+    @Option
     public void setDesc(String desc) {
         this.desc = desc;
     }
 
-    @Parameter
+    @Option
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Parameter
+    @Option
     public void setIdByte(byte id) {
         this.id = id;
     }
 
-    @Parameter
+    @Option
     public void setAmount(int amount) {
         this.amount = amount;
     }

@@ -16,7 +16,7 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.ParameterSettingException;
+import com.googlecode.commandme.OptionSettingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +31,9 @@ import java.lang.reflect.InvocationTargetException;
 public class DefaultPropertyInterrogator implements PropertyInterrogator {
     @SuppressWarnings({"unused"})
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPropertyInterrogator.class);
-    private final ParameterDefinition parameterDefinition;
+    private final OptionDefinition parameterDefinition;
 
-    DefaultPropertyInterrogator(ParameterDefinition parameterDefinition) {
+    DefaultPropertyInterrogator(OptionDefinition parameterDefinition) {
         this.parameterDefinition = parameterDefinition;
     }
 
@@ -50,16 +50,16 @@ public class DefaultPropertyInterrogator implements PropertyInterrogator {
             parameterDefinition.getWriterMethod().invoke(instance, convertedValue);
         } catch (NoSuchMethodException e) {
             LOGGER.warn("Can't find appropriate constructor for {}", parameterType, e);
-            throw new ParameterSettingException("Can't find appropriate constructor for " + parameterType, e);
+            throw new OptionSettingException("Can't find appropriate constructor for " + parameterType, e);
         } catch (InstantiationException e) {
             LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, parameterType}, e);
-            throw new ParameterSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
+            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
         } catch (IllegalAccessException e) {
             LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, parameterType}, e);
-            throw new ParameterSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
+            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
         } catch (InvocationTargetException e) {
             LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, parameterType}, e);
-            throw new ParameterSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
+            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
         }
     }
 
@@ -80,7 +80,7 @@ public class DefaultPropertyInterrogator implements PropertyInterrogator {
                     .charAt(0)) + primitiveClass.getName().substring(1));
         } catch (ClassNotFoundException e) {
             LOGGER.warn("Can't find class for primitive type {}", primitiveClass, e);
-            throw new ParameterSettingException("Can't find class for primitive type " + primitiveClass, e);
+            throw new OptionSettingException("Can't find class for primitive type " + primitiveClass, e);
         }
     }
 }

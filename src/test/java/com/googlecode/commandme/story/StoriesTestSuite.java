@@ -8,8 +8,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        Story_ExecuteAction.class,
-        Story_StringParameterAsFullName.class,
-        Story_WrongAction.class})
+        Story_ExecuteOperand.class,
+        Story_StringOptionAsFullName.class,
+        Story_WrongOperand.class})
 public class StoriesTestSuite {
 }

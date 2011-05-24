@@ -17,8 +17,8 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.annotations.Action;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -32,12 +32,12 @@ import static org.junit.Assert.assertThat;
  *
  * @author Dmitry Sidorenko
  */
-public class Story_StringParameterAsFullName extends Story<Story_StringParameterAsFullName> {
+public class Story_StringOptionAsFullName extends Story<Story_StringOptionAsFullName> {
 
     private static final String JOHN_SMITH = "John Smith";
     private String name;
 
-    @Parameter
+    @Option
     public void setName(String name) {
         this.name = name;
     }
@@ -46,7 +46,7 @@ public class Story_StringParameterAsFullName extends Story<Story_StringParameter
         return name;
     }
 
-    @Action
+    @Operand
     public void greet() {
         System.out.println("Hello, " + name);
     }

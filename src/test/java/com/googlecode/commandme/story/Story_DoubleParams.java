@@ -17,8 +17,8 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.ParameterSettingException;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -47,22 +47,22 @@ public class Story_DoubleParams extends Story<Story_DoubleParams> {
         assertThat(commandLine.getModule().bet, is((float) 400.0));
     }
 
-    @Test(expected = ParameterSettingException.class)
+    @Test(expected = OptionSettingException.class)
     public void testNegativeStory() throws Exception {
         commandLine.execute(new String[]{"--flag", "issue"});
     }
 
-    @Parameter
+    @Option
     public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    @Parameter
+    @Option
     public void setMoney(Double money) {
         this.money = money;
     }
 
-    @Parameter
+    @Option
     public void setBet(float bet) {
         this.bet = bet;
     }

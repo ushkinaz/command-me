@@ -17,7 +17,7 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -62,17 +62,17 @@ public class Story_BooleanParams extends Story<Story_BooleanParams> {
         assertThat(commandLine.getModule().flag, is(false));
     }
 
-    @Parameter
+    @Option
     public void setFlag(boolean flag) {
         this.flag = flag;
     }
 
-    @Parameter
+    @Option
     public void setDead(Boolean dead) {
         this.dead = dead;
     }
 
-    @Parameter
+    @Option
     public void setRaised(Boolean raised) {
         this.raised = raised;
     }

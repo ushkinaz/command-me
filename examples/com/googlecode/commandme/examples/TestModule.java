@@ -1,8 +1,8 @@
 package com.googlecode.commandme.examples;
 
 import com.googlecode.commandme.CLIParser;
-import com.googlecode.commandme.annotations.Action;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,47 +26,47 @@ public class TestModule {
 
     private Date parameterDate1;
 
-    @Parameter
+    @Option
     public void setParameterString1(String parameterString1) {
         this.parameterString1 = parameterString1;
     }
 
-    @Parameter
+    @Option
     public void setParameterString2(String parameterString2) {
         this.parameterString2 = parameterString2;
     }
 
-    @Parameter
+    @Option
     public void setParameterInt1(int parameterInt1) {
         this.parameterInt1 = parameterInt1;
     }
 
-    @Parameter
+    @Option
     public void setParameterInt2(Integer parameterInt2) {
         this.parameterInt2 = parameterInt2;
     }
 
-    @Parameter
+    @Option
     public void setParameterDouble1(Double parameterDouble1) {
         this.parameterDouble1 = parameterDouble1;
     }
 
-    @Parameter
+    @Option
     public void setParameterDouble2(double parameterDouble2) {
         this.parameterDouble2 = parameterDouble2;
     }
 
-    @Parameter
+    @Option
     public void setParameterDate1(Date parameterDate1) {
         this.parameterDate1 = parameterDate1;
     }
 
-    @Action
+    @Operand
     public void doParse() {
 
     }
 
-    @Action
+    @Operand
     public void makeLove() {
 
     }

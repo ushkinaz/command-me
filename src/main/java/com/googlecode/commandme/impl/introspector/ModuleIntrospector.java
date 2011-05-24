@@ -29,8 +29,8 @@ public class ModuleIntrospector<T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuleIntrospector.class);
 
     private final Class<T>         clz;
-    private final ModuleParameters parametersIntrospector;
-    private final ModuleActions    actionsIntrospector;
+    private final ModuleOptions parametersIntrospector;
+    private final ModuleOperands actionsIntrospector;
 
     /**
      * Creates an introspector
@@ -39,8 +39,8 @@ public class ModuleIntrospector<T> {
      */
     ModuleIntrospector(Class<T> clz) {
         this.clz = clz;
-        actionsIntrospector = new ActionsIntrospector<T>(clz);
-        parametersIntrospector = new ParametersIntrospector<T>(clz);
+        actionsIntrospector = new OperandsIntrospector<T>(clz);
+        parametersIntrospector = new OptionsIntrospector<T>(clz);
     }
 
     /**
@@ -55,11 +55,11 @@ public class ModuleIntrospector<T> {
         return clz;
     }
 
-    public ModuleParameters getParameters() {
+    public ModuleOptions getParameters() {
         return parametersIntrospector;
     }
 
-    public ModuleActions getActions() {
+    public ModuleOperands getActions() {
         return actionsIntrospector;
     }
 }
