@@ -39,6 +39,7 @@ public class Interrogator<T> {
     private final ModuleIntrospector moduleIntrospector;
     private final String[]           arguments;
     private       TokenType          currentToken;
+    private       boolean            expectsValue;
     private ParameterDefinition parameterDef = null;
 
     /**
@@ -59,10 +60,17 @@ public class Interrogator<T> {
      */
     public void torture() {
         currentToken = TokenType.ACTION;
+        expectsValue = false;
+
         for (String argument : arguments) {
             LOGGER.debug("Parsing: {}", argument);
-            if (argument.startsWith("--")) {
-                handleParameter(argument.substring(2));
+            //Previous token was parameter which expects value
+            if (expectsValue) {
+                handleValue(argument);
+            } else if (argument.startsWith("--")) {
+                handleParameter(argument.substring(2), false);
+            } else if (argument.startsWith("-")) {
+                handleParameter(argument.substring(1), true);
             } else {
                 switch (currentToken) {
                     case PARAMETER:
@@ -77,13 +85,19 @@ public class Interrogator<T> {
         }
     }
 
-    private void handleParameter(String token) {
+    private void handleParameter(String token, boolean shortForm) {
         LOGGER.debug("handleParameter");
         currentToken = TokenType.PARAMETER;
-        parameterDef = moduleIntrospector.getParameters().getByLongName(token);
+        if (shortForm) {
+            parameterDef = moduleIntrospector.getParameters().getByShortName(token);
+        } else {
+            parameterDef = moduleIntrospector.getParameters().getByLongName(token);
+        }
+
         if (parameterDef == null) {
             throw new ParameterSettingException("Can't find parameter:" + token);
         }
+        expectsValue = parameterDef.getInterrogator().needValue();
     }
 
     private void handleAction(String token) {
@@ -97,7 +111,9 @@ public class Interrogator<T> {
         currentToken = TokenType.VALUE;
         assert parameterDef != null;
         parameterDef.getInterrogator().setValue(module, token);
+        // value parsed
         parameterDef = null;
+        expectsValue = false;
     }
 
     private void callAction(String longActionName) {

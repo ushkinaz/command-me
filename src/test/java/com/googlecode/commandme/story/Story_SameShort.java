@@ -17,7 +17,7 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.ActionInvocationException;
+import com.googlecode.commandme.ParameterSettingException;
 import com.googlecode.commandme.annotations.Parameter;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ import org.junit.Test;
  */
 public class Story_SameShort extends Story<Story_SameShort> {
 
-    @Test(expected = ActionInvocationException.class)
+    @Test(expected = ParameterSettingException.class)
     public void testStory() throws Exception {
         commandLine.execute(new String[]{"-f"});
     }
