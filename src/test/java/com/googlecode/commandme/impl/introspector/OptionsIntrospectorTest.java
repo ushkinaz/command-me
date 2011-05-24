@@ -29,84 +29,84 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-@SuppressWarnings({"UnusedParameters"})
+@SuppressWarnings({"UnusedOptions"})
 public class OptionsIntrospectorTest {
 
     @Test
-    public void testModuleParameters() throws Exception {
-        OptionsIntrospector<TestModule1> parameters = new OptionsIntrospector<TestModule1>(TestModule1.class);
-        assertThat(parameters.getParameterDefinitions(), notNullValue());
+    public void testModuleOptions() throws Exception {
+        OptionsIntrospector<TestModule1> options = new OptionsIntrospector<TestModule1>(TestModule1.class);
+        assertThat(options.getOptionDefinitions(), notNullValue());
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void testGetParameterDefinitions() throws Exception {
-        OptionsIntrospector<TestModule1> parameters = new OptionsIntrospector<TestModule1>(TestModule1.class);
-        parameters.getParameterDefinitions().clear();
+    public void testGetOptionDefinitions() throws Exception {
+        OptionsIntrospector<TestModule1> options = new OptionsIntrospector<TestModule1>(TestModule1.class);
+        options.getOptionDefinitions().clear();
     }
 
     @Test
-    public void testAddParameter() throws Exception {
-        OptionsIntrospector<TestModule1> parameters = new OptionsIntrospector<TestModule1>(TestModule1.class);
+    public void testAddOption() throws Exception {
+        OptionsIntrospector<TestModule1> options = new OptionsIntrospector<TestModule1>(TestModule1.class);
         final OptionDefinition definition = new OptionDefinition();
-        parameters.addParameter(definition);
-        assertThat(parameters.getParameterDefinitions().size(), is(1));
-        assertThat(parameters.getParameterDefinitions().get(0), is(definition));
+        options.addOption(definition);
+        assertThat(options.getOptionDefinitions().size(), is(1));
+        assertThat(options.getOptionDefinitions().get(0), is(definition));
     }
 
     @Test
     public void testGetByLongName() throws Exception {
-        OptionsIntrospector<TestModule1> parameters = new OptionsIntrospector<TestModule1>(TestModule1.class);
+        OptionsIntrospector<TestModule1> options = new OptionsIntrospector<TestModule1>(TestModule1.class);
         OptionDefinition definition = new OptionDefinition();
         definition.setLongName("foo");
-        parameters.addParameter(definition);
+        options.addOption(definition);
 
         OptionDefinition definitionBar = new OptionDefinition();
         definitionBar.setLongName("bar");
-        parameters.addParameter(definitionBar);
+        options.addOption(definitionBar);
 
-        assertThat(parameters.getByLongName("bar"), is(definitionBar));
-        assertThat(parameters.getByLongName("foo"), is(definition));
+        assertThat(options.getByLongName("bar"), is(definitionBar));
+        assertThat(options.getByLongName("foo"), is(definition));
     }
 
 
     @Test
     public void testGetByShortName() throws Exception {
-        OptionsIntrospector<TestModule1> parameters = new OptionsIntrospector<TestModule1>(TestModule1.class);
+        OptionsIntrospector<TestModule1> options = new OptionsIntrospector<TestModule1>(TestModule1.class);
         OptionDefinition definition = new OptionDefinition();
         definition.setShortName("f");
-        parameters.addParameter(definition);
+        options.addOption(definition);
 
         OptionDefinition definitionBar = new OptionDefinition();
         definitionBar.setLongName("bool");
         definitionBar.setShortName("b");
-        parameters.addParameter(definitionBar);
+        options.addOption(definitionBar);
 
-        assertThat(parameters.getByShortName("b"), is(definitionBar));
-        assertThat(parameters.getByShortName("f"), is(definition));
+        assertThat(options.getByShortName("b"), is(definitionBar));
+        assertThat(options.getByShortName("f"), is(definition));
     }
 
     @Test
-    public void testInspectParameters() throws Exception {
-        OptionsIntrospector<TestModule1> parameters = new OptionsIntrospector<TestModule1>(TestModule1.class);
-        parameters.inspect();
-        for (OptionDefinition parameterDefinition : parameters.getParameterDefinitions()) {
-            assertThat(parameterDefinition.getShortName(), notNullValue());
-            assertThat(parameterDefinition.getShortName().length(), is(1));
+    public void testInspectOptions() throws Exception {
+        OptionsIntrospector<TestModule1> options = new OptionsIntrospector<TestModule1>(TestModule1.class);
+        options.inspect();
+        for (OptionDefinition optionDefinition : options.getOptionDefinitions()) {
+            assertThat(optionDefinition.getShortName(), notNullValue());
+            assertThat(optionDefinition.getShortName().length(), is(1));
 
-            assertThat(parameterDefinition.getLongName(), notNullValue());
+            assertThat(optionDefinition.getLongName(), notNullValue());
 
-            assertThat(parameterDefinition.getDefaultValue(), notNullValue());
-            assertThat(parameterDefinition.getDescription(), notNullValue());
-            assertThat(parameterDefinition.getType(), notNullValue());
+            assertThat(optionDefinition.getDefaultValue(), notNullValue());
+            assertThat(optionDefinition.getDescription(), notNullValue());
+            assertThat(optionDefinition.getType(), notNullValue());
         }
 
     }
 
     @Test
     public void testNonBeanCompliantParams() throws Exception {
-        OptionsIntrospector<TestModule1> parameters = new OptionsIntrospector<TestModule1>(TestModule1.class);
-        parameters.inspect();
-        final OptionDefinition fooParam = parameters.getByLongName("label");
+        OptionsIntrospector<TestModule1> options = new OptionsIntrospector<TestModule1>(TestModule1.class);
+        options.inspect();
+        final OptionDefinition fooParam = options.getByLongName("label");
         assertThat(fooParam, notNullValue());
         assertThat(fooParam.getLongName(), is("label"));
         assertThat(fooParam.getShortName(), is("l"));
@@ -114,10 +114,10 @@ public class OptionsIntrospectorTest {
     }
 
     @Test
-    public void testInspectParametersValuesAreCorrect() throws Exception {
-        OptionsIntrospector<TestModule1> parameters = new OptionsIntrospector<TestModule1>(TestModule1.class);
-        parameters.inspect();
-        final OptionDefinition fooParam = parameters.getByLongName("foo");
+    public void testInspectOptionsValuesAreCorrect() throws Exception {
+        OptionsIntrospector<TestModule1> options = new OptionsIntrospector<TestModule1>(TestModule1.class);
+        options.inspect();
+        final OptionDefinition fooParam = options.getByLongName("foo");
         assertThat(fooParam, notNullValue());
         assertThat(fooParam.getLongName(), is("foo"));
         assertThat(fooParam.getShortName(), is("f"));
@@ -125,7 +125,7 @@ public class OptionsIntrospectorTest {
         assertThat(fooParam.getDefaultValue(), is("0"));
         assertThat(fooParam.getDescription(), is("none"));
 
-        final OptionDefinition nameParam = parameters.getByLongName("name");
+        final OptionDefinition nameParam = options.getByLongName("name");
         assertThat(nameParam, notNullValue());
         assertThat(nameParam.getLongName(), is("name"));
         assertThat(nameParam.getShortName(), is("n"));
@@ -134,25 +134,25 @@ public class OptionsIntrospectorTest {
         assertThat(nameParam.getDescription(), is(""));
 
 
-        for (OptionDefinition parameterDefinition : parameters.getParameterDefinitions()) {
-            assertThat(parameterDefinition.getShortName(), notNullValue());
-            assertThat(parameterDefinition.getShortName().length(), is(1));
+        for (OptionDefinition optionDefinition : options.getOptionDefinitions()) {
+            assertThat(optionDefinition.getShortName(), notNullValue());
+            assertThat(optionDefinition.getShortName().length(), is(1));
 
-            assertThat(parameterDefinition.getLongName(), notNullValue());
+            assertThat(optionDefinition.getLongName(), notNullValue());
 
-            assertThat(parameterDefinition.getDefaultValue(), notNullValue());
-            assertThat(parameterDefinition.getDescription(), notNullValue());
-            assertThat(parameterDefinition.getType(), notNullValue());
+            assertThat(optionDefinition.getDefaultValue(), notNullValue());
+            assertThat(optionDefinition.getDescription(), notNullValue());
+            assertThat(optionDefinition.getType(), notNullValue());
         }
 
     }
 
     @Test(expected = OptionDefinitionException.class)
     public void testBadSetter() throws Exception {
-        OptionsIntrospector<BadModule1> parameters = new OptionsIntrospector<BadModule1>(BadModule1.class);
-        parameters.inspect();
+        OptionsIntrospector<BadModule1> options = new OptionsIntrospector<BadModule1>(BadModule1.class);
+        options.inspect();
 
-        final OptionDefinition fooParam = parameters.getByLongName("name");
+        final OptionDefinition fooParam = options.getByLongName("name");
         assertThat(fooParam, nullValue());
     }
 
@@ -165,21 +165,21 @@ public class OptionsIntrospectorTest {
 
     @Test
     public void testBadSetterAccess() throws Exception {
-        OptionsIntrospector<BadModule2> parameters = new OptionsIntrospector<BadModule2>(BadModule2.class);
-        parameters.inspect();
+        OptionsIntrospector<BadModule2> options = new OptionsIntrospector<BadModule2>(BadModule2.class);
+        options.inspect();
 
-        final OptionDefinition fooParam = parameters.getByLongName("name");
+        final OptionDefinition fooParam = options.getByLongName("name");
         assertThat(fooParam, nullValue());
     }
 
     @Test
-    public void testIntParameter() throws Exception {
-        OptionsIntrospector<IntModule> parameters = new OptionsIntrospector<IntModule>(IntModule.class);
-        parameters.inspect();
-        assertThat(parameters.getParameterDefinitions().size(), is(8));
+    public void testIntOption() throws Exception {
+        OptionsIntrospector<IntModule> options = new OptionsIntrospector<IntModule>(IntModule.class);
+        options.inspect();
+        assertThat(options.getOptionDefinitions().size(), is(8));
 
-        assertEquals(parameters.getByLongName("int").getType(), Integer.TYPE);
-        assertEquals(parameters.getByLongName("intC").getType(), Integer.class);
+        assertEquals(options.getByLongName("int").getType(), Integer.TYPE);
+        assertEquals(options.getByLongName("intC").getType(), Integer.class);
     }
 
     private static class IntModule {

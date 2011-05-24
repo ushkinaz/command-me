@@ -38,50 +38,50 @@ public class OptionsIntrospector<T> implements ModuleOptions {
     private static final String SETTER_PREFIX = "set";
 
     private final Class<T>                         clz;
-    private final List<OptionDefinition>        parameterDefinitions;
+    private final List<OptionDefinition>        optionDefinitions;
     private final Map<String, OptionDefinition> shortNamesMap;
     private final Map<String, OptionDefinition> longNamesMap;
 
 
     public OptionsIntrospector(Class<T> clz) {
         this.clz = clz;
-        parameterDefinitions = new LinkedList<OptionDefinition>();
+        optionDefinitions = new LinkedList<OptionDefinition>();
         shortNamesMap = new HashMap<String, OptionDefinition>();
         longNamesMap = new HashMap<String, OptionDefinition>();
     }
 
     /**
-     * Adds new parameter definition.
+     * Adds new option definition.
      *
-     * @param parameterDefinition parameter
+     * @param optionDefinition option
      */
-    public void addParameter(OptionDefinition parameterDefinition) {
-        if (parameterDefinition == null) {
+    public void addOption(OptionDefinition optionDefinition) {
+        if (optionDefinition == null) {
             return;
         }
-        parameterDefinitions.add(parameterDefinition);
+        optionDefinitions.add(optionDefinition);
 
-        String shortName = parameterDefinition.getShortName();
+        String shortName = optionDefinition.getShortName();
 
         if (shortName != null && shortName.length() > 0) {
             if (shortNamesMap.containsKey(shortName)) {
-                LOGGER.error("Already have parameter with short name: '{}'", shortName);
-                throw new OptionDefinitionException("Already have parameter with short name: " + shortName);
+                LOGGER.error("Already have option with short name: '{}'", shortName);
+                throw new OptionDefinitionException("Already have option with short name: " + shortName);
             }
-            shortNamesMap.put(shortName, parameterDefinition);
+            shortNamesMap.put(shortName, optionDefinition);
         }
 
-        String longName = parameterDefinition.getLongName();
+        String longName = optionDefinition.getLongName();
         if (longNamesMap.containsKey(longName)) {
-            LOGGER.error("Already have parameter with name: '{}'", longName);
-            throw new OptionDefinitionException("Already have parameter with name: " + longName);
+            LOGGER.error("Already have option with name: '{}'", longName);
+            throw new OptionDefinitionException("Already have option with name: " + longName);
         }
-        longNamesMap.put(longName, parameterDefinition);
+        longNamesMap.put(longName, optionDefinition);
     }
 
     @Override
-    public List<OptionDefinition> getParameterDefinitions() {
-        return Collections.unmodifiableList(parameterDefinitions);
+    public List<OptionDefinition> getOptionDefinitions() {
+        return Collections.unmodifiableList(optionDefinitions);
     }
 
     @Override
@@ -98,8 +98,8 @@ public class OptionsIntrospector<T> implements ModuleOptions {
     public void inspect() {
         for (Method method : clz.getMethods()) {
             if (method.getAnnotation(Option.class) != null) {
-                OptionDefinition parameterDefinition = inspectProperty(method.getAnnotation(Option.class), method);
-                addParameter(parameterDefinition);
+                OptionDefinition optionDefinition = inspectProperty(method.getAnnotation(Option.class), method);
+                addOption(optionDefinition);
             }
         }
         assignDefaultShortNames();
@@ -109,16 +109,16 @@ public class OptionsIntrospector<T> implements ModuleOptions {
         Set<String> shorties = new HashSet<String>();
         Map<String, OptionDefinition> uniqueShorties = new HashMap<String, OptionDefinition>();
 
-        for (OptionDefinition parameterDefinition : parameterDefinitions) {
-            if (parameterDefinition.getShortName() != null) {
+        for (OptionDefinition optionDefinition : optionDefinitions) {
+            if (optionDefinition.getShortName() != null) {
                 continue;
             }
-            String shortName = parameterDefinition.getLongName().substring(0, 1);
+            String shortName = optionDefinition.getLongName().substring(0, 1);
             boolean wasNotPresent = shorties.add(shortName);
             if (wasNotPresent) {
-                uniqueShorties.put(shortName, parameterDefinition);
+                uniqueShorties.put(shortName, optionDefinition);
             } else {
-                LOGGER.warn("Default short names overlap {}, {}", new Object[]{uniqueShorties.get(shortName), parameterDefinition});
+                LOGGER.warn("Default short names overlap {}, {}", new Object[]{uniqueShorties.get(shortName), optionDefinition});
                 uniqueShorties.remove(shortName);
             }
         }
@@ -129,47 +129,47 @@ public class OptionsIntrospector<T> implements ModuleOptions {
         shortNamesMap.putAll(uniqueShorties);
     }
 
-    private OptionDefinition inspectProperty(Option parameter, Method writerMethod) throws CliException {
+    private OptionDefinition inspectProperty(Option option, Method writerMethod) throws CliException {
         sanityChecks(writerMethod);
-        OptionDefinition parameterDefinition = new OptionDefinition();
-        parameterDefinition.setWriterMethod(writerMethod);
-        parameterDefinition.setDescription(parameter.description());
+        OptionDefinition optionDefinition = new OptionDefinition();
+        optionDefinition.setWriterMethod(writerMethod);
+        optionDefinition.setDescription(option.description());
 
-        String propertyName = getPropertyName(parameter, writerMethod);
+        String propertyName = getPropertyName(option, writerMethod);
 
-        String longName = parameter.longName();
+        String longName = option.longName();
         if ("".equals(longName)) {
             longName = propertyName;
         }
-        parameterDefinition.setLongName(longName);
+        optionDefinition.setLongName(longName);
 
-        String shortName = parameter.shortName();
+        String shortName = option.shortName();
         if (shortName.length() > 1) {
-            LOGGER.error("Short name can't be long: {}", parameter);
-            throw new OptionDefinitionException("Short name can't be long: " + parameter);
+            LOGGER.error("Short name can't be long: {}", option);
+            throw new OptionDefinitionException("Short name can't be long: " + option);
 
         }
         if (shortName.length() > 0) {
-            parameterDefinition.setShortName(shortName);
+            optionDefinition.setShortName(shortName);
         }
 
-        parameterDefinition.setShowInHelp(parameter.helpRequest());
+        optionDefinition.setShowInHelp(option.helpRequest());
 
-        parameterDefinition.setType(writerMethod.getParameterTypes()[0]);
+        optionDefinition.setType(writerMethod.getParameterTypes()[0]);
 
-        return parameterDefinition;
+        return optionDefinition;
     }
 
     private void sanityChecks(Method writerMethod) throws OptionDefinitionException {
-        assert Modifier.isPublic(writerMethod.getModifiers()) : "Parameter setter must be public";
+        assert Modifier.isPublic(writerMethod.getModifiers()) : "Option setter must be public";
 
         if (writerMethod.getParameterTypes().length != 1) {
-            throw new OptionDefinitionException("Parameter setter method must have only one argument: " + writerMethod);
+            throw new OptionDefinitionException("Option setter method must have only one argument: " + writerMethod);
         }
-//        Class paramClass = writerMethod.getParameterTypes()[0];
+//        Class paramClass = writerMethod.getOptionTypes()[0];
 //
 //        if (!paramClass.isPrimitive()) {
-//            throw new ParameterDefinitionException("Parameter must be of primitive type: " + writerMethod);
+//            throw new OptionDefinitionException("Option must be of primitive type: " + writerMethod);
 //        }
 //
     }
@@ -177,12 +177,12 @@ public class OptionsIntrospector<T> implements ModuleOptions {
     /**
      * Returns property name as defined in java.
      *
-     * @param parameter    annotation
+     * @param option    annotation
      * @param writerMethod method with annotation
      * @return name of a property
      */
-    private String getPropertyName(Option parameter, Method writerMethod) {
-        String propertyName = parameter.longName();
+    private String getPropertyName(Option option, Method writerMethod) {
+        String propertyName = option.longName();
         if (writerMethod.getName().startsWith(SETTER_PREFIX)) {
             propertyName = writerMethod.getName()
                     .substring(SETTER_PREFIX.length(), SETTER_PREFIX.length() + 1)

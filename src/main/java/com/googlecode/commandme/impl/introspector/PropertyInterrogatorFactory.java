@@ -29,29 +29,29 @@ public class PropertyInterrogatorFactory {
     @SuppressWarnings({"unused"})
     private static final Logger                      LOGGER                  = LoggerFactory.getLogger(PropertyInterrogatorFactory.class);
     private static       PropertyInterrogatorFactory factory                 = new PropertyInterrogatorFactory();
-    private static final Set<Class>                  allowedParameterClasses = new HashSet<Class>();
+    private static final Set<Class>                  allowedOptionClasses = new HashSet<Class>();
 
     static {
-        allowedParameterClasses.add(String.class);
-        allowedParameterClasses.add(Integer.class);
-        allowedParameterClasses.add(Long.class);
-        allowedParameterClasses.add(Integer.class);
-        allowedParameterClasses.add(Byte.class);
-        allowedParameterClasses.add(Short.class);
-        allowedParameterClasses.add(Double.class);
-        allowedParameterClasses.add(Float.class);
-        allowedParameterClasses.add(Boolean.class);
+        allowedOptionClasses.add(String.class);
+        allowedOptionClasses.add(Integer.class);
+        allowedOptionClasses.add(Long.class);
+        allowedOptionClasses.add(Integer.class);
+        allowedOptionClasses.add(Byte.class);
+        allowedOptionClasses.add(Short.class);
+        allowedOptionClasses.add(Double.class);
+        allowedOptionClasses.add(Float.class);
+        allowedOptionClasses.add(Boolean.class);
     }
 
-    public static PropertyInterrogator createInterrogator(OptionDefinition parameterDefinition) {
-        return factory.createInterrogatorInternal(parameterDefinition);
+    public static PropertyInterrogator createInterrogator(OptionDefinition optionDefinition) {
+        return factory.createInterrogatorInternal(optionDefinition);
     }
 
-    public PropertyInterrogator createInterrogatorInternal(OptionDefinition parameterDefinition) {
-        if (allowedParameterClasses.contains(parameterDefinition.getType())) {
-            return new DefaultPropertyInterrogator(parameterDefinition);
+    public PropertyInterrogator createInterrogatorInternal(OptionDefinition optionDefinition) {
+        if (allowedOptionClasses.contains(optionDefinition.getType())) {
+            return new DefaultPropertyInterrogator(optionDefinition);
         } else {
-            return new DefaultPropertyInterrogator(parameterDefinition);
+            return new DefaultPropertyInterrogator(optionDefinition);
         }
     }
 

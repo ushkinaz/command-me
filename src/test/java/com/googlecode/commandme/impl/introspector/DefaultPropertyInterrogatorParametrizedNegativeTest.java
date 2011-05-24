@@ -65,17 +65,17 @@ public class DefaultPropertyInterrogatorParametrizedNegativeTest extends Default
         });
     }
 
-    public DefaultPropertyInterrogatorParametrizedNegativeTest(String methodName, Class parameterType, String value) {
-        super(methodName, parameterType, value);
+    public DefaultPropertyInterrogatorParametrizedNegativeTest(String methodName, Class optionType, String value) {
+        super(methodName, optionType, value);
     }
 
     @Test(expected = OptionSettingException.class)
     public void testSetValue() throws NoSuchMethodException {
-        OptionDefinition parameterDefinitionString = mock(OptionDefinition.class);
-        when(parameterDefinitionString.getType()).thenReturn(parameterType);
+        OptionDefinition optionDefinitionString = mock(OptionDefinition.class);
+        when(optionDefinitionString.getType()).thenReturn(optionType);
 
-        when(parameterDefinitionString.getWriterMethod()).thenReturn(DefaultPropertyInterrogatorParametrizedNegativeTest.class
-                .getMethod(methodName, parameterType));
+        when(optionDefinitionString.getWriterMethod()).thenReturn(DefaultPropertyInterrogatorParametrizedNegativeTest.class
+                .getMethod(methodName, optionType));
 
         interrogator.setValue(this, value);
         assertThat(called, is(false));

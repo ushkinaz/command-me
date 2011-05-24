@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * Pass boolean parameter to an action using full name
+ * Pass boolean option to an operand using full name
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446733">story</a>
  *

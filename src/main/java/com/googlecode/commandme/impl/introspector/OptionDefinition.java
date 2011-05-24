@@ -137,7 +137,7 @@ public class OptionDefinition {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("ParameterDefinition");
+        sb.append("OptionDefinition");
         sb.append("{longName='").append(longName).append('\'');
         sb.append(", shortName='").append(shortName).append('\'');
         sb.append(", type=").append(type);

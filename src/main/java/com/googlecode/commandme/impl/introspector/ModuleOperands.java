@@ -3,31 +3,31 @@ package com.googlecode.commandme.impl.introspector;
 import java.util.Set;
 
 /**
- * Lists actions available for the module
+ * Lists operands available for the module
  *
  * @author Dmitry Sidorenko
  */
 public interface ModuleOperands {
     /**
-     * Returns list of available actions
+     * Returns list of available operands
      *
-     * @return list of actions
+     * @return list of operands
      */
-    Set<OperandDefinition> getActions();
+    Set<OperandDefinition> getOperands();
 
     /**
-     * Returns action by its full name
+     * Returns operand by its full name
      *
-     * @param name long name of an action
-     * @return ParameterDefinition or null
+     * @param name long name of an operand
+     * @return OptionDefinition or null
      */
     OperandDefinition getByLongName(String name);
 
     /**
-     * Returns action by it's short name.
+     * Returns operand by it's short name.
      *
-     * @param name short name of an action
-     * @return ParameterDefinition or null
+     * @param name short name of an operand
+     * @return OptionDefinition or null
      */
     OperandDefinition getByShortName(String name);
 

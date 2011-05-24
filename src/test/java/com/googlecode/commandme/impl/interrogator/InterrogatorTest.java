@@ -26,14 +26,14 @@ public class InterrogatorTest {
     public void setUp() throws Exception {
         //noinspection unchecked
         moduleIntrospector = mock(ModuleIntrospector.class);
-        ModuleOperands moduleActions = new OperandsIntrospector<InterrogatorTest>(InterrogatorTest.class);
-        moduleActions.inspect();
+        ModuleOperands moduleOperands = new OperandsIntrospector<InterrogatorTest>(InterrogatorTest.class);
+        moduleOperands.inspect();
 
-        ModuleOptions moduleParameters = new OptionsIntrospector<InterrogatorTest>(InterrogatorTest.class);
-        moduleParameters.inspect();
+        ModuleOptions moduleOptions = new OptionsIntrospector<InterrogatorTest>(InterrogatorTest.class);
+        moduleOptions.inspect();
 
-        when(moduleIntrospector.getActions()).thenReturn(moduleActions);
-        when(moduleIntrospector.getParameters()).thenReturn(moduleParameters);
+        when(moduleIntrospector.getOperands()).thenReturn(moduleOperands);
+        when(moduleIntrospector.getOptions()).thenReturn(moduleOptions);
     }
 
     @After

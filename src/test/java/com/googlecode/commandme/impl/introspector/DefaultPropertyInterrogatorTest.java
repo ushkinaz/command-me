@@ -38,10 +38,10 @@ public class DefaultPropertyInterrogatorTest {
 
     @Before
     public void setUp() throws Exception {
-        OptionDefinition parameterDefinitionString = Mockito.mock(OptionDefinition.class, RETURNS_DEFAULTS);
-        when(parameterDefinitionString.getType()).thenReturn(String.class);
+        OptionDefinition optionDefinitionString = Mockito.mock(OptionDefinition.class, RETURNS_DEFAULTS);
+        when(optionDefinitionString.getType()).thenReturn(String.class);
 
-        interrogator = new DefaultPropertyInterrogator(parameterDefinitionString);
+        interrogator = new DefaultPropertyInterrogator(optionDefinitionString);
     }
 
     @Test

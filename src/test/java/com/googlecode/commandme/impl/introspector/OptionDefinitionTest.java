@@ -26,34 +26,34 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class OptionDefinitionTest {
-    private OptionDefinition parameterDefinition;
+    private OptionDefinition optionDefinition;
 
     @Before
     public void setup() {
-        parameterDefinition = new OptionDefinition();
+        optionDefinition = new OptionDefinition();
     }
 
     @Test(expected = IllegalStateException.class)
     public void testSetLongNameCantBeSetTwice() throws Exception {
-        parameterDefinition.setLongName("One");
-        parameterDefinition.setLongName("Two");
+        optionDefinition.setLongName("One");
+        optionDefinition.setLongName("Two");
     }
 
     @Test
     public void testSetLongName() throws Exception {
-        parameterDefinition.setLongName("One");
-        Assert.assertThat(parameterDefinition.getLongName(), CoreMatchers.is("One"));
+        optionDefinition.setLongName("One");
+        Assert.assertThat(optionDefinition.getLongName(), CoreMatchers.is("One"));
     }
 
     @Test
     public void testSetShortName() throws Exception {
-        parameterDefinition.setShortName("One");
-        Assert.assertThat(parameterDefinition.getShortName(), CoreMatchers.is("One"));
+        optionDefinition.setShortName("One");
+        Assert.assertThat(optionDefinition.getShortName(), CoreMatchers.is("One"));
     }
 
     @Test(expected = IllegalStateException.class)
     public void testSetShortNameCantBeSetTwice() throws Exception {
-        parameterDefinition.setShortName("One");
-        parameterDefinition.setShortName("Two");
+        optionDefinition.setShortName("One");
+        optionDefinition.setShortName("Two");
     }
 }

@@ -24,42 +24,42 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-@SuppressWarnings({"UnusedParameters"})
+@SuppressWarnings({"UnusedOptions"})
 public class OptionsIntrospectorShortNamesTest {
     @Test
     public void testShortNames() throws Exception {
-        OptionsIntrospector<ShortModule1> parameters = new OptionsIntrospector<ShortModule1>(ShortModule1.class);
-        parameters.inspect();
+        OptionsIntrospector<ShortModule1> options = new OptionsIntrospector<ShortModule1>(ShortModule1.class);
+        options.inspect();
 
-        assertThat(parameters.getByShortName("n"), notNullValue());
-        assertThat(parameters.getByShortName("m"), notNullValue());
-        assertThat("Default short name not set", parameters.getByShortName("p"), notNullValue());
+        assertThat(options.getByShortName("n"), notNullValue());
+        assertThat(options.getByShortName("m"), notNullValue());
+        assertThat("Default short name not set", options.getByShortName("p"), notNullValue());
     }
 
     @Test(expected = OptionDefinitionException.class)
     public void testShortNamesBad() throws Exception {
-        OptionsIntrospector<ShortModuleBad1> parameters = new OptionsIntrospector<ShortModuleBad1>(ShortModuleBad1.class);
-        parameters.inspect();
+        OptionsIntrospector<ShortModuleBad1> options = new OptionsIntrospector<ShortModuleBad1>(ShortModuleBad1.class);
+        options.inspect();
     }
 
     @Test
     public void testShortNameDefault() throws Exception {
-        OptionsIntrospector<ShortModuleDefault> parameters = new OptionsIntrospector<ShortModuleDefault>(ShortModuleDefault.class);
-        parameters.inspect();
-        assertThat(parameters.getByShortName("n"), notNullValue());
+        OptionsIntrospector<ShortModuleDefault> options = new OptionsIntrospector<ShortModuleDefault>(ShortModuleDefault.class);
+        options.inspect();
+        assertThat(options.getByShortName("n"), notNullValue());
     }
 
     @Test
     public void testShortNameOverlap() throws Exception {
-        OptionsIntrospector<ShortModuleOverlap> parameters = new OptionsIntrospector<ShortModuleOverlap>(ShortModuleOverlap.class);
-        parameters.inspect();
-        assertThat(parameters.getByShortName("n"), CoreMatchers.nullValue());
+        OptionsIntrospector<ShortModuleOverlap> options = new OptionsIntrospector<ShortModuleOverlap>(ShortModuleOverlap.class);
+        options.inspect();
+        assertThat(options.getByShortName("n"), CoreMatchers.nullValue());
     }
 
     @Test(expected = OptionDefinitionException.class)
     public void testShortNamesBadSameShorts() throws Exception {
-        OptionsIntrospector<ShortModuleBad2> parameters = new OptionsIntrospector<ShortModuleBad2>(ShortModuleBad2.class);
-        parameters.inspect();
+        OptionsIntrospector<ShortModuleBad2> options = new OptionsIntrospector<ShortModuleBad2>(ShortModuleBad2.class);
+        options.inspect();
     }
 
     private static class ShortModule1 {

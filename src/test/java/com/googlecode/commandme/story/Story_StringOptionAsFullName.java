@@ -26,7 +26,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * Pass string parameter to a module using full name
+ * Pass string option to a module using full name
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446727">story</a>
  *
@@ -55,7 +55,7 @@ public class Story_StringOptionAsFullName extends Story<Story_StringOptionAsFull
     public void testStory() throws Exception {
         commandLine.execute(new String[]{"greet", "--name", JOHN_SMITH});
 
-        assertThat("Parameter was not set", commandLine.getModule().getName(), is(JOHN_SMITH));
+        assertThat("Option was not set", commandLine.getModule().getName(), is(JOHN_SMITH));
     }
 
     @Test

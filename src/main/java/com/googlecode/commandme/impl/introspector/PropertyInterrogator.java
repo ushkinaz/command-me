@@ -27,7 +27,7 @@ public interface PropertyInterrogator {
 
     /**
      * Does this property type needs value to be set?
-     * Common use case is boolean parameter.
+     * Common use case is boolean option.
      *
      * @return true if can be avoided
      */

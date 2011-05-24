@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Interrogates an instance, injects values of arguments and calls actions.
+ * Interrogates an instance, injects values of arguments and calls operands.
  * Instances of this class are not reusable.
  *
  * @author Dmitry Sidorenko
@@ -40,7 +40,7 @@ public class Interrogator<T> {
     private final String[]           arguments;
     private       TokenType          currentToken;
     private       boolean            expectsValue;
-    private OptionDefinition parameterDef = null;
+    private OptionDefinition optionDef = null;
 
     /**
      * A constructor.
@@ -56,93 +56,93 @@ public class Interrogator<T> {
     }
 
     /**
-     * Does actual injecting and calls actions
+     * Does actual injecting and calls operands
      */
     public void torture() {
-        currentToken = TokenType.ACTION;
+        currentToken = TokenType.OPERAND;
         expectsValue = false;
 
         for (String argument : arguments) {
             LOGGER.debug("Parsing: {}", argument);
-            //Previous token was parameter which expects value
+            //Previous token was option which expects value
             if (expectsValue) {
                 handleValue(argument);
             } else if (argument.startsWith("--")) {
-                handleParameter(argument.substring(2), false);
+                handleOption(argument.substring(2), false);
             } else if (argument.startsWith("-")) {
-                handleParameter(argument.substring(1), true);
+                handleOption(argument.substring(1), true);
             } else {
                 switch (currentToken) {
-                    case PARAMETER:
+                    case OPTION:
                         handleValue(argument);
                         break;
                     case VALUE:
-                    case ACTION:
-                        handleAction(argument);
+                    case OPERAND:
+                        handleOperand(argument);
                         break;
                 }
             }
         }
     }
 
-    private void handleParameter(String token, boolean shortForm) {
-        LOGGER.debug("handleParameter");
-        currentToken = TokenType.PARAMETER;
+    private void handleOption(String token, boolean shortForm) {
+        LOGGER.debug("handleOption");
+        currentToken = TokenType.OPTION;
         if (shortForm) {
-            parameterDef = moduleIntrospector.getParameters().getByShortName(token);
+            optionDef = moduleIntrospector.getOptions().getByShortName(token);
         } else {
-            parameterDef = moduleIntrospector.getParameters().getByLongName(token);
+            optionDef = moduleIntrospector.getOptions().getByLongName(token);
         }
 
-        if (parameterDef == null) {
-            throw new OptionSettingException("Can't find parameter:" + token);
+        if (optionDef == null) {
+            throw new OptionSettingException("Can't find option:" + token);
         }
-        expectsValue = parameterDef.getInterrogator().needValue();
+        expectsValue = optionDef.getInterrogator().needValue();
     }
 
-    private void handleAction(String token) {
-        LOGGER.debug("handleAction");
-        currentToken = TokenType.ACTION;
-        callAction(token);
+    private void handleOperand(String token) {
+        LOGGER.debug("handleOperand");
+        currentToken = TokenType.OPERAND;
+        callOperand(token);
     }
 
     private void handleValue(String token) {
         LOGGER.debug("handleValue");
         currentToken = TokenType.VALUE;
-        assert parameterDef != null;
-        parameterDef.getInterrogator().setValue(module, token);
+        assert optionDef != null;
+        optionDef.getInterrogator().setValue(module, token);
         // value parsed
-        parameterDef = null;
+        optionDef = null;
         expectsValue = false;
     }
 
-    private void callAction(String longActionName) {
-        OperandDefinition definition = moduleIntrospector.getActions().getByLongName(longActionName);
+    private void callOperand(String longOperandName) {
+        OperandDefinition definition = moduleIntrospector.getOperands().getByLongName(longOperandName);
         if (definition != null) {
-            LOGGER.debug("Executing action: {}", definition);
+            LOGGER.debug("Executing operand: {}", definition);
             try {
                 definition.getMethod().invoke(module);
             } catch (Exception e) {
                 LOGGER.warn("Exception", e);
-                throw new CliException("Exception invoking action: " + definition, e);
+                throw new CliException("Exception invoking operand: " + definition, e);
             }
         } else {
-            LOGGER.warn("Can't find action: {}", longActionName);
-            throw new OperandInvocationException("Can't find action: " + longActionName);
+            LOGGER.warn("Can't find operand: {}", longOperandName);
+            throw new OperandInvocationException("Can't find operand: " + longOperandName);
         }
     }
 
     private enum TokenType {
         /**
-         * Parameter with value
+         * Option with value
          */
-        PARAMETER,
+        OPTION,
         /**
-         * Action
+         * Operand
          */
-        ACTION,
+        OPERAND,
         /**
-         * Value of a parameter
+         * Value of a option
          */
         VALUE
     }

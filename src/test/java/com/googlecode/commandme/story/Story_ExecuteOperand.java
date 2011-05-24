@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Execute a method marked as @Action
+ * Execute a method marked as @Operand
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446725">story</a>
  *

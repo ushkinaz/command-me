@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Defines an action
+ * Defines an operand
  *
  * @author Dmitry Sidorenko
  */
@@ -30,40 +30,40 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Operand {
     /**
-     * The name of this action.
+     * The name of this operand.
      * Default is to have name equals to method name.
      *
-     * @return The name of this action
+     * @return The name of this operand
      */
     String name() default "";
 
     /**
-     * Short name of this action.
+     * Short name of this operand.
      * No defaults.
      *
-     * @return Short name of this action
+     * @return Short name of this operand
      */
     String shortName() default "";
 
     /**
-     * A description of this action
+     * A description of this operand
      *
-     * @return A description of this action
+     * @return A description of this operand
      */
     String description() default "";
 
     /**
-     * is this is default action for module
+     * is this is default operand for module
      *
-     * @return is this is default action for module
+     * @return is this is default operand for module
      */
-    boolean defaultAction() default false;
+    boolean defaultOperand() default false;
 
     /**
-     * Should help be displayed if this parameter is
+     * Should help be displayed if this option is
      * present.
      *
-     * @return True if this parameter is a help parameter
+     * @return True if this option is a help option
      */
     boolean helpRequest() default false;
 }

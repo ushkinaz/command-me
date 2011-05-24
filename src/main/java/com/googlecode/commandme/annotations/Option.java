@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Defines a parameter. This annotation should be placed on setter method of a parameter.
+ * Defines a option. This annotation should be placed on setter method of a option.
  * That method should have only one argument of primitive type and it should be public.
  *
  * @author Dmitry Sidorenko
@@ -31,31 +31,31 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Option {
     /**
-     * The long name of this parameter
+     * The long name of this option
      *
-     * @return The long name of this parameter
+     * @return The long name of this option
      */
     String longName() default "";
 
     /**
-     * The short name of this parameter
+     * The short name of this option
      *
-     * @return The short name of this parameter
+     * @return The short name of this option
      */
     String shortName() default "";
 
     /**
-     * A description of this parameter
+     * A description of this option
      *
-     * @return A description of this parameter
+     * @return A description of this option
      */
     String description() default "";
 
     /**
-     * Should help be displayed if this parameter is
+     * Should help be displayed if this option is
      * present.
      *
-     * @return True if this parameter is a help parameter
+     * @return True if this option is a help option
      */
     boolean helpRequest() default false;
 }

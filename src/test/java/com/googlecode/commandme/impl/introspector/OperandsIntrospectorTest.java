@@ -29,58 +29,58 @@ import static org.junit.Assume.assumeThat;
  * @author Dmitry Sidorenko
  */
 public class OperandsIntrospectorTest {
-    private OperandsIntrospector actionsIntrospector;
+    private OperandsIntrospector operandsIntrospector;
 
     @Before
     public void setUp() throws Exception {
-        actionsIntrospector = new OperandsIntrospector<TestModule>(TestModule.class);
-        actionsIntrospector.inspect();
+        operandsIntrospector = new OperandsIntrospector<TestModule>(TestModule.class);
+        operandsIntrospector.inspect();
     }
 
     @Test
-    public void testGetActions() throws Exception {
-        assertThat(actionsIntrospector.getActions().size(), is(2));
+    public void testGetOperands() throws Exception {
+        assertThat(operandsIntrospector.getOperands().size(), is(2));
     }
 
     @Test
     public void testGetByLongName() throws Exception {
-        assertThat(actionsIntrospector.getByLongName("greet").getLongName(), is("greet"));
-        assertThat(actionsIntrospector.getByLongName("gr"), nullValue());
+        assertThat(operandsIntrospector.getByLongName("greet").getLongName(), is("greet"));
+        assertThat(operandsIntrospector.getByLongName("gr"), nullValue());
     }
 
     @Test
-    public void testNotAccessibleAction() throws Exception {
-        assertThat(actionsIntrospector.getByLongName("privateer"), nullValue());
+    public void testNotAccessibleOperand() throws Exception {
+        assertThat(operandsIntrospector.getByLongName("privateer"), nullValue());
     }
 
     @Test
-    public void testActionWithParams() throws Exception {
-        assertThat(actionsIntrospector.getByLongName("params"), nullValue());
+    public void testOperandWithParams() throws Exception {
+        assertThat(operandsIntrospector.getByLongName("params"), nullValue());
     }
 
     @Test
     public void testSpecifyName() throws Exception {
-        assumeThat(actionsIntrospector.getActions(), notNullValue());
+        assumeThat(operandsIntrospector.getOperands(), notNullValue());
 
-        assertThat(actionsIntrospector.getByLongName("ciao"), notNullValue());
-        assertThat(actionsIntrospector.getByShortName("bb"), notNullValue());
+        assertThat(operandsIntrospector.getByLongName("ciao"), notNullValue());
+        assertThat(operandsIntrospector.getByShortName("bb"), notNullValue());
     }
 
     @Test(expected = OperandDefinitionException.class)
     public void testDuplicateLongNames() throws Exception {
-        actionsIntrospector = new OperandsIntrospector<TestModuleDupLongNames>(TestModuleDupLongNames.class);
-        actionsIntrospector.inspect();
+        operandsIntrospector = new OperandsIntrospector<TestModuleDupLongNames>(TestModuleDupLongNames.class);
+        operandsIntrospector.inspect();
     }
 
     @Test(expected = OperandDefinitionException.class)
     public void testDuplicateShortNames() throws Exception {
-        actionsIntrospector = new OperandsIntrospector<TestModuleDupShortNames>(TestModuleDupShortNames.class);
-        actionsIntrospector.inspect();
+        operandsIntrospector = new OperandsIntrospector<TestModuleDupShortNames>(TestModuleDupShortNames.class);
+        operandsIntrospector.inspect();
     }
 
     @Test
     public void testInspect() throws Exception {
-        assertThat(actionsIntrospector.getActions(), notNullValue());
+        assertThat(operandsIntrospector.getOperands(), notNullValue());
     }
 
 

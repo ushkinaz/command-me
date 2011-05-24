@@ -1,4 +1,4 @@
 /**
- * Annotations for marking module's Actions and Parameters.
+ * Annotations for marking module's Operands and Options.
  */
 package com.googlecode.commandme.annotations;

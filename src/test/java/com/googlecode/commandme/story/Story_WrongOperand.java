@@ -21,7 +21,7 @@ import com.googlecode.commandme.OperandInvocationException;
 import org.junit.Test;
 
 /**
- * Passing wrong action name in cmd should throw an exception
+ * Passing wrong operand name in cmd should throw an exception
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13644361">story</a>
  *
@@ -31,6 +31,6 @@ public class Story_WrongOperand extends Story<Story_WrongOperand> {
 
     @Test(expected = OperandInvocationException.class)
     public void testStory() throws Exception {
-        commandLine.execute(new String[]{"no-action"});
+        commandLine.execute(new String[]{"no-operand"});
     }
 }

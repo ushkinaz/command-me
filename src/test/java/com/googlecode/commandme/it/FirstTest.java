@@ -102,7 +102,7 @@ public class FirstTest {
             formatCCalled = true;
         }
 
-        @Operand(defaultAction = true)
+        @Operand(defaultOperand = true)
         public void destroyTheWorld() {
             destroyTheWorldCalled = true;
         }
