@@ -235,7 +235,7 @@ public class ParametersIntrospectorTest {
         public void labelIt(String label) {
         }
 
-        @Parameter(longName = "foo", shortName = "f", defaultValue = "0", description = "none", helpRequest = true)
+        @Parameter(longName = "foo", shortName = "f", description = "none", helpRequest = true)
         public void setNoName(int i) {
         }
 

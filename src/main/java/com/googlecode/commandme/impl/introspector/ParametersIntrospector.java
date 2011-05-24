@@ -133,7 +133,6 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         sanityChecks(writerMethod);
         ParameterDefinition parameterDefinition = new ParameterDefinition();
         parameterDefinition.setWriterMethod(writerMethod);
-        parameterDefinition.setDefaultValue(parameter.defaultValue());
         parameterDefinition.setDescription(parameter.description());
 
         String propertyName = getPropertyName(parameter, writerMethod);
