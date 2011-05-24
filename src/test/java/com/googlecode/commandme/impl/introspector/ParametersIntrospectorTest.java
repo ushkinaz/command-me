@@ -23,8 +23,6 @@ package com.googlecode.commandme.impl.introspector;
 import com.googlecode.commandme.ParameterDefinitionException;
 import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Parameter;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -33,25 +31,22 @@ import static org.junit.Assert.assertThat;
 
 @SuppressWarnings({"UnusedParameters"})
 public class ParametersIntrospectorTest {
-    private ParametersIntrospector<TestModule1> parameters;
-
-    @Before
-    public void setup() {
-        parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
-    }
 
     @Test
     public void testModuleParameters() throws Exception {
+        ParametersIntrospector<TestModule1> parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
         assertThat(parameters.getParameterDefinitions(), notNullValue());
     }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testGetParameterDefinitions() throws Exception {
+        ParametersIntrospector<TestModule1> parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
         parameters.getParameterDefinitions().clear();
     }
 
     @Test
     public void testAddParameter() throws Exception {
+        ParametersIntrospector<TestModule1> parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
         final ParameterDefinition definition = new ParameterDefinition();
         parameters.addParameter(definition);
         assertThat(parameters.getParameterDefinitions().size(), is(1));
@@ -60,6 +55,7 @@ public class ParametersIntrospectorTest {
 
     @Test
     public void testGetByLongName() throws Exception {
+        ParametersIntrospector<TestModule1> parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
         ParameterDefinition definition = new ParameterDefinition();
         definition.setLongName("foo");
         parameters.addParameter(definition);
@@ -72,13 +68,16 @@ public class ParametersIntrospectorTest {
         assertThat(parameters.getByLongName("foo"), is(definition));
     }
 
+
     @Test
     public void testGetByShortName() throws Exception {
+        ParametersIntrospector<TestModule1> parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
         ParameterDefinition definition = new ParameterDefinition();
         definition.setShortName("f");
         parameters.addParameter(definition);
 
         ParameterDefinition definitionBar = new ParameterDefinition();
+        definitionBar.setLongName("bool");
         definitionBar.setShortName("b");
         parameters.addParameter(definitionBar);
 
@@ -88,6 +87,7 @@ public class ParametersIntrospectorTest {
 
     @Test
     public void testInspectParameters() throws Exception {
+        ParametersIntrospector<TestModule1> parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
         parameters.inspect();
         for (ParameterDefinition parameterDefinition : parameters.getParameterDefinitions()) {
             assertThat(parameterDefinition.getShortName(), notNullValue());
@@ -104,6 +104,7 @@ public class ParametersIntrospectorTest {
 
     @Test
     public void testNonBeanCompliantParams() throws Exception {
+        ParametersIntrospector<TestModule1> parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
         parameters.inspect();
         final ParameterDefinition fooParam = parameters.getByLongName("label");
         assertThat(fooParam, notNullValue());
@@ -114,6 +115,7 @@ public class ParametersIntrospectorTest {
 
     @Test
     public void testInspectParametersValuesAreCorrect() throws Exception {
+        ParametersIntrospector<TestModule1> parameters = new ParametersIntrospector<TestModule1>(TestModule1.class);
         parameters.inspect();
         final ParameterDefinition fooParam = parameters.getByLongName("foo");
         assertThat(fooParam, notNullValue());
@@ -154,58 +156,11 @@ public class ParametersIntrospectorTest {
         assertThat(fooParam, nullValue());
     }
 
-    static class BadModule1 {
+    private static class BadModule1 {
         @Parameter(longName = "name")
         public void setName(String name, int age) {
         }
 
-    }
-
-    @Test
-    @Ignore
-    public void testShortNames() throws Exception {
-        ParametersIntrospector<ShortModule1> parameters = new ParametersIntrospector<ShortModule1>(ShortModule1.class);
-        parameters.inspect();
-
-        final ParameterDefinition fooParam = parameters.getByLongName("name");
-        assertThat(fooParam, nullValue());
-    }
-
-    static class ShortModule1 {
-        @Parameter(shortName = "n")
-        public void setName(String name) {
-        }
-
-    }
-
-    @Test(expected = ParameterDefinitionException.class)
-    @Ignore
-    public void testShortNamesBad() throws Exception {
-        ParametersIntrospector<ShortModuleBad1> parameters = new ParametersIntrospector<ShortModuleBad1>(ShortModuleBad1.class);
-        parameters.inspect();
-    }
-
-    static class ShortModuleBad1 {
-        @Parameter(shortName = "loong")
-        public void setName(String name) {
-        }
-    }
-
-    @Test(expected = ParameterDefinitionException.class)
-    @Ignore
-    public void testShortNamesBadSameShorts() throws Exception {
-        ParametersIntrospector<ShortModuleBad2> parameters = new ParametersIntrospector<ShortModuleBad2>(ShortModuleBad2.class);
-        parameters.inspect();
-    }
-
-    static class ShortModuleBad2 {
-        @Parameter(shortName = "n")
-        public void setFuss(String name) {
-        }
-
-        @Parameter
-        public void setName(String name) {
-        }
     }
 
     @Test
@@ -227,7 +182,7 @@ public class ParametersIntrospectorTest {
         assertEquals(parameters.getByLongName("intC").getType(), Integer.class);
     }
 
-    static class IntModule {
+    private static class IntModule {
 
         @Parameter
         public void setInt(int id) {
@@ -263,14 +218,14 @@ public class ParametersIntrospectorTest {
         }
     }
 
-    static class BadModule2 {
+    private static class BadModule2 {
         @Parameter
         void setName(String name) {
         }
 
     }
 
-    static class TestModule1 {
+    private static class TestModule1 {
 
         @Parameter
         public void setName(String sd) {

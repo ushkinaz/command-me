@@ -60,8 +60,23 @@ public class ParametersIntrospector<T> implements ModuleParameters {
             return;
         }
         parameterDefinitions.add(parameterDefinition);
-        shortNamesMap.put(parameterDefinition.getShortName(), parameterDefinition);
-        longNamesMap.put(parameterDefinition.getLongName(), parameterDefinition);
+
+        String shortName = parameterDefinition.getShortName();
+
+        if (shortName != null && shortName.length() > 0) {
+            if (shortNamesMap.containsKey(shortName)) {
+                LOGGER.error("Already have parameter with short name: '{}'", shortName);
+                throw new ParameterDefinitionException("Already have parameter with short name: " + shortName);
+            }
+            shortNamesMap.put(shortName, parameterDefinition);
+        }
+
+        String longName = parameterDefinition.getLongName();
+        if (longNamesMap.containsKey(longName)) {
+            LOGGER.error("Already have parameter with name: '{}'", longName);
+            throw new ParameterDefinitionException("Already have parameter with name: " + longName);
+        }
+        longNamesMap.put(longName, parameterDefinition);
     }
 
     @Override
@@ -87,6 +102,31 @@ public class ParametersIntrospector<T> implements ModuleParameters {
                 addParameter(parameterDefinition);
             }
         }
+        assignDefaultShortNames();
+    }
+
+    private void assignDefaultShortNames() {
+        Set<String> shorties = new HashSet<String>();
+        Map<String, ParameterDefinition> uniqueShorties = new HashMap<String, ParameterDefinition>();
+
+        for (ParameterDefinition parameterDefinition : parameterDefinitions) {
+            if (parameterDefinition.getShortName() != null) {
+                continue;
+            }
+            String shortName = parameterDefinition.getLongName().substring(0, 1);
+            boolean wasNotPresent = shorties.add(shortName);
+            if (wasNotPresent) {
+                uniqueShorties.put(shortName, parameterDefinition);
+            } else {
+                LOGGER.warn("Default short names overlap {}, {}", new Object[]{uniqueShorties.get(shortName), parameterDefinition});
+                uniqueShorties.remove(shortName);
+            }
+        }
+        for (Map.Entry<String, ParameterDefinition> entry : uniqueShorties.entrySet()) {
+            entry.getValue().setShortName(entry.getKey());
+            LOGGER.debug("Set short name for {}", entry.getValue());
+        }
+        shortNamesMap.putAll(uniqueShorties);
     }
 
     private ParameterDefinition inspectProperty(Parameter parameter, Method writerMethod) throws CliException {
@@ -105,10 +145,14 @@ public class ParametersIntrospector<T> implements ModuleParameters {
         parameterDefinition.setLongName(longName);
 
         String shortName = parameter.shortName();
-        if ("".equals(shortName)) {
-            shortName = propertyName.substring(0, 1);
+        if (shortName.length() > 1) {
+            LOGGER.error("Short name can't be long: {}", parameter);
+            throw new ParameterDefinitionException("Short name can't be long: " + parameter);
+
         }
-        parameterDefinition.setShortName(shortName);
+        if (shortName.length() > 0) {
+            parameterDefinition.setShortName(shortName);
+        }
 
         parameterDefinition.setShowInHelp(parameter.helpRequest());
 
