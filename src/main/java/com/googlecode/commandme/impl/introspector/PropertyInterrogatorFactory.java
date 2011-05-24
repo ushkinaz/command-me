@@ -43,11 +43,11 @@ public class PropertyInterrogatorFactory {
         allowedParameterClasses.add(Boolean.class);
     }
 
-    public static PropertyInterrogator createInterrogator(ParameterDefinition parameterDefinition) {
+    public static PropertyInterrogator createInterrogator(OptionDefinition parameterDefinition) {
         return factory.createInterrogatorInternal(parameterDefinition);
     }
 
-    public PropertyInterrogator createInterrogatorInternal(ParameterDefinition parameterDefinition) {
+    public PropertyInterrogator createInterrogatorInternal(OptionDefinition parameterDefinition) {
         if (allowedParameterClasses.contains(parameterDefinition.getType())) {
             return new DefaultPropertyInterrogator(parameterDefinition);
         } else {

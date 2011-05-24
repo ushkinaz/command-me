@@ -17,7 +17,7 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.ActionInvocationException;
+import com.googlecode.commandme.OperandInvocationException;
 import org.junit.Test;
 
 /**
@@ -27,9 +27,9 @@ import org.junit.Test;
  *
  * @author Dmitry Sidorenko
  */
-public class Story_WrongAction extends Story<Story_WrongAction> {
+public class Story_WrongOperand extends Story<Story_WrongOperand> {
 
-    @Test(expected = ActionInvocationException.class)
+    @Test(expected = OperandInvocationException.class)
     public void testStory() throws Exception {
         commandLine.execute(new String[]{"no-action"});
     }

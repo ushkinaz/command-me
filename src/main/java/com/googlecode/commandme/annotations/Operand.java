@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Action {
+public @interface Operand {
     /**
      * The name of this action.
      * Default is to have name equals to method name.

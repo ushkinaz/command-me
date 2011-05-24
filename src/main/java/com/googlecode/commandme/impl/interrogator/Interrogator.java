@@ -16,12 +16,12 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.ActionInvocationException;
+import com.googlecode.commandme.OperandInvocationException;
 import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.ParameterSettingException;
-import com.googlecode.commandme.impl.introspector.ActionDefinition;
+import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.impl.introspector.OperandDefinition;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
-import com.googlecode.commandme.impl.introspector.ParameterDefinition;
+import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +40,7 @@ public class Interrogator<T> {
     private final String[]           arguments;
     private       TokenType          currentToken;
     private       boolean            expectsValue;
-    private ParameterDefinition parameterDef = null;
+    private OptionDefinition parameterDef = null;
 
     /**
      * A constructor.
@@ -95,7 +95,7 @@ public class Interrogator<T> {
         }
 
         if (parameterDef == null) {
-            throw new ParameterSettingException("Can't find parameter:" + token);
+            throw new OptionSettingException("Can't find parameter:" + token);
         }
         expectsValue = parameterDef.getInterrogator().needValue();
     }
@@ -117,7 +117,7 @@ public class Interrogator<T> {
     }
 
     private void callAction(String longActionName) {
-        ActionDefinition definition = moduleIntrospector.getActions().getByLongName(longActionName);
+        OperandDefinition definition = moduleIntrospector.getActions().getByLongName(longActionName);
         if (definition != null) {
             LOGGER.debug("Executing action: {}", definition);
             try {
@@ -128,7 +128,7 @@ public class Interrogator<T> {
             }
         } else {
             LOGGER.warn("Can't find action: {}", longActionName);
-            throw new ActionInvocationException("Can't find action: " + longActionName);
+            throw new OperandInvocationException("Can't find action: " + longActionName);
         }
     }
 

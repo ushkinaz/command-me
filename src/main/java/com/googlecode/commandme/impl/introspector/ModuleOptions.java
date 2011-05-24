@@ -5,23 +5,23 @@ import java.util.List;
 /**
  * @author Dmitry Sidorenko
  */
-public interface ModuleParameters {
+public interface ModuleOptions {
     /**
-     * @return unmodifiable list of {@link com.googlecode.commandme.impl.introspector.ParameterDefinition}
+     * @return unmodifiable list of {@link OptionDefinition}
      */
-    List<ParameterDefinition> getParameterDefinitions();
+    List<OptionDefinition> getParameterDefinitions();
 
     /**
      * @param name long name of a parameter
      * @return ParameterDefinition or null
      */
-    ParameterDefinition getByLongName(String name);
+    OptionDefinition getByLongName(String name);
 
     /**
      * @param name short name of a parameter
      * @return ParameterDefinition or null
      */
-    ParameterDefinition getByShortName(String name);
+    OptionDefinition getByShortName(String name);
 
     /**
      * Inspects class for parameters

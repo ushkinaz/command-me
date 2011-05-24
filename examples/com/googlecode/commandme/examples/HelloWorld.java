@@ -17,8 +17,8 @@
 package com.googlecode.commandme.examples;
 
 import com.googlecode.commandme.CLIParser;
-import com.googlecode.commandme.annotations.Action;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Option;
 
 /**
  * Full command line: {@literal "HelloWorld --name "John Smith" -t 2 -h --money 100.0 greet bye"}<br/>
@@ -33,7 +33,7 @@ public class HelloWorld {
     private boolean heartly;
     private double  money;
 
-    @Action
+    @Operand
     public void greet() {
         System.out.println("Hello, " + name + "!");
         if (heartly) {
@@ -44,7 +44,7 @@ public class HelloWorld {
         }
     }
 
-    @Action
+    @Operand
     public void bye() {
         System.out.println("Bye, " + name + "!");
         if (money > 0) {
@@ -52,22 +52,22 @@ public class HelloWorld {
         }
     }
 
-    @Parameter
+    @Option
     public void setName(String name) {
         this.name = name;
     }
 
-    @Parameter
+    @Option
     public void setTimes(int times) {
         this.times = times;
     }
 
-    @Parameter()
+    @Option()
     public void setHeartly(boolean heartly) {
         this.heartly = heartly;
     }
 
-    @Parameter
+    @Option
     public void setMoney(double money) {
         this.money = money;
     }

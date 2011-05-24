@@ -1,20 +1,20 @@
 package com.googlecode.commandme;
 
-import com.googlecode.commandme.impl.introspector.ActionDefinition;
+import com.googlecode.commandme.impl.introspector.OperandDefinition;
 
 /**
  * @author Dmitry Sidorenko
  */
-public class ActionDefinitionException extends CliException {
+public class OperandDefinitionException extends CliException {
 
-    private final ActionDefinition actionDefinition;
+    private final OperandDefinition actionDefinition;
 
-    public ActionDefinitionException(String message, ActionDefinition actionDefinition) {
+    public OperandDefinitionException(String message, OperandDefinition actionDefinition) {
         super(message);
         this.actionDefinition = actionDefinition;
     }
 
-    public ActionDefinition getActionDefinition() {
+    public OperandDefinition getActionDefinition() {
         return actionDefinition;
     }
 }

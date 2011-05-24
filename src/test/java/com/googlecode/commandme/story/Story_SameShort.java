@@ -17,8 +17,8 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.ParameterSettingException;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
 /**
@@ -30,16 +30,16 @@ import org.junit.Test;
  */
 public class Story_SameShort extends Story<Story_SameShort> {
 
-    @Test(expected = ParameterSettingException.class)
+    @Test(expected = OptionSettingException.class)
     public void testStory() throws Exception {
         commandLine.execute(new String[]{"-f"});
     }
 
-    @Parameter
+    @Option
     public void setFlag(boolean flag) {
     }
 
-    @Parameter
+    @Option
     public void setFlame(boolean good) {
     }
 }

@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 /**
  * @author Dmitry Sidorenko
  */
-public class ActionDefinitionTest {
+public class OperandDefinitionTest {
 
     public static final String LONG_NAME  = "long";
     public static final String SHORT_NAME = "shorty";
@@ -17,29 +17,29 @@ public class ActionDefinitionTest {
 
     @Test
     public void testSetAction() throws Exception {
-        ActionDefinition definition = new ActionDefinition();
-        Method testSetAction = ActionDefinitionTest.class.getMethod("testSetAction");
+        OperandDefinition definition = new OperandDefinition();
+        Method testSetAction = OperandDefinitionTest.class.getMethod("testSetAction");
         definition.setAction(testSetAction);
         Assert.assertThat(definition.getMethod(), CoreMatchers.is(testSetAction));
     }
 
     @Test
     public void testSetLongName() throws Exception {
-        ActionDefinition definition = new ActionDefinition();
+        OperandDefinition definition = new OperandDefinition();
         definition.setLongName(LONG_NAME);
         Assert.assertThat(definition.getLongName(), CoreMatchers.is(LONG_NAME));
     }
 
     @Test
     public void testSetShortName() throws Exception {
-        ActionDefinition definition = new ActionDefinition();
+        OperandDefinition definition = new OperandDefinition();
         definition.setShortName(SHORT_NAME);
         Assert.assertThat(definition.getShortName(), CoreMatchers.is(SHORT_NAME));
     }
 
     @Test
     public void testSetDescription() throws Exception {
-        ActionDefinition definition = new ActionDefinition();
+        OperandDefinition definition = new OperandDefinition();
         definition.setDescription(DESC);
         Assert.assertThat(definition.getDescription(), CoreMatchers.is(DESC));
     }

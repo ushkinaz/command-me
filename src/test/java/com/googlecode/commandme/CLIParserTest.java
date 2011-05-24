@@ -16,7 +16,7 @@
 
 package com.googlecode.commandme;
 
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,11 +55,11 @@ public class CLIParserTest {
         public TestModule() {
         }
 
-        @Parameter
+        @Option
         public void setName(String sd) {
         }
 
-        @Parameter(longName = "foo", shortName = "f", description = "none", helpRequest = true)
+        @Option(longName = "foo", shortName = "f", description = "none", helpRequest = true)
         public void setNoName(int i) {
         }
     }

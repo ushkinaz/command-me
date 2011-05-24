@@ -20,8 +20,8 @@ package com.googlecode.commandme.impl.introspector;
  * @author Dmitry Sidorenko
  */
 
-import com.googlecode.commandme.annotations.Action;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Option;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,15 +62,15 @@ public class ModuleIntrospectorTest {
 
     static class TestModule1 {
 
-        @Parameter
+        @Option
         public void setName(String sd) {
         }
 
-        @Parameter(longName = "foo", shortName = "f", description = "none", helpRequest = true)
+        @Option(longName = "foo", shortName = "f", description = "none", helpRequest = true)
         public void setNoName(int i) {
         }
 
-        @Action
+        @Operand
         public void greet() {
 
         }

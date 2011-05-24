@@ -16,8 +16,8 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.ParameterDefinitionException;
-import com.googlecode.commandme.annotations.Parameter;
+import com.googlecode.commandme.OptionDefinitionException;
+import com.googlecode.commandme.annotations.Option;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
@@ -25,10 +25,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 @SuppressWarnings({"UnusedParameters"})
-public class ParametersIntrospectorShortNamesTest {
+public class OptionsIntrospectorShortNamesTest {
     @Test
     public void testShortNames() throws Exception {
-        ParametersIntrospector<ShortModule1> parameters = new ParametersIntrospector<ShortModule1>(ShortModule1.class);
+        OptionsIntrospector<ShortModule1> parameters = new OptionsIntrospector<ShortModule1>(ShortModule1.class);
         parameters.inspect();
 
         assertThat(parameters.getByShortName("n"), notNullValue());
@@ -36,74 +36,74 @@ public class ParametersIntrospectorShortNamesTest {
         assertThat("Default short name not set", parameters.getByShortName("p"), notNullValue());
     }
 
-    @Test(expected = ParameterDefinitionException.class)
+    @Test(expected = OptionDefinitionException.class)
     public void testShortNamesBad() throws Exception {
-        ParametersIntrospector<ShortModuleBad1> parameters = new ParametersIntrospector<ShortModuleBad1>(ShortModuleBad1.class);
+        OptionsIntrospector<ShortModuleBad1> parameters = new OptionsIntrospector<ShortModuleBad1>(ShortModuleBad1.class);
         parameters.inspect();
     }
 
     @Test
     public void testShortNameDefault() throws Exception {
-        ParametersIntrospector<ShortModuleDefault> parameters = new ParametersIntrospector<ShortModuleDefault>(ShortModuleDefault.class);
+        OptionsIntrospector<ShortModuleDefault> parameters = new OptionsIntrospector<ShortModuleDefault>(ShortModuleDefault.class);
         parameters.inspect();
         assertThat(parameters.getByShortName("n"), notNullValue());
     }
 
     @Test
     public void testShortNameOverlap() throws Exception {
-        ParametersIntrospector<ShortModuleOverlap> parameters = new ParametersIntrospector<ShortModuleOverlap>(ShortModuleOverlap.class);
+        OptionsIntrospector<ShortModuleOverlap> parameters = new OptionsIntrospector<ShortModuleOverlap>(ShortModuleOverlap.class);
         parameters.inspect();
         assertThat(parameters.getByShortName("n"), CoreMatchers.nullValue());
     }
 
-    @Test(expected = ParameterDefinitionException.class)
+    @Test(expected = OptionDefinitionException.class)
     public void testShortNamesBadSameShorts() throws Exception {
-        ParametersIntrospector<ShortModuleBad2> parameters = new ParametersIntrospector<ShortModuleBad2>(ShortModuleBad2.class);
+        OptionsIntrospector<ShortModuleBad2> parameters = new OptionsIntrospector<ShortModuleBad2>(ShortModuleBad2.class);
         parameters.inspect();
     }
 
     private static class ShortModule1 {
-        @Parameter(shortName = "n")
+        @Option(shortName = "n")
         public void setName(String name) {
         }
 
-        @Parameter(shortName = "m")
+        @Option(shortName = "m")
         public void setMessage(String message) {
         }
 
-        @Parameter()
+        @Option()
         public void setPassword(String pass) {
         }
     }
 
     private static class ShortModuleBad1 {
-        @Parameter(shortName = "loong")
+        @Option(shortName = "loong")
         public void setName(String name) {
         }
     }
 
     private static class ShortModuleOverlap {
-        @Parameter
+        @Option
         public void setName(String name) {
         }
 
-        @Parameter
+        @Option
         public void setNoise(String noise) {
         }
     }
 
     private static class ShortModuleDefault {
-        @Parameter
+        @Option
         public void setName(String name) {
         }
     }
 
     private static class ShortModuleBad2 {
-        @Parameter(shortName = "n")
+        @Option(shortName = "n")
         public void setFuss(String name) {
         }
 
-        @Parameter(shortName = "n")
+        @Option(shortName = "n")
         public void setName(String name) {
         }
     }

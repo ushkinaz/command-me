@@ -24,9 +24,9 @@ import java.lang.reflect.Method;
 /**
  * @author Dmitry Sidorenko
  */
-public class ParameterDefinition {
+public class OptionDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParameterDefinition.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OptionDefinition.class);
 
     private String               longName;
     private String               shortName;
@@ -37,7 +37,7 @@ public class ParameterDefinition {
     private Method               writerMethod;
     private PropertyInterrogator interrogator;
 
-    ParameterDefinition() {
+    OptionDefinition() {
     }
 
     public void setLongName(String longName) {
@@ -105,7 +105,7 @@ public class ParameterDefinition {
             return false;
         }
 
-        ParameterDefinition that = (ParameterDefinition) o;
+        OptionDefinition that = (OptionDefinition) o;
 
         if (showInHelp != that.showInHelp) {
             return false;
