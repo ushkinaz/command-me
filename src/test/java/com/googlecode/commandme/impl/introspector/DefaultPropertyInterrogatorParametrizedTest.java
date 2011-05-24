@@ -19,7 +19,7 @@ package com.googlecode.commandme.impl.introspector;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.runners.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +44,7 @@ public class DefaultPropertyInterrogatorParametrizedTest {
     protected boolean                     called;
 
     protected final String methodName;
-    protected final Class  parameterType;
+    protected final Class  optionType;
     protected final String value;
 
     @Parameterized.Parameters
@@ -77,21 +77,21 @@ public class DefaultPropertyInterrogatorParametrizedTest {
         });
     }
 
-    public DefaultPropertyInterrogatorParametrizedTest(String methodName, Class parameterType, String value) {
-        LOGGER.info("Testing with method:{}, type:{}, value:{}", new Object[]{methodName, parameterType, value});
+    public DefaultPropertyInterrogatorParametrizedTest(String methodName, Class optionType, String value) {
+        LOGGER.info("Testing with method:{}, type:{}, value:{}", new Object[]{methodName, optionType, value});
         this.methodName = methodName;
-        this.parameterType = parameterType;
+        this.optionType = optionType;
         this.value = value;
 
     }
 
     @Before
     public void setUp() throws Exception {
-        OptionDefinition parameterDefinitionString = mock(OptionDefinition.class);
-        when(parameterDefinitionString.getType()).thenReturn(parameterType);
+        OptionDefinition optionDefinitionString = mock(OptionDefinition.class);
+        when(optionDefinitionString.getType()).thenReturn(optionType);
 
-        when(parameterDefinitionString.getWriterMethod()).thenReturn(DefaultPropertyInterrogatorParametrizedTest.class.getMethod(methodName, parameterType));
-        interrogator = new DefaultPropertyInterrogator(parameterDefinitionString);
+        when(optionDefinitionString.getWriterMethod()).thenReturn(DefaultPropertyInterrogatorParametrizedTest.class.getMethod(methodName, optionType));
+        interrogator = new DefaultPropertyInterrogator(optionDefinitionString);
     }
 
     @Test

@@ -39,11 +39,11 @@ public class InterrogatorFactory {
      *
      * @param instance           module instance
      * @param moduleIntrospector module introspector
-     * @param parameters         parameters passed from command line
+     * @param options         options passed from command line
      * @return created interrogator
      */
-    public static <T> Interrogator<T> createInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
-        return factory.create(instance, moduleIntrospector, parameters);
+    public static <T> Interrogator<T> createInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] options) {
+        return factory.create(instance, moduleIntrospector, options);
     }
 
     public static void setFactory(InterrogatorFactory factory) {
@@ -54,9 +54,9 @@ public class InterrogatorFactory {
         InterrogatorFactory.factory = new InterrogatorFactory();
     }
 
-    protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+    protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] options) {
         LOGGER.debug("Creating interrogator for {} ", moduleIntrospector.getClz().getName());
-        return new Interrogator<T>(instance, moduleIntrospector, parameters);
+        return new Interrogator<T>(instance, moduleIntrospector, options);
     }
 
 }

@@ -24,7 +24,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Pass integer parameter to an action using full name
+ * Pass integer option to an operand using full name
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446729">story</a>
  *

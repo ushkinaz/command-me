@@ -3,13 +3,13 @@ package com.googlecode.commandme.impl.introspector;
 import java.lang.reflect.Method;
 
 /**
- * Definition of an action
+ * Definition of an operand
  *
  * @author Dmitry Sidorenko
  */
 public final class OperandDefinition {
 
-    private Method action;
+    private Method operand;
 
     private String longName;
     private String shortName;
@@ -20,11 +20,11 @@ public final class OperandDefinition {
     }
 
     public Method getMethod() {
-        return action;
+        return operand;
     }
 
-    void setAction(Method action) {
-        this.action = action;
+    void setOperand(Method operand) {
+        this.operand = operand;
     }
 
     public String getLongName() {
@@ -63,7 +63,7 @@ public final class OperandDefinition {
 
         OperandDefinition that = (OperandDefinition) o;
 
-        if (!action.equals(that.action)) {
+        if (!operand.equals(that.operand)) {
             return false;
         }
         if (!longName.equals(that.longName)) {
@@ -78,7 +78,7 @@ public final class OperandDefinition {
 
     @Override
     public int hashCode() {
-        int result = action.hashCode();
+        int result = operand.hashCode();
         result = 31 * result + longName.hashCode();
         result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
         return result;
@@ -86,8 +86,8 @@ public final class OperandDefinition {
 
     @Override
     public String toString() {
-        return "ActionDefinition{" +
-                "action=" + action.getName() +
+        return "OperandDefinition{" +
+                "operand=" + operand.getName() +
                 ", longName='" + longName + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", description='" + description + '\'' +

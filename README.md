@@ -3,17 +3,17 @@ There are quite a lot of command line (cli) parsing libraries. While they do the
 ```java
 public class Invitor {
 
-    @Parameter
+    @Option
     public void setName(String name){
 
     }
 
-    @Parameter
+    @Option
     public void setMoney(int amount){
 
     }
 
-    @Action
+    @Operand
     public void invite(){
 
     }

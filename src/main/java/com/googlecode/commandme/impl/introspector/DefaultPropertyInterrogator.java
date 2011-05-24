@@ -31,35 +31,35 @@ import java.lang.reflect.InvocationTargetException;
 public class DefaultPropertyInterrogator implements PropertyInterrogator {
     @SuppressWarnings({"unused"})
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPropertyInterrogator.class);
-    private final OptionDefinition parameterDefinition;
+    private final OptionDefinition optionDefinition;
 
-    DefaultPropertyInterrogator(OptionDefinition parameterDefinition) {
-        this.parameterDefinition = parameterDefinition;
+    DefaultPropertyInterrogator(OptionDefinition optionDefinition) {
+        this.optionDefinition = optionDefinition;
     }
 
     @Override
     public void setValue(Object instance, String value) {
-        LOGGER.debug("Setting value '{}' to {}", new Object[]{value, parameterDefinition});
-        Class parameterType = parameterDefinition.getType();
-        if (parameterType.isPrimitive()) {
-            parameterType = findWrapperClass(parameterType);
+        LOGGER.debug("Setting value '{}' to {}", new Object[]{value, optionDefinition});
+        Class optionType = optionDefinition.getType();
+        if (optionType.isPrimitive()) {
+            optionType = findWrapperClass(optionType);
         }
         try {
-            Constructor constructor = parameterType.getConstructor(String.class);
+            Constructor constructor = optionType.getConstructor(String.class);
             Object convertedValue = constructor.newInstance(value);
-            parameterDefinition.getWriterMethod().invoke(instance, convertedValue);
+            optionDefinition.getWriterMethod().invoke(instance, convertedValue);
         } catch (NoSuchMethodException e) {
-            LOGGER.warn("Can't find appropriate constructor for {}", parameterType, e);
-            throw new OptionSettingException("Can't find appropriate constructor for " + parameterType, e);
+            LOGGER.warn("Can't find appropriate constructor for {}", optionType, e);
+            throw new OptionSettingException("Can't find appropriate constructor for " + optionType, e);
         } catch (InstantiationException e) {
-            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, parameterType}, e);
-            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
+            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, optionType}, e);
+            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + optionType, e);
         } catch (IllegalAccessException e) {
-            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, parameterType}, e);
-            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
+            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, optionType}, e);
+            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + optionType, e);
         } catch (InvocationTargetException e) {
-            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, parameterType}, e);
-            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + parameterType, e);
+            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, optionType}, e);
+            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + optionType, e);
         }
     }
 

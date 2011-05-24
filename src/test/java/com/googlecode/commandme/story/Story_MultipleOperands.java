@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Pass multiple actions in command line
+ * Pass multiple operands in command line
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446743">story</a>
  *

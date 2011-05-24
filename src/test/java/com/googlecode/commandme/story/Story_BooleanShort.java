@@ -24,7 +24,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Short form of boolean parameter, true
+ * Short form of boolean option, true
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446737">story</a>
  *

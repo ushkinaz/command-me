@@ -18,37 +18,37 @@ public class OperandsIntrospector<T> implements ModuleOperands {
     private static final Logger LOGGER = LoggerFactory.getLogger(OperandsIntrospector.class);
 
     private final Class<T>                      clz;
-    private final Set<OperandDefinition>         actions;
+    private final Set<OperandDefinition>         operands;
     private final Map<String, OperandDefinition> shortNames;
     private final Map<String, OperandDefinition> longNames;
 
     public OperandsIntrospector(Class<T> clz) {
         this.clz = clz;
-        actions = new HashSet<OperandDefinition>();
+        operands = new HashSet<OperandDefinition>();
         shortNames = new HashMap<String, OperandDefinition>();
         longNames = new HashMap<String, OperandDefinition>();
     }
 
-    private void addAction(OperandDefinition actionDefinition) {
-        actions.add(actionDefinition);
-        OperandDefinition previous = longNames.put(actionDefinition.getLongName(), actionDefinition);
-        checkClash(actionDefinition, previous);
-        if (actionDefinition.getShortName() != null) {
-            previous = shortNames.put(actionDefinition.getShortName(), actionDefinition);
-            checkClash(actionDefinition, previous);
+    private void addOperand(OperandDefinition operandDefinition) {
+        operands.add(operandDefinition);
+        OperandDefinition previous = longNames.put(operandDefinition.getLongName(), operandDefinition);
+        checkClash(operandDefinition, previous);
+        if (operandDefinition.getShortName() != null) {
+            previous = shortNames.put(operandDefinition.getShortName(), operandDefinition);
+            checkClash(operandDefinition, previous);
         }
     }
 
-    private void checkClash(OperandDefinition actionDefinition, OperandDefinition previousDefinition) {
+    private void checkClash(OperandDefinition operandDefinition, OperandDefinition previousDefinition) {
         if (previousDefinition != null) {
-            LOGGER.error("Duplicate actions definitions");
-            throw new OperandDefinitionException("Actions clashed: new=" + actionDefinition + ", old=" + previousDefinition, actionDefinition);
+            LOGGER.error("Duplicate operands definitions");
+            throw new OperandDefinitionException("Operands clashed: new=" + operandDefinition + ", old=" + previousDefinition, operandDefinition);
         }
     }
 
     @Override
-    public Set<OperandDefinition> getActions() {
-        return actions;
+    public Set<OperandDefinition> getOperands() {
+        return operands;
     }
 
     @Override
@@ -65,30 +65,30 @@ public class OperandsIntrospector<T> implements ModuleOperands {
     @Override
     public void inspect() {
         for (Method method : clz.getMethods()) {
-            Operand actionAnnotation = method.getAnnotation(Operand.class);
-            if (actionAnnotation == null) {
+            Operand operandAnnotation = method.getAnnotation(Operand.class);
+            if (operandAnnotation == null) {
                 continue;
             }
 
             if (method.getParameterTypes().length > 0) {
-                LOGGER.warn("Actions with parameters are not yet supported: {}", method);
+                LOGGER.warn("Operands with options are not yet supported: {}", method);
                 continue;
             }
 
             OperandDefinition definition = new OperandDefinition();
-            definition.setAction(method);
-            if (actionAnnotation.name().length() > 0) {
-                definition.setLongName(actionAnnotation.name());
+            definition.setOperand(method);
+            if (operandAnnotation.name().length() > 0) {
+                definition.setLongName(operandAnnotation.name());
             } else {
                 definition.setLongName(method.getName());
             }
-            if (actionAnnotation.shortName().length() > 0) {
-                definition.setShortName(actionAnnotation.shortName());
+            if (operandAnnotation.shortName().length() > 0) {
+                definition.setShortName(operandAnnotation.shortName());
             }
-            if (actionAnnotation.description().length() > 0) {
-                definition.setDescription(actionAnnotation.description());
+            if (operandAnnotation.description().length() > 0) {
+                definition.setDescription(operandAnnotation.description());
             }
-            addAction(definition);
+            addOperand(definition);
         }
     }
 }

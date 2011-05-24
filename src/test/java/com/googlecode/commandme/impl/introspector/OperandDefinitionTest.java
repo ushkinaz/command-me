@@ -16,11 +16,11 @@ public class OperandDefinitionTest {
     public static final String DESC       = "desc";
 
     @Test
-    public void testSetAction() throws Exception {
+    public void testSetOperand() throws Exception {
         OperandDefinition definition = new OperandDefinition();
-        Method testSetAction = OperandDefinitionTest.class.getMethod("testSetAction");
-        definition.setAction(testSetAction);
-        Assert.assertThat(definition.getMethod(), CoreMatchers.is(testSetAction));
+        Method testSetOperand = OperandDefinitionTest.class.getMethod("testSetOperand");
+        definition.setOperand(testSetOperand);
+        Assert.assertThat(definition.getMethod(), CoreMatchers.is(testSetOperand));
     }
 
     @Test

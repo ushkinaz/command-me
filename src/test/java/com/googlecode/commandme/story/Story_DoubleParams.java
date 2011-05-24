@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Pass double type parameter to an action using full name
+ * Pass double type option to an operand using full name
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446735">story</a>
  *

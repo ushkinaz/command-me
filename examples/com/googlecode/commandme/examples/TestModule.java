@@ -15,50 +15,50 @@ public class TestModule {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(TestModule.class);
 
-    private String parameterString1;
-    private String parameterString2;
+    private String optionString1;
+    private String optionString2;
 
-    private int     parameterInt1;
-    private Integer parameterInt2;
+    private int     optionInt1;
+    private Integer optionInt2;
 
-    private Double parameterDouble1;
-    private double parameterDouble2;
+    private Double optionDouble1;
+    private double optionDouble2;
 
-    private Date parameterDate1;
+    private Date optionDate1;
 
     @Option
-    public void setParameterString1(String parameterString1) {
-        this.parameterString1 = parameterString1;
+    public void setOptionString1(String optionString1) {
+        this.optionString1 = optionString1;
     }
 
     @Option
-    public void setParameterString2(String parameterString2) {
-        this.parameterString2 = parameterString2;
+    public void setOptionString2(String optionString2) {
+        this.optionString2 = optionString2;
     }
 
     @Option
-    public void setParameterInt1(int parameterInt1) {
-        this.parameterInt1 = parameterInt1;
+    public void setOptionInt1(int optionInt1) {
+        this.optionInt1 = optionInt1;
     }
 
     @Option
-    public void setParameterInt2(Integer parameterInt2) {
-        this.parameterInt2 = parameterInt2;
+    public void setOptionInt2(Integer optionInt2) {
+        this.optionInt2 = optionInt2;
     }
 
     @Option
-    public void setParameterDouble1(Double parameterDouble1) {
-        this.parameterDouble1 = parameterDouble1;
+    public void setOptionDouble1(Double optionDouble1) {
+        this.optionDouble1 = optionDouble1;
     }
 
     @Option
-    public void setParameterDouble2(double parameterDouble2) {
-        this.parameterDouble2 = parameterDouble2;
+    public void setOptionDouble2(double optionDouble2) {
+        this.optionDouble2 = optionDouble2;
     }
 
     @Option
-    public void setParameterDate1(Date parameterDate1) {
-        this.parameterDate1 = parameterDate1;
+    public void setOptionDate1(Date optionDate1) {
+        this.optionDate1 = optionDate1;
     }
 
     @Operand

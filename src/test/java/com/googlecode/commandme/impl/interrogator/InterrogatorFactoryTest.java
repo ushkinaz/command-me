@@ -42,7 +42,7 @@ public class InterrogatorFactoryTest {
     public void testSetFactory() throws Exception {
         InterrogatorFactory.setFactory(new InterrogatorFactory() {
             @Override
-            protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
+            protected <T> Interrogator<T> create(T instance, ModuleIntrospector moduleIntrospector, String[] options) {
                 return new MyInterrogator<T>(instance, moduleIntrospector, new String[]{"-m", "\"one\"", "ci"});
             }
         });
@@ -52,8 +52,8 @@ public class InterrogatorFactoryTest {
     }
 
     private static class MyInterrogator<T> extends Interrogator<T> {
-        public MyInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] parameters) {
-            super(instance, moduleIntrospector, parameters);
+        public MyInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] options) {
+            super(instance, moduleIntrospector, options);
         }
     }
 

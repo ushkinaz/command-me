@@ -24,7 +24,7 @@ package com.googlecode.commandme;
 public interface CommandLine<T> {
 
     /**
-     * Instantiates an instance of class T, fills it with parameters and calls appropriate methods
+     * Instantiates an instance of class T, fills it with options and calls appropriate methods
      *
      * @param arguments arguments to parse
      * @return instance of a class

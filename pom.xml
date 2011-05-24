@@ -8,7 +8,7 @@
 
     <name>Command Me</name>
 
-    <description>Library for easy command line parameters parsing</description>
+    <description>Library for easy command line options parsing</description>
     <inceptionYear>2010</inceptionYear>
 
     <organization>

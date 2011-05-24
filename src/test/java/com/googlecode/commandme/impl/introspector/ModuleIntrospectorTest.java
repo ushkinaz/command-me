@@ -43,20 +43,20 @@ public class ModuleIntrospectorTest {
     }
 
     @Test
-    public void testGetParameters() {
-        assertThat(moduleIntrospector.getParameters(), notNullValue());
+    public void testGetOptions() {
+        assertThat(moduleIntrospector.getOptions(), notNullValue());
     }
 
     @Test
-    public void testGetActions() {
-        assertThat(moduleIntrospector.getActions(), notNullValue());
+    public void testGetOperands() {
+        assertThat(moduleIntrospector.getOperands(), notNullValue());
     }
 
     /**
      * Smoke test that no exception is thrown
      */
     @Test
-    public void testInspectActions() {
+    public void testInspectOperands() {
         moduleIntrospector.inspect();
     }
 

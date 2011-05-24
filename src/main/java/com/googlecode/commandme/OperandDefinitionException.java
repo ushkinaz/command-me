@@ -7,14 +7,14 @@ import com.googlecode.commandme.impl.introspector.OperandDefinition;
  */
 public class OperandDefinitionException extends CliException {
 
-    private final OperandDefinition actionDefinition;
+    private final OperandDefinition operandDefinition;
 
-    public OperandDefinitionException(String message, OperandDefinition actionDefinition) {
+    public OperandDefinitionException(String message, OperandDefinition operandDefinition) {
         super(message);
-        this.actionDefinition = actionDefinition;
+        this.operandDefinition = operandDefinition;
     }
 
-    public OperandDefinition getActionDefinition() {
-        return actionDefinition;
+    public OperandDefinition getOperandDefinition() {
+        return operandDefinition;
     }
 }
