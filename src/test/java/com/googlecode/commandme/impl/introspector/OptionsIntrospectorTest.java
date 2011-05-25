@@ -95,7 +95,6 @@ public class OptionsIntrospectorTest {
 
             assertThat(optionDefinition.getLongName(), notNullValue());
 
-            assertThat(optionDefinition.getDefaultValue(), notNullValue());
             assertThat(optionDefinition.getDescription(), notNullValue());
             assertThat(optionDefinition.getType(), notNullValue());
         }
@@ -122,7 +121,6 @@ public class OptionsIntrospectorTest {
         assertThat(fooParam.getLongName(), is("foo"));
         assertThat(fooParam.getShortName(), is("f"));
         assertEquals(Integer.TYPE, fooParam.getType());
-        assertThat(fooParam.getDefaultValue(), is("0"));
         assertThat(fooParam.getDescription(), is("none"));
 
         final OptionDefinition nameParam = options.getByLongName("name");
@@ -130,7 +128,6 @@ public class OptionsIntrospectorTest {
         assertThat(nameParam.getLongName(), is("name"));
         assertThat(nameParam.getShortName(), is("n"));
         assertEquals(String.class, nameParam.getType());
-        assertThat(nameParam.getDefaultValue(), is(""));
         assertThat(nameParam.getDescription(), is(""));
 
 
@@ -140,7 +137,6 @@ public class OptionsIntrospectorTest {
 
             assertThat(optionDefinition.getLongName(), notNullValue());
 
-            assertThat(optionDefinition.getDefaultValue(), notNullValue());
             assertThat(optionDefinition.getDescription(), notNullValue());
             assertThat(optionDefinition.getType(), notNullValue());
         }

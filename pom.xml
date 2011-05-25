@@ -24,24 +24,9 @@
 
     <name>Command Me</name>
 
+    <url>http://ushkinaz.github.com/command-me/</url>
     <description>Library for easy command line options parsing</description>
     <inceptionYear>2010</inceptionYear>
-
-    <organization>
-        <name>Dmitry Sidorenko</name>
-        <url>http://www.sid0renk0.ru/</url>
-    </organization>
-
-    <scm>
-        <url>https://bitbucket.org/dmitry.sidorenko/command-me/</url>
-        <connection>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</connection>
-        <developerConnection>scm:hg:https://bitbucket.org/dmitry.sidorenko/command-me</developerConnection>
-    </scm>
-
-    <issueManagement>
-        <system>PivotalTracker</system>
-        <url>https://www.pivotaltracker.com/projects/102363</url>
-    </issueManagement>
 
     <licenses>
         <license>
@@ -49,6 +34,27 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
+
+    <organization>
+        <name>Dmitry Sidorenko</name>
+        <url>https://github.com/ushkinaz/</url>
+    </organization>
+
+    <scm>
+        <url>https://github.com/ushkinaz/command-me</url>
+        <connection>scm:git:git://github.com/ushkinaz/command-me.git</connection>
+        <developerConnection>scm:git:git@github.com:ushkinaz/command-me.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>PivotalTracker</system>
+        <url>https://www.pivotaltracker.com/projects/102363</url>
+    </issueManagement>
+
+    <ciManagement>
+        <url>https://ushkinaz.ci.cloudbees.com/</url>
+        <system>Jenkins</system>
+    </ciManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
