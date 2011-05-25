@@ -31,8 +31,8 @@
     </scm>
 
     <issueManagement>
-        <system>PivotalTracker</system>
-        <url>https://www.pivotaltracker.com/projects/102363</url>
+        <system>GitHub issues</system>
+        <url>https://github.com/ushkinaz/command-me/issues</url>
     </issueManagement>
 
     <ciManagement>
