@@ -31,7 +31,6 @@ public class OptionDefinition {
     private String               longName;
     private String               shortName;
     private Class                type;
-    private String               defaultValue;
     private String               description;
     private boolean              showInHelp;
     private Method               writerMethod;
@@ -59,10 +58,6 @@ public class OptionDefinition {
         interrogator = PropertyInterrogatorFactory.createInterrogator(this);
     }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -81,10 +76,6 @@ public class OptionDefinition {
 
     public Class getType() {
         return type;
-    }
-
-    public String getDefaultValue() {
-        return defaultValue;
     }
 
     public String getDescription() {
@@ -108,9 +99,6 @@ public class OptionDefinition {
         OptionDefinition that = (OptionDefinition) o;
 
         if (showInHelp != that.showInHelp) {
-            return false;
-        }
-        if (defaultValue != null ? !defaultValue.equals(that.defaultValue) : that.defaultValue != null) {
             return false;
         }
         if (description != null ? !description.equals(that.description) : that.description != null) {
@@ -141,7 +129,6 @@ public class OptionDefinition {
         sb.append("{longName='").append(longName).append('\'');
         sb.append(", shortName='").append(shortName).append('\'');
         sb.append(", type=").append(type);
-        sb.append(", defaultValue='").append(defaultValue).append('\'');
         sb.append(", description='").append(description).append('\'');
         sb.append(", showInHelp=").append(showInHelp);
         sb.append('}');
