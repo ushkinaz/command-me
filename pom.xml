@@ -40,6 +40,17 @@
         <system>Jenkins</system>
     </ciManagement>
 
+    <distributionManagement>
+        <repository>
+            <id>cloudbee-release</id>
+            <url>https://repository-ushkinaz.forge.cloudbees.com/release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>cloudbee-snapshot</id>
+            <url>https://repository-ushkinaz.forge.cloudbees.com/snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
