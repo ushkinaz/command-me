@@ -40,6 +40,15 @@
         <url>https://github.com/ushkinaz/</url>
     </organization>
 
+    <developers>
+        <developer>
+            <id>dmitry.sidorenko</id>
+            <name>Dmitry Sidorenko</name>
+            <email>rustydragon@gmail.com</email>
+            <timezone>3</timezone>
+        </developer>
+    </developers>
+
     <scm>
         <url>https://github.com/ushkinaz/command-me</url>
         <connection>scm:git:git://github.com/ushkinaz/command-me.git</connection>
