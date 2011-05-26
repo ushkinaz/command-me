@@ -21,9 +21,9 @@ public interface PropertyInterrogator {
      * Sets value from it's string representation
      *
      * @param instance instance to set value
-     * @param value    actual value
+     * @param values   actual values
      */
-    void setValue(Object instance, String value);
+    void setValue(Object instance, String... values);
 
     /**
      * Does this property type needs value to be set?

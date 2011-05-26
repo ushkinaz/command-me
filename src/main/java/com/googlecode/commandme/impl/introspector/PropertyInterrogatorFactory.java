@@ -16,6 +16,7 @@
 
 package com.googlecode.commandme.impl.introspector;
 
+import com.googlecode.commandme.OptionDefinitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +28,8 @@ import java.util.Set;
  */
 public class PropertyInterrogatorFactory {
     @SuppressWarnings({"unused"})
-    private static final Logger                      LOGGER                  = LoggerFactory.getLogger(PropertyInterrogatorFactory.class);
-    private static       PropertyInterrogatorFactory factory                 = new PropertyInterrogatorFactory();
+    private static final Logger                      LOGGER               = LoggerFactory.getLogger(PropertyInterrogatorFactory.class);
+    private static       PropertyInterrogatorFactory factory              = new PropertyInterrogatorFactory();
     private static final Set<Class>                  allowedOptionClasses = new HashSet<Class>();
 
     static {
@@ -48,11 +49,26 @@ public class PropertyInterrogatorFactory {
     }
 
     public PropertyInterrogator createInterrogatorInternal(OptionDefinition optionDefinition) {
-        if (allowedOptionClasses.contains(optionDefinition.getType())) {
-            return new DefaultPropertyInterrogator(optionDefinition);
+        PropertyInterrogator propertyInterrogator;
+        // Boolean has to be first
+        if (optionDefinition.getType().equals(Boolean.TYPE) || optionDefinition.getType().equals(Boolean.class)) {
+            propertyInterrogator = new BooleanPropertyInterrogator(optionDefinition);
+        } else if (optionDefinition.getType().isPrimitive()) {
+            propertyInterrogator = new DefaultPropertyInterrogator(optionDefinition);
+        } else if (allowedOptionClasses.contains(optionDefinition.getType())) {
+            propertyInterrogator = new DefaultPropertyInterrogator(optionDefinition);
         } else {
-            return new DefaultPropertyInterrogator(optionDefinition);
+            //Check if we have public constructor with single String argument
+            try {
+                optionDefinition.getType().getConstructor(String.class);
+                propertyInterrogator = new DefaultPropertyInterrogator(optionDefinition);
+            } catch (NoSuchMethodException e) {
+                LOGGER.warn("Can't find public construction(Sring) for " + optionDefinition.getType(), e);
+                throw new OptionDefinitionException("Can't find public construction(Sring) for " + optionDefinition.getType());
+            }
         }
+
+        return propertyInterrogator;
     }
 
     public static void setFactory(PropertyInterrogatorFactory factory) {

@@ -26,7 +26,6 @@ public class FirstTest {
             "--comment",
             "Add me",
             "--verbose",
-            "true",
             "--revision",
             "34"
     };

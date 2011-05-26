@@ -40,10 +40,10 @@ public class Story_BooleanParams extends Story<Story_BooleanParams> {
 
     @Test
     public void testStory() throws Exception {
-        commandLine.execute(new String[]{"--flag", "true", "--dead", "true", "--raised", "false"});
+        commandLine.execute(new String[]{"--flag", "--dead"});
 
         assertThat(commandLine.getModule().flag, is(true));
-        assertThat(commandLine.getModule().raised, is(false));
+        assertThat(commandLine.getModule().raised, nullValue());
         assertThat(commandLine.getModule().dead, is(true));
     }
 
@@ -58,7 +58,7 @@ public class Story_BooleanParams extends Story<Story_BooleanParams> {
 
     @Test
     public void testNegativeStory() throws Exception {
-        commandLine.execute(new String[]{"--flag", "01"});
+        commandLine.execute(new String[]{});
         assertThat(commandLine.getModule().flag, is(false));
     }
 

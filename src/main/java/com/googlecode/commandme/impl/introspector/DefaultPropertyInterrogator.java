@@ -38,28 +38,30 @@ public class DefaultPropertyInterrogator implements PropertyInterrogator {
     }
 
     @Override
-    public void setValue(Object instance, String value) {
-        LOGGER.debug("Setting value '{}' to {}", new Object[]{value, optionDefinition});
+    public void setValue(Object instance, String... values) {
+        assert values.length == 1;
+
+        LOGGER.debug("Setting value '{}' to {}", new Object[]{values[0], optionDefinition});
         Class optionType = optionDefinition.getType();
         if (optionType.isPrimitive()) {
             optionType = findWrapperClass(optionType);
         }
         try {
             Constructor constructor = optionType.getConstructor(String.class);
-            Object convertedValue = constructor.newInstance(value);
+            Object convertedValue = constructor.newInstance(values[0]);
             optionDefinition.getWriterMethod().invoke(instance, convertedValue);
         } catch (NoSuchMethodException e) {
             LOGGER.warn("Can't find appropriate constructor for {}", optionType, e);
             throw new OptionSettingException("Can't find appropriate constructor for " + optionType, e);
         } catch (InstantiationException e) {
-            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, optionType}, e);
-            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + optionType, e);
+            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{values, optionType}, e);
+            throw new OptionSettingException("Can't convert value from String '" + values[0] + "' to " + optionType, e);
         } catch (IllegalAccessException e) {
-            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, optionType}, e);
-            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + optionType, e);
+            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{values, optionType}, e);
+            throw new OptionSettingException("Can't convert value from String '" + values[0] + "' to " + optionType, e);
         } catch (InvocationTargetException e) {
-            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{value, optionType}, e);
-            throw new OptionSettingException("Can't convert value from String '" + value + "' to " + optionType, e);
+            LOGGER.warn("Can't convert value from String '{}' to {}", new Object[]{values, optionType}, e);
+            throw new OptionSettingException("Can't convert value from String '" + values[0] + "' to " + optionType, e);
         }
     }
 
