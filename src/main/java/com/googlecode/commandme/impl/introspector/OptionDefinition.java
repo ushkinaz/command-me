@@ -16,6 +16,8 @@
 
 package com.googlecode.commandme.impl.introspector;
 
+import com.googlecode.commandme.impl.interrogator.PropertyInterrogator;
+import com.googlecode.commandme.impl.interrogator.PropertyInterrogatorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +38,7 @@ public class OptionDefinition {
     private Method               writerMethod;
     private PropertyInterrogator interrogator;
 
-    OptionDefinition() {
+    public OptionDefinition() {
     }
 
     public void setLongName(String longName) {

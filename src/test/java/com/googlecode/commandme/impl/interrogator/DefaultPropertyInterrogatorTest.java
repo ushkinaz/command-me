@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.googlecode.commandme.impl.introspector;
+package com.googlecode.commandme.impl.interrogator;
 
+import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
