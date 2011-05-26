@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.googlecode.commandme.impl.introspector;
+package com.googlecode.commandme.impl.interrogator;
 
+import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.*;
+import org.junit.runners.Parameterized;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

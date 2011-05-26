@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.googlecode.commandme.impl.introspector;
+package com.googlecode.commandme.impl.interrogator;
 
 import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
