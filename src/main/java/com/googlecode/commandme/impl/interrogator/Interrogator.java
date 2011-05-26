@@ -16,11 +16,11 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.OperandInvocationException;
 import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.OperandInvocationException;
 import com.googlecode.commandme.OptionSettingException;
-import com.googlecode.commandme.impl.introspector.OperandDefinition;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
+import com.googlecode.commandme.impl.introspector.OperandDefinition;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,6 @@ public class Interrogator<T> {
     private final ModuleIntrospector moduleIntrospector;
     private final String[]           arguments;
     private       TokenType          currentToken;
-    private       boolean            expectsValue;
     private OptionDefinition optionDef = null;
 
     /**
@@ -60,17 +59,16 @@ public class Interrogator<T> {
      */
     public void torture() {
         currentToken = TokenType.OPERAND;
-        expectsValue = false;
 
         for (String argument : arguments) {
             LOGGER.debug("Parsing: {}", argument);
             //Previous token was option which expects value
-            if (expectsValue) {
+            if (currentToken == TokenType.OPTION) {
                 handleValue(argument);
             } else if (argument.startsWith("--")) {
-                handleOption(argument.substring(2), false);
+                handleLongNameOption(argument.substring(2));
             } else if (argument.startsWith("-")) {
-                handleOption(argument.substring(1), true);
+                handleMultipleOptions(argument.substring(1));
             } else {
                 switch (currentToken) {
                     case OPTION:
@@ -78,42 +76,59 @@ public class Interrogator<T> {
                         break;
                     case VALUE:
                     case OPERAND:
+                    case OPTION_NO_VALUE:
                         handleOperand(argument);
                         break;
+                    default:
+                        LOGGER.warn("Something went wrong. Current token: '{}', previous tokenType: '{}'", new Object[]{argument, currentToken});
+                        throw new CliException("Something went wrong");
                 }
             }
         }
     }
 
-    private void handleOption(String token, boolean shortForm) {
-        LOGGER.debug("handleOption");
-        currentToken = TokenType.OPTION;
-        if (shortForm) {
-            optionDef = moduleIntrospector.getOptions().getByShortName(token);
-        } else {
-            optionDef = moduleIntrospector.getOptions().getByLongName(token);
+    private void handleMultipleOptions(String argument) {
+        for (Character c : argument.toCharArray()) {
+            handleShortNameOption(c.toString());
         }
+    }
 
+    private void handleLongNameOption(String token) {
+        optionDef = moduleIntrospector.getOptions().getByLongName(token);
+        handleOption(token);
+    }
+
+    private void handleShortNameOption(String token) {
+        optionDef = moduleIntrospector.getOptions().getByShortName(token);
+        handleOption(token);
+    }
+
+    private void handleOption(String token) {
+        LOGGER.debug("handle Option");
         if (optionDef == null) {
             throw new OptionSettingException("Can't find option:" + token);
         }
-        expectsValue = optionDef.getInterrogator().needValue();
+        currentToken = TokenType.OPTION;
+        if (!optionDef.getInterrogator().needValue()) {
+            currentToken = TokenType.OPTION_NO_VALUE;
+            optionDef.getInterrogator().setValue(module, "no value");
+            optionDef = null;
+        }
     }
 
     private void handleOperand(String token) {
-        LOGGER.debug("handleOperand");
+        LOGGER.debug("handle Operand");
         currentToken = TokenType.OPERAND;
         callOperand(token);
     }
 
     private void handleValue(String token) {
-        LOGGER.debug("handleValue");
+        LOGGER.debug("handle Value");
         currentToken = TokenType.VALUE;
         assert optionDef != null;
         optionDef.getInterrogator().setValue(module, token);
         // value parsed
         optionDef = null;
-        expectsValue = false;
     }
 
     private void callOperand(String longOperandName) {
@@ -137,6 +152,10 @@ public class Interrogator<T> {
          * Option with value
          */
         OPTION,
+        /**
+         * Option without value
+         */
+        OPTION_NO_VALUE,
         /**
          * Operand
          */

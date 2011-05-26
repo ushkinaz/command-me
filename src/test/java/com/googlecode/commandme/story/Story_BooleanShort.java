@@ -18,7 +18,6 @@
 package com.googlecode.commandme.story;
 
 import com.googlecode.commandme.annotations.Option;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -38,15 +37,14 @@ public class Story_BooleanShort extends Story<Story_BooleanShort> {
 
     @Test
     public void testStory() throws Exception {
-        commandLine.execute(new String[]{"-f", "true"});
+        commandLine.execute(new String[]{"-f"});
 
         assertThat(commandLine.getModule().flag, is(true));
     }
 
     @Test
-    @Ignore
     public void testStoryTwoOptions() throws Exception {
-        commandLine.execute(new String[]{"-fg"});
+        commandLine.execute(new String[]{"-fo"});
 
         assertThat(commandLine.getModule().flag, is(true));
         assertThat(commandLine.getModule().good, is(true));
