@@ -28,9 +28,9 @@ public class ModuleIntrospector<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuleIntrospector.class);
 
-    private final Class<T>         clz;
+    private final Class<T>      clz;
     private final ModuleOptions optionsIntrospector;
-    private final ModuleOperands operandsIntrospector;
+    private final ModuleActions actionsIntrospector;
 
     /**
      * Creates an introspector
@@ -39,7 +39,7 @@ public class ModuleIntrospector<T> {
      */
     ModuleIntrospector(Class<T> clz) {
         this.clz = clz;
-        operandsIntrospector = new OperandsIntrospector<T>(clz);
+        actionsIntrospector = new ActionsIntrospector<T>(clz);
         optionsIntrospector = new OptionsIntrospector<T>(clz);
     }
 
@@ -47,7 +47,7 @@ public class ModuleIntrospector<T> {
      * Introspects a module
      */
     public void inspect() {
-        operandsIntrospector.inspect();
+        actionsIntrospector.inspect();
         optionsIntrospector.inspect();
     }
 
@@ -59,7 +59,7 @@ public class ModuleIntrospector<T> {
         return optionsIntrospector;
     }
 
-    public ModuleOperands getOperands() {
-        return operandsIntrospector;
+    public ModuleActions getActions() {
+        return actionsIntrospector;
     }
 }

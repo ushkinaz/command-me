@@ -20,7 +20,7 @@ package com.googlecode.commandme.impl.introspector;
  * @author Dmitry Sidorenko
  */
 
-import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Option;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,15 +48,15 @@ public class ModuleIntrospectorTest {
     }
 
     @Test
-    public void testGetOperands() {
-        assertThat(moduleIntrospector.getOperands(), notNullValue());
+    public void testGetActions() {
+        assertThat(moduleIntrospector.getActions(), notNullValue());
     }
 
     /**
      * Smoke test that no exception is thrown
      */
     @Test
-    public void testInspectOperands() {
+    public void testInspectActions() {
         moduleIntrospector.inspect();
     }
 
@@ -70,7 +70,7 @@ public class ModuleIntrospectorTest {
         public void setNoName(int i) {
         }
 
-        @Operand
+        @Action
         public void greet() {
 
         }

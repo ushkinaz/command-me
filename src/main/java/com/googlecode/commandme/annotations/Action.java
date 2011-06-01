@@ -22,42 +22,42 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Defines an operand
+ * Defines an action
  *
  * @author Dmitry Sidorenko
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Operand {
+public @interface Action {
     /**
-     * The name of this operand.
+     * The name of this action.
      * Default is to have name equals to method name.
      *
-     * @return The name of this operand
+     * @return The name of this action
      */
     String name() default "";
 
     /**
-     * Short name of this operand.
+     * Short name of this action.
      * No defaults.
      *
-     * @return Short name of this operand
+     * @return Short name of this action
      */
     String shortName() default "";
 
     /**
-     * A description of this operand
+     * A description of this action
      *
-     * @return A description of this operand
+     * @return A description of this action
      */
     String description() default "";
 
     /**
-     * is this is default operand for module
+     * is this is default action for module
      *
-     * @return is this is default operand for module
+     * @return is this is default action for module
      */
-    boolean defaultOperand() default false;
+    boolean defaultAction() default false;
 
     /**
      * Should help be displayed if this option is

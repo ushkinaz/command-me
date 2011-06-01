@@ -1,7 +1,23 @@
+/*
+ * Copyright (c) 2010-2011, Dmitry Sidorenko. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.googlecode.commandme.it;
 
 import com.googlecode.commandme.CLIParser;
-import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -86,27 +102,27 @@ public class FirstTest {
             return commitCalled;
         }
 
-        @Operand(name = "verify")
+        @Action(name = "verify")
         public void doVerify() {
             verifyCalled = true;
         }
 
-        @Operand
+        @Action
         public void commit() {
             commitCalled = true;
         }
 
-        @Operand(name = "format")
+        @Action(name = "format")
         public void formatC() {
             formatCCalled = true;
         }
 
-        @Operand(defaultOperand = true)
+        @Action(defaultAction = true)
         public void destroyTheWorld() {
             destroyTheWorldCalled = true;
         }
 
-        @Operand(name = "make")
+        @Action(name = "make")
         public void reallyBadName() {
             reallyBadNameCalled = true;
         }

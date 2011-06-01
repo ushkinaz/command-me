@@ -13,7 +13,7 @@ public class Invitor {
 
     }
 
-    @Operand
+    @Action
     public void invite(){
 
     }

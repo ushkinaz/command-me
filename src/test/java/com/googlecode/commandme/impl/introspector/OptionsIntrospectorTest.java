@@ -21,7 +21,7 @@ package com.googlecode.commandme.impl.introspector;
  */
 
 import com.googlecode.commandme.OptionDefinitionException;
-import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
@@ -235,7 +235,7 @@ public class OptionsIntrospectorTest {
         public void setNoName(int i) {
         }
 
-        @Operand
+        @Action
         public void greet() {
 
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2010, Dmitry Sidorenko. All Rights Reserved.
+ * Copyright (c) 2010-2011, Dmitry Sidorenko. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,30 +18,30 @@
 package com.googlecode.commandme.story;
 
 import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Action;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Execute a method marked as @Operand
+ * Execute a method marked as @Action
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446725">story</a>
  *
  * @author Dmitry Sidorenko
  */
-public class Story_ExecuteOperand extends Story<Story_ExecuteOperand> {
+public class Story_ExecuteAction extends Story<Story_ExecuteAction> {
 
     private boolean called = false;
 
-    @Operand
+    @Action
     public void greet() {
         System.out.println("Hello");
         called = true;
     }
 
-    @Operand
+    @Action
     public void badboy() {
         System.out.println("Oh, my God!");
         throw new IllegalStateException("They've killed Kenny!");

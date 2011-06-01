@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2010, Dmitry Sidorenko. All Rights Reserved.
+ * Copyright (c) 2010-2011, Dmitry Sidorenko. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
@@ -46,7 +46,7 @@ public class Story_StringOptionAsFullName extends Story<Story_StringOptionAsFull
         return name;
     }
 
-    @Operand
+    @Action
     public void greet() {
         System.out.println("Hello, " + name);
     }

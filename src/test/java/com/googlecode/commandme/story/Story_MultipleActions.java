@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2010, Dmitry Sidorenko. All Rights Reserved.
+ * Copyright (c) 2010-2011, Dmitry Sidorenko. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,20 +18,20 @@
 package com.googlecode.commandme.story;
 
 import com.googlecode.commandme.OptionSettingException;
-import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.annotations.Action;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Pass multiple operands in command line
+ * Pass multiple actions in command line
  * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446743">story</a>
  *
  * @author Dmitry Sidorenko
  */
-public class Story_MultipleOperands extends Story<Story_MultipleOperands> {
+public class Story_MultipleActions extends Story<Story_MultipleActions> {
 
     private int count = 0;
 
@@ -47,17 +47,17 @@ public class Story_MultipleOperands extends Story<Story_MultipleOperands> {
         commandLine.execute(new String[]{"--flag", "issue"});
     }
 
-    @Operand
+    @Action
     public void one() {
         this.count++;
     }
 
-    @Operand
+    @Action
     public void two() {
         this.count++;
     }
 
-    @Operand
+    @Action
     public void three() {
         this.count++;
     }

@@ -16,17 +16,17 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
+import com.googlecode.commandme.ActionInvocationException;
 import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.OperandInvocationException;
 import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
-import com.googlecode.commandme.impl.introspector.OperandDefinition;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Interrogates an instance, injects values of arguments and calls operands.
+ * Interrogates an instance, injects values of arguments and calls actions.
  * Instances of this class are not reusable.
  *
  * @author Dmitry Sidorenko
@@ -55,10 +55,10 @@ public class Interrogator<T> {
     }
 
     /**
-     * Does actual injecting and calls operands
+     * Does actual injecting and calls actions
      */
     public void torture() {
-        currentToken = TokenType.OPERAND;
+        currentToken = TokenType.ACTION;
 
         for (String argument : arguments) {
             LOGGER.debug("Parsing: {}", argument);
@@ -75,9 +75,9 @@ public class Interrogator<T> {
                         handleValue(argument);
                         break;
                     case VALUE:
-                    case OPERAND:
+                    case ACTION:
                     case OPTION_NO_VALUE:
-                        handleOperand(argument);
+                        handleAction(argument);
                         break;
                     default:
                         LOGGER.warn("Something went wrong. Current token: '{}', previous tokenType: '{}'", new Object[]{argument, currentToken});
@@ -116,10 +116,10 @@ public class Interrogator<T> {
         }
     }
 
-    private void handleOperand(String token) {
-        LOGGER.debug("handle Operand");
-        currentToken = TokenType.OPERAND;
-        callOperand(token);
+    private void handleAction(String token) {
+        LOGGER.debug("handle Action");
+        currentToken = TokenType.ACTION;
+        callAction(token);
     }
 
     private void handleValue(String token) {
@@ -131,19 +131,19 @@ public class Interrogator<T> {
         optionDef = null;
     }
 
-    private void callOperand(String longOperandName) {
-        OperandDefinition definition = moduleIntrospector.getOperands().getByLongName(longOperandName);
+    private void callAction(String longActionName) {
+        ActionDefinition definition = moduleIntrospector.getActions().getByLongName(longActionName);
         if (definition != null) {
-            LOGGER.debug("Executing operand: {}", definition);
+            LOGGER.debug("Executing action: {}", definition);
             try {
                 definition.getMethod().invoke(module);
             } catch (Exception e) {
                 LOGGER.warn("Exception", e);
-                throw new CliException("Exception invoking operand: " + definition, e);
+                throw new CliException("Exception invoking action: " + definition, e);
             }
         } else {
-            LOGGER.warn("Can't find operand: {}", longOperandName);
-            throw new OperandInvocationException("Can't find operand: " + longOperandName);
+            LOGGER.warn("Can't find action: {}", longActionName);
+            throw new ActionInvocationException("Can't find action: " + longActionName);
         }
     }
 
@@ -157,9 +157,9 @@ public class Interrogator<T> {
          */
         OPTION_NO_VALUE,
         /**
-         * Operand
+         * Action
          */
-        OPERAND,
+        ACTION,
         /**
          * Value of a option
          */

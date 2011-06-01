@@ -16,8 +16,8 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.OperandDefinitionException;
-import com.googlecode.commandme.annotations.Operand;
+import com.googlecode.commandme.ActionDefinitionException;
+import com.googlecode.commandme.annotations.Action;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,99 +28,99 @@ import static org.junit.Assume.assumeThat;
 /**
  * @author Dmitry Sidorenko
  */
-public class OperandsIntrospectorTest {
-    private OperandsIntrospector operandsIntrospector;
+public class ActionsIntrospectorTest {
+    private ActionsIntrospector actionsIntrospector;
 
     @Before
     public void setUp() throws Exception {
-        operandsIntrospector = new OperandsIntrospector<TestModule>(TestModule.class);
-        operandsIntrospector.inspect();
+        actionsIntrospector = new ActionsIntrospector<TestModule>(TestModule.class);
+        actionsIntrospector.inspect();
     }
 
     @Test
-    public void testGetOperands() throws Exception {
-        assertThat(operandsIntrospector.getOperands().size(), is(2));
+    public void testGetActions() throws Exception {
+        assertThat(actionsIntrospector.getActions().size(), is(2));
     }
 
     @Test
     public void testGetByLongName() throws Exception {
-        assertThat(operandsIntrospector.getByLongName("greet").getLongName(), is("greet"));
-        assertThat(operandsIntrospector.getByLongName("gr"), nullValue());
+        assertThat(actionsIntrospector.getByLongName("greet").getLongName(), is("greet"));
+        assertThat(actionsIntrospector.getByLongName("gr"), nullValue());
     }
 
     @Test
-    public void testNotAccessibleOperand() throws Exception {
-        assertThat(operandsIntrospector.getByLongName("privateer"), nullValue());
+    public void testNotAccessibleAction() throws Exception {
+        assertThat(actionsIntrospector.getByLongName("privateer"), nullValue());
     }
 
     @Test
-    public void testOperandWithParams() throws Exception {
-        assertThat(operandsIntrospector.getByLongName("params"), nullValue());
+    public void testActionWithParams() throws Exception {
+        assertThat(actionsIntrospector.getByLongName("params"), nullValue());
     }
 
     @Test
     public void testSpecifyName() throws Exception {
-        assumeThat(operandsIntrospector.getOperands(), notNullValue());
+        assumeThat(actionsIntrospector.getActions(), notNullValue());
 
-        assertThat(operandsIntrospector.getByLongName("ciao"), notNullValue());
-        assertThat(operandsIntrospector.getByShortName("bb"), notNullValue());
+        assertThat(actionsIntrospector.getByLongName("ciao"), notNullValue());
+        assertThat(actionsIntrospector.getByShortName("bb"), notNullValue());
     }
 
-    @Test(expected = OperandDefinitionException.class)
+    @Test(expected = ActionDefinitionException.class)
     public void testDuplicateLongNames() throws Exception {
-        operandsIntrospector = new OperandsIntrospector<TestModuleDupLongNames>(TestModuleDupLongNames.class);
-        operandsIntrospector.inspect();
+        actionsIntrospector = new ActionsIntrospector<TestModuleDupLongNames>(TestModuleDupLongNames.class);
+        actionsIntrospector.inspect();
     }
 
-    @Test(expected = OperandDefinitionException.class)
+    @Test(expected = ActionDefinitionException.class)
     public void testDuplicateShortNames() throws Exception {
-        operandsIntrospector = new OperandsIntrospector<TestModuleDupShortNames>(TestModuleDupShortNames.class);
-        operandsIntrospector.inspect();
+        actionsIntrospector = new ActionsIntrospector<TestModuleDupShortNames>(TestModuleDupShortNames.class);
+        actionsIntrospector.inspect();
     }
 
     @Test
     public void testInspect() throws Exception {
-        assertThat(operandsIntrospector.getOperands(), notNullValue());
+        assertThat(actionsIntrospector.getActions(), notNullValue());
     }
 
 
     class TestModule {
 
-        @Operand
+        @Action
         public void greet() {
         }
 
-        @Operand(name = "ciao", shortName = "bb")
+        @Action(name = "ciao", shortName = "bb")
         public void bye() {
         }
 
-        @Operand
+        @Action
         void privateer() {
         }
 
-        @Operand
+        @Action
         public void params(String name) {
         }
     }
 
     class TestModuleDupLongNames {
 
-        @Operand(name = "bye")
+        @Action(name = "bye")
         public void greet() {
         }
 
-        @Operand(name = "bye")
+        @Action(name = "bye")
         public void bye() {
         }
     }
 
     class TestModuleDupShortNames {
 
-        @Operand(shortName = "bb")
+        @Action(shortName = "bb")
         public void greet() {
         }
 
-        @Operand(shortName = "bb")
+        @Action(shortName = "bb")
         public void bye() {
         }
     }
