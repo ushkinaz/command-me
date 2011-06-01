@@ -39,7 +39,7 @@ public class InterrogatorFactory {
      *
      * @param instance           module instance
      * @param moduleIntrospector module introspector
-     * @param options         options passed from command line
+     * @param options            options passed from command line
      * @return created interrogator
      */
     public static <T> Interrogator<T> createInterrogator(T instance, ModuleIntrospector moduleIntrospector, String[] options) {

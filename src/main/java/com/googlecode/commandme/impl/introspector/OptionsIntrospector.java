@@ -37,7 +37,7 @@ public class OptionsIntrospector<T> implements ModuleOptions {
 
     private static final String SETTER_PREFIX = "set";
 
-    private final Class<T>                         clz;
+    private final Class<T>                      clz;
     private final List<OptionDefinition>        optionDefinitions;
     private final Map<String, OptionDefinition> shortNamesMap;
     private final Map<String, OptionDefinition> longNamesMap;
@@ -177,7 +177,7 @@ public class OptionsIntrospector<T> implements ModuleOptions {
     /**
      * Returns property name as defined in java.
      *
-     * @param option    annotation
+     * @param option       annotation
      * @param writerMethod method with annotation
      * @return name of a property
      */
