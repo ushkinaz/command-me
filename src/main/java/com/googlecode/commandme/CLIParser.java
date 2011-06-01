@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Main class of Command Me library.<br/>
+ * Main class of CommandMe library.<br/>
  * <p/>
  * Usage:
  * <pre>
