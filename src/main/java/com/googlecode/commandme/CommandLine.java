@@ -40,7 +40,7 @@ public interface CommandLine<T> {
     T getModule();
 
     /**
-     * Cleans all internal references, making GC happy. It's Not necessary to call in most cases.
+     * Clears all internal references, making GC happy. It's not necessary to call in most cases.
      */
     void shutdown();
 }
