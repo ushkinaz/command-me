@@ -26,7 +26,11 @@ import static org.junit.Assert.assertThat;
 /**
  * Short form of boolean option, true
  * <p/>
+ * <p/>
  * <a href="https://www.pivotaltracker.com/story/show/13446737">story</a>
+ * <p/>
+ * Clustering boolean options
+ * <a href="https://www.pivotaltracker.com/story/show/13446749">story</a>
  *
  * @author Dmitry Sidorenko
  */
