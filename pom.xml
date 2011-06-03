@@ -133,8 +133,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <target>6</target>
-                    <source>6</source>
+                    <target>1.6</target>
+                    <source>1.6</source>
                     <debug>${build.debug}</debug>
                     <optimize>${build.optimize}</optimize>
                     <encoding>UTF-8</encoding>
