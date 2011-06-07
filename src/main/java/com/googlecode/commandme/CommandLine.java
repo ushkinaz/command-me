@@ -26,7 +26,7 @@ public interface CommandLine<T> {
     /**
      * Instantiates an instance of class T, fills it with options and calls appropriate methods
      *
-     * @param arguments arguments to parse
+     * @param arguments command line arguments to parse
      * @return instance of a class
      * @throws CliException an exception
      */
