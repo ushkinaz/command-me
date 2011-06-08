@@ -25,6 +25,8 @@ import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
+
 /**
  * Interrogates an instance, injects values of arguments and calls actions.
  * Instances of this class are not reusable.
@@ -103,9 +105,18 @@ public class Interrogator<T> {
         handleOption(token);
     }
 
+    /**
+     * By this time, {@link #optionDef} should contain definition of an option.
+     *
+     * @param token token we are parsing
+     */
     private void handleOption(String token) {
         LOGGER.debug("handle Option");
         if (optionDef == null) {
+            if (handleHelpRequest(token)) {
+                currentToken = TokenType.ACTION;
+                return;
+            }
             throw new OptionSettingException("Can't find option:" + token);
         }
         currentToken = TokenType.OPTION;
@@ -114,6 +125,36 @@ public class Interrogator<T> {
             optionDef.getInterrogator().setValue(module, "no value");
             optionDef = null;
         }
+    }
+
+    /**
+     * @param token argument, w/o "--" or "-"
+     * @return true if this is help request
+     */
+    private boolean handleHelpRequest(String token) {
+        if (!"?".equals(token) && !"h".equals(token) && !"help".equals(token)) {
+            return false;
+        }
+
+        System.out.println(module.getClass().getSimpleName());
+        System.out.println("Usage: " + module.getClass().getSimpleName() + "[options] [actions]");
+
+        System.out.println("\tOptions:");
+        for (OptionDefinition optionDefinition : moduleIntrospector.getOptions().getOptionDefinitions()) {
+            System.out
+                    .println(MessageFormat.format("\t\t--{0}, -{1}: {2}", optionDefinition.getLongName(), optionDefinition
+                            .getShortName(), optionDefinition.getDescription()));
+        }
+
+        System.out.println("\tActions:");
+        for (ActionDefinition actionDefinition : moduleIntrospector.getActions().getActions()) {
+            System.out
+                    .println(MessageFormat.format("\t\t{0}, {1}: {2}", actionDefinition.getLongName(), actionDefinition.getShortName(), actionDefinition
+                            .getDescription()));
+        }
+
+
+        return true;
     }
 
     private void handleAction(String token) {
@@ -142,6 +183,9 @@ public class Interrogator<T> {
                 throw new CliException("Exception invoking action: " + definition, e);
             }
         } else {
+            if (handleHelpRequest(longActionName)) {
+                return;
+            }
             LOGGER.warn("Can't find action: {}", longActionName);
             throw new ActionInvocationException("Can't find action: " + longActionName);
         }
