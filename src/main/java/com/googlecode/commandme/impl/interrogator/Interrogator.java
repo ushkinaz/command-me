@@ -142,14 +142,15 @@ public class Interrogator<T> {
         System.out.println("\tOptions:");
         for (OptionDefinition optionDefinition : moduleIntrospector.getOptions().getOptionDefinitions()) {
             System.out
-                    .println(MessageFormat.format("\t\t--{0}, -{1}: {2}", optionDefinition.getLongName(), optionDefinition
-                            .getShortName(), optionDefinition.getDescription()));
+                    .println(MessageFormat.format("\t\t-{0}, --{1}: {2}", optionDefinition
+                            .getShortName(), optionDefinition.getLongName(), optionDefinition.getDescription()));
         }
 
         System.out.println("\tActions:");
         for (ActionDefinition actionDefinition : moduleIntrospector.getActions().getActions()) {
             System.out
-                    .println(MessageFormat.format("\t\t{0}, {1}: {2}", actionDefinition.getLongName(), actionDefinition.getShortName(), actionDefinition
+                    .println(MessageFormat.format("\t\t{0}, {1}: {2}", actionDefinition.getShortName(), actionDefinition
+                            .getLongName(), actionDefinition
                             .getDescription()));
         }
 
