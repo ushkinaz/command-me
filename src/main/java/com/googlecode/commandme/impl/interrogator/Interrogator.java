@@ -25,8 +25,6 @@ import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
-
 /**
  * Interrogates an instance, injects values of arguments and calls actions.
  * Instances of this class are not reusable.
@@ -136,26 +134,16 @@ public class Interrogator<T> {
             return false;
         }
 
-        System.out.println(module.getClass().getSimpleName());
-        System.out.println("Usage: " + module.getClass().getSimpleName() + "[options] [actions]");
-
-        System.out.println("\tOptions:");
-        for (OptionDefinition optionDefinition : moduleIntrospector.getOptions().getOptionDefinitions()) {
-            System.out
-                    .println(MessageFormat.format("\t\t-{0}, --{1}: {2}", optionDefinition
-                            .getShortName(), optionDefinition.getLongName(), optionDefinition.getDescription()));
-        }
-
-        System.out.println("\tActions:");
-        for (ActionDefinition actionDefinition : moduleIntrospector.getActions().getActions()) {
-            System.out
-                    .println(MessageFormat.format("\t\t{0}, {1}: {2}", actionDefinition.getShortName(), actionDefinition
-                            .getLongName(), actionDefinition
-                            .getDescription()));
-        }
-
-
+        HelpPrintStrategy helpPrintStrategy = createHelpStrategy();
+        helpPrintStrategy.printHelp();
         return true;
+    }
+
+    private DefaultHelpStrategy createHelpStrategy() {
+        return new DefaultHelpStrategy(
+                module.getClass().getSimpleName(),
+                moduleIntrospector.getOptions().getOptionDefinitions(),
+                moduleIntrospector.getActions().getActions());
     }
 
     private void handleAction(String token) {
@@ -210,4 +198,5 @@ public class Interrogator<T> {
          */
         VALUE
     }
+
 }
