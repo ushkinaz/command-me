@@ -21,6 +21,8 @@ import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
+import java.util.Date;
+
 /**
  * Default help facility will use list of all actions and options with optional descriptions
  * <p/>
@@ -64,6 +66,13 @@ public class Story_Help extends Story<Story_Help> {
         this.longer = longer;
     }
 
+    @Option(description = "Life is this long and  even longer")
+    public void setLife(Long life) {
+    }
+
+    @Option(description = "Death time")
+    public void setDateOfDeath(Date life) {
+    }
 
     /**
      * I'm really lazy, so no output parsing here. Just rely on "no exception - all is good".
@@ -71,8 +80,16 @@ public class Story_Help extends Story<Story_Help> {
     @Test
     public void testStory() {
         commandLine.execute(new String[]{"--help"});
+    }
 
-//        assertThat("Method was not called", commandLine.getModule().called, is(true));
+    @Test
+    public void testStoryShortVersion() {
+        commandLine.execute(new String[]{"-h"});
+    }
+
+    @Test
+    public void testStoryQuestionMark() {
+        commandLine.execute(new String[]{"-?"});
     }
 
     @Test
