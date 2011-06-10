@@ -58,7 +58,8 @@ public class ActionsIntrospector<T> implements ModuleActions {
     private void checkClash(ActionDefinition actionDefinition, ActionDefinition previousDefinition) {
         if (previousDefinition != null) {
             LOGGER.error("Duplicate actions definitions");
-            throw new ActionDefinitionException("Actions clashed: new=" + actionDefinition + ", old=" + previousDefinition, actionDefinition);
+            throw new ActionDefinitionException("Actions clashed: new=" + actionDefinition + ", old=" + previousDefinition,
+                    actionDefinition);
         }
     }
 

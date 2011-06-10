@@ -80,7 +80,8 @@ public class Interrogator<T> {
                         handleAction(argument);
                         break;
                     default:
-                        LOGGER.warn("Something went wrong. Current token: '{}', previous tokenType: '{}'", new Object[]{argument, currentToken});
+                        LOGGER.warn("Something went wrong. Current token: '{}', previous tokenType: '{}'",
+                                new Object[]{argument, currentToken});
                         throw new CliException("Something went wrong");
                 }
             }

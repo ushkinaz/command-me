@@ -118,7 +118,8 @@ public class OptionsIntrospector<T> implements ModuleOptions {
             if (wasNotPresent) {
                 uniqueShorties.put(shortName, optionDefinition);
             } else {
-                LOGGER.warn("Default short names overlap {}, {}", new Object[]{uniqueShorties.get(shortName), optionDefinition});
+                LOGGER.warn("Default short names overlap {}, {}",
+                        new Object[]{uniqueShorties.get(shortName), optionDefinition});
                 uniqueShorties.remove(shortName);
             }
         }

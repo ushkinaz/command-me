@@ -24,17 +24,18 @@ class DefaultHelpStrategy implements HelpPrintStrategy {
 
         System.out.println("\tOptions:");
         for (OptionDefinition optionDefinition : optionDefinitions) {
-            System.out
-                    .println(MessageFormat.format("\t\t-{0}, --{1}: {2}", optionDefinition
-                            .getShortName(), optionDefinition.getLongName(), optionDefinition.getDescription()));
+            System.out.println(MessageFormat.format("\t\t-{0}, --{1}: {2}",
+                    optionDefinition.getShortName(),
+                    optionDefinition.getLongName(),
+                    optionDefinition.getDescription()));
         }
 
         System.out.println("\tActions:");
         for (ActionDefinition actionDefinition : actionDefinitions) {
-            System.out
-                    .println(MessageFormat.format("\t\t{0}, {1}: {2}", actionDefinition.getShortName(), actionDefinition
-                            .getLongName(), actionDefinition
-                            .getDescription()));
+            System.out.println(MessageFormat.format("\t\t{0}, {1}: {2}",
+                    actionDefinition.getShortName(),
+                    actionDefinition.getLongName(),
+                    actionDefinition.getDescription()));
         }
     }
 }
