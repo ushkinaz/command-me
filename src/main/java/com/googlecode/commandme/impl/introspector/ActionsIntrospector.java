@@ -63,7 +63,7 @@ public class ActionsIntrospector<T> implements ModuleActions {
     }
 
     @Override
-    public Set<ActionDefinition> getActions() {
+    public Set<ActionDefinition> getActionDefinitions() {
         return actions;
     }
 

@@ -39,7 +39,7 @@ public class ActionsIntrospectorTest {
 
     @Test
     public void testGetActions() throws Exception {
-        assertThat(actionsIntrospector.getActions().size(), is(2));
+        assertThat(actionsIntrospector.getActionDefinitions().size(), is(2));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ActionsIntrospectorTest {
 
     @Test
     public void testSpecifyName() throws Exception {
-        assumeThat(actionsIntrospector.getActions(), notNullValue());
+        assumeThat(actionsIntrospector.getActionDefinitions(), notNullValue());
 
         assertThat(actionsIntrospector.getByLongName("ciao"), notNullValue());
         assertThat(actionsIntrospector.getByShortName("bb"), notNullValue());
@@ -80,7 +80,7 @@ public class ActionsIntrospectorTest {
 
     @Test
     public void testInspect() throws Exception {
-        assertThat(actionsIntrospector.getActions(), notNullValue());
+        assertThat(actionsIntrospector.getActionDefinitions(), notNullValue());
     }
 
 

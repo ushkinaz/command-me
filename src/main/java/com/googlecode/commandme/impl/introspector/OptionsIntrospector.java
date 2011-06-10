@@ -38,14 +38,14 @@ public class OptionsIntrospector<T> implements ModuleOptions {
     private static final String SETTER_PREFIX = "set";
 
     private final Class<T>                      clz;
-    private final List<OptionDefinition>        optionDefinitions;
+    private final Set<OptionDefinition>         optionDefinitions;
     private final Map<String, OptionDefinition> shortNamesMap;
     private final Map<String, OptionDefinition> longNamesMap;
 
 
     public OptionsIntrospector(Class<T> clz) {
         this.clz = clz;
-        optionDefinitions = new LinkedList<OptionDefinition>();
+        optionDefinitions = new HashSet<OptionDefinition>();
         shortNamesMap = new HashMap<String, OptionDefinition>();
         longNamesMap = new HashMap<String, OptionDefinition>();
     }
@@ -80,8 +80,8 @@ public class OptionsIntrospector<T> implements ModuleOptions {
     }
 
     @Override
-    public List<OptionDefinition> getOptionDefinitions() {
-        return Collections.unmodifiableList(optionDefinitions);
+    public Set<OptionDefinition> getOptionDefinitions() {
+        return Collections.unmodifiableSet(optionDefinitions);
     }
 
     @Override

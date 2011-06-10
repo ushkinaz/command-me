@@ -50,7 +50,7 @@ public class OptionsIntrospectorTest {
         final OptionDefinition definition = new OptionDefinition();
         options.addOption(definition);
         assertThat(options.getOptionDefinitions().size(), is(1));
-        assertThat(options.getOptionDefinitions().get(0), is(definition));
+        assertThat(options.getOptionDefinitions().contains(definition), is(true));
     }
 
     @Test

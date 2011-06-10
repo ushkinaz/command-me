@@ -29,7 +29,7 @@ public interface ModuleActions {
      *
      * @return list of actions
      */
-    Set<ActionDefinition> getActions();
+    Set<ActionDefinition> getActionDefinitions();
 
     /**
      * Returns action by its full name

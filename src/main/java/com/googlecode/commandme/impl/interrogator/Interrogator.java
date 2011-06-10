@@ -143,7 +143,7 @@ public class Interrogator<T> {
         return new DefaultHelpStrategy(
                 module.getClass().getSimpleName(),
                 moduleIntrospector.getOptions().getOptionDefinitions(),
-                moduleIntrospector.getActions().getActions());
+                moduleIntrospector.getActions().getActionDefinitions());
     }
 
     private void handleAction(String token) {

@@ -1,6 +1,6 @@
 package com.googlecode.commandme.impl.introspector;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Dmitry Sidorenko
@@ -9,7 +9,7 @@ public interface ModuleOptions {
     /**
      * @return unmodifiable list of {@link OptionDefinition}
      */
-    List<OptionDefinition> getOptionDefinitions();
+    Set<OptionDefinition> getOptionDefinitions();
 
     /**
      * @param name long name of a option
