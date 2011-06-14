@@ -51,11 +51,4 @@ public @interface Action {
      * @return A description of this action
      */
     String description() default "";
-
-    /**
-     * is this is default action for module
-     *
-     * @return is this is default action for module
-     */
-    boolean defaultAction() default false;
 }
