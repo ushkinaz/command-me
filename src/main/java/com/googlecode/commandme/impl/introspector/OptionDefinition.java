@@ -31,6 +31,7 @@ public class OptionDefinition {
     private static final Logger LOGGER = LoggerFactory.getLogger(OptionDefinition.class);
 
     private String               longName;
+    private boolean              required;
     private String               shortName;
     private Class                type;
     private String               description;
@@ -80,7 +81,6 @@ public class OptionDefinition {
     }
 
     @Override
-    @SuppressWarnings({"RedundantIfStatement"})
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -91,20 +91,8 @@ public class OptionDefinition {
 
         OptionDefinition that = (OptionDefinition) o;
 
-        if (description != null ? !description.equals(that.description) : that.description != null) {
-            return false;
-        }
-        if (longName != null ? !longName.equals(that.longName) : that.longName != null) {
-            return false;
-        }
-        if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) {
-            return false;
-        }
-        if (type != null ? !type.equals(that.type) : that.type != null) {
-            return false;
-        }
+        return !(longName != null ? !longName.equals(that.longName) : that.longName != null);
 
-        return true;
     }
 
     @Override
@@ -121,6 +109,7 @@ public class OptionDefinition {
         sb.append(", type=").append(type);
         sb.append(", description='").append(description).append('\'');
         sb.append('}');
+
         return sb.toString();
     }
 
@@ -134,5 +123,13 @@ public class OptionDefinition {
 
     public PropertyInterrogator getInterrogator() {
         return interrogator;
+    }
+
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
     }
 }

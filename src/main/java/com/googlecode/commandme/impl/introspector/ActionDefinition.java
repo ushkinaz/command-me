@@ -67,7 +67,6 @@ public final class ActionDefinition {
         this.description = description;
     }
 
-    @SuppressWarnings({"RedundantIfStatement"})
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,25 +78,13 @@ public final class ActionDefinition {
 
         ActionDefinition that = (ActionDefinition) o;
 
-        if (!action.equals(that.action)) {
-            return false;
-        }
-        if (!longName.equals(that.longName)) {
-            return false;
-        }
-        if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) {
-            return false;
-        }
+        return !(longName != null ? !longName.equals(that.longName) : that.longName != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = action.hashCode();
-        result = 31 * result + longName.hashCode();
-        result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
-        return result;
+        return longName != null ? longName.hashCode() : 0;
     }
 
     @Override
