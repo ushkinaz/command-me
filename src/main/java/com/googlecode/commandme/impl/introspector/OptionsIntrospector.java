@@ -133,6 +133,7 @@ public class OptionsIntrospector<T> implements ModuleOptions {
     private OptionDefinition inspectProperty(Option option, Method writerMethod) throws CliException {
         sanityChecks(writerMethod);
         OptionDefinition optionDefinition = new OptionDefinition();
+        optionDefinition.setRequired(option.required());
         optionDefinition.setWriterMethod(writerMethod);
         optionDefinition.setDescription(option.description());
 
