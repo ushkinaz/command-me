@@ -50,4 +50,11 @@ public @interface Option {
      * @return A description of this option
      */
     String description() default "";
+
+    /**
+     * Marks option as mandatory.
+     *
+     * @return {@code true} if this option is mandatory
+     */
+    boolean required() default false;
 }
