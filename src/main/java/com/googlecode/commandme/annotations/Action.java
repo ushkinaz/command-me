@@ -58,12 +58,4 @@ public @interface Action {
      * @return is this is default action for module
      */
     boolean defaultAction() default false;
-
-    /**
-     * Should help be displayed if this option is
-     * present.
-     *
-     * @return True if this option is a help option
-     */
-    boolean helpRequest() default false;
 }

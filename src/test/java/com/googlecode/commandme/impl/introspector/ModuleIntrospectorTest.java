@@ -66,7 +66,7 @@ public class ModuleIntrospectorTest {
         public void setName(String sd) {
         }
 
-        @Option(longName = "foo", shortName = "f", description = "none", helpRequest = true)
+        @Option(longName = "foo", shortName = "f", description = "none")
         public void setNoName(int i) {
         }
 

@@ -154,8 +154,6 @@ public class OptionsIntrospector<T> implements ModuleOptions {
             optionDefinition.setShortName(shortName);
         }
 
-        optionDefinition.setShowInHelp(option.helpRequest());
-
         optionDefinition.setType(writerMethod.getParameterTypes()[0]);
 
         return optionDefinition;

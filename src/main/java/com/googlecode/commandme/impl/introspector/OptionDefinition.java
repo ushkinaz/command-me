@@ -34,7 +34,6 @@ public class OptionDefinition {
     private String               shortName;
     private Class                type;
     private String               description;
-    private boolean              showInHelp;
     private Method               writerMethod;
     private PropertyInterrogator interrogator;
 
@@ -64,10 +63,6 @@ public class OptionDefinition {
         this.description = description;
     }
 
-    public void setShowInHelp(boolean showInHelp) {
-        this.showInHelp = showInHelp;
-    }
-
     public String getLongName() {
         return longName;
     }
@@ -84,10 +79,6 @@ public class OptionDefinition {
         return description;
     }
 
-    public boolean showInHelp() {
-        return showInHelp;
-    }
-
     @Override
     @SuppressWarnings({"RedundantIfStatement"})
     public boolean equals(Object o) {
@@ -100,9 +91,6 @@ public class OptionDefinition {
 
         OptionDefinition that = (OptionDefinition) o;
 
-        if (showInHelp != that.showInHelp) {
-            return false;
-        }
         if (description != null ? !description.equals(that.description) : that.description != null) {
             return false;
         }
@@ -132,7 +120,6 @@ public class OptionDefinition {
         sb.append(", shortName='").append(shortName).append('\'');
         sb.append(", type=").append(type);
         sb.append(", description='").append(description).append('\'');
-        sb.append(", showInHelp=").append(showInHelp);
         sb.append('}');
         return sb.toString();
     }

@@ -231,7 +231,7 @@ public class OptionsIntrospectorTest {
         public void labelIt(String label) {
         }
 
-        @Option(longName = "foo", shortName = "f", description = "none", helpRequest = true)
+        @Option(longName = "foo", shortName = "f", description = "none")
         public void setNoName(int i) {
         }
 

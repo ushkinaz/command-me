@@ -50,12 +50,4 @@ public @interface Option {
      * @return A description of this option
      */
     String description() default "";
-
-    /**
-     * Should help be displayed if this option is
-     * present.
-     *
-     * @return True if this option is a help option
-     */
-    boolean helpRequest() default false;
 }
