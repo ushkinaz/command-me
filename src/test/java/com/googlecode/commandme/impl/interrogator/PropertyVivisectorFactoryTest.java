@@ -31,8 +31,8 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(Parameterized.class)
-public class PropertyInterrogatorFactoryTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PropertyInterrogatorFactoryTest.class);
+public class PropertyVivisectorFactoryTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PropertyVivisectorFactoryTest.class);
 
     @Parameterized.Parameters
     public static List<Object[]> data() {
@@ -66,7 +66,7 @@ public class PropertyInterrogatorFactoryTest {
 
     private Class klass;
 
-    public PropertyInterrogatorFactoryTest(Class klass) {
+    public PropertyVivisectorFactoryTest(Class klass) {
         LOGGER.debug("Class: " + klass);
         this.klass = klass;
     }
@@ -75,7 +75,7 @@ public class PropertyInterrogatorFactoryTest {
     public void testCreateInterrogatorInternal() throws Exception {
         OptionDefinition optionDefinition = new OptionDefinition();
         optionDefinition.setType(klass);
-        PropertyVivisector vivisector = PropertyInterrogatorFactory.createInterrogator(optionDefinition);
+        PropertyVivisector vivisector = PropertyVivisectorFactory.createInterrogator(optionDefinition);
 
         assertThat(vivisector, notNullValue());
     }

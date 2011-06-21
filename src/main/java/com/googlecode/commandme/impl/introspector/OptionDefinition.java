@@ -16,8 +16,8 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.impl.interrogator.PropertyInterrogatorFactory;
 import com.googlecode.commandme.impl.interrogator.PropertyVivisector;
+import com.googlecode.commandme.impl.interrogator.PropertyVivisectorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +57,7 @@ public final class OptionDefinition {
 
     public void setType(Class type) {
         this.type = type;
-        vivisector = PropertyInterrogatorFactory.createInterrogator(this);
+        vivisector = PropertyVivisectorFactory.createInterrogator(this);
     }
 
     public void setDescription(String description) {

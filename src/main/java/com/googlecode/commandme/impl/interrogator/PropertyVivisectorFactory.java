@@ -27,11 +27,11 @@ import java.util.Set;
 /**
  * @author Dmitry Sidorenko
  */
-public class PropertyInterrogatorFactory {
+public class PropertyVivisectorFactory {
     @SuppressWarnings({"unused"})
-    private static final Logger                      LOGGER               = LoggerFactory.getLogger(PropertyInterrogatorFactory.class);
-    private static       PropertyInterrogatorFactory factory              = new PropertyInterrogatorFactory();
-    private static final Set<Class>                  allowedOptionClasses = new HashSet<Class>();
+    private static final Logger                    LOGGER               = LoggerFactory.getLogger(PropertyVivisectorFactory.class);
+    private static       PropertyVivisectorFactory factory              = new PropertyVivisectorFactory();
+    private static final Set<Class>                allowedOptionClasses = new HashSet<Class>();
 
     static {
         allowedOptionClasses.add(String.class);
@@ -72,11 +72,11 @@ public class PropertyInterrogatorFactory {
         return vivisector;
     }
 
-    public static void setFactory(PropertyInterrogatorFactory factory) {
-        PropertyInterrogatorFactory.factory = factory;
+    public static void setFactory(PropertyVivisectorFactory factory) {
+        PropertyVivisectorFactory.factory = factory;
     }
 
     public static void resetFactory() {
-        factory = new PropertyInterrogatorFactory();
+        factory = new PropertyVivisectorFactory();
     }
 }
