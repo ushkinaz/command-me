@@ -67,7 +67,7 @@ public class CommandLineImpl<T> implements CommandLine<T> {
      */
     public T execute(String[] arguments) {
         Interrogator interrogator = InterrogatorFactory.createInterrogator(instance, moduleIntrospector, arguments);
-        interrogator.torture();
+        interrogator.interrogate();
 
         return instance;
     }

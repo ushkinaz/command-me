@@ -60,7 +60,7 @@ public class InterrogatorTest {
     @Test(expected = OptionSettingException.class)
     public void testFirstNameFailed() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--notexisyts", "0", "--name", JOHN_FROSTER});
-        interrogator.torture();
+        interrogator.interrogate();
 
         assertThat(name, CoreMatchers.is(JOHN_FROSTER));
     }
@@ -68,7 +68,7 @@ public class InterrogatorTest {
     @Test
     public void testSetOneName() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--name", JOHN_FROSTER});
-        interrogator.torture();
+        interrogator.interrogate();
 
         assertThat(name, CoreMatchers.is(JOHN_FROSTER));
     }
@@ -76,7 +76,7 @@ public class InterrogatorTest {
     @Test
     public void testSetTwoNames() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--name", JOHN_FROSTER, "--desc", DEVELOPER});
-        interrogator.torture();
+        interrogator.interrogate();
 
         assertThat(name, CoreMatchers.is(JOHN_FROSTER));
         assertThat(desc, CoreMatchers.is(DEVELOPER));
@@ -85,7 +85,7 @@ public class InterrogatorTest {
     @Test
     public void testSetInteger() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--id", "555"});
-        interrogator.torture();
+        interrogator.interrogate();
 
         assertThat(id, CoreMatchers.is(555));
     }
@@ -93,7 +93,7 @@ public class InterrogatorTest {
     @Test(expected = OptionSettingException.class)
     public void testSetIntegerWrongFormat() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--id", "555.0"});
-        interrogator.torture();
+        interrogator.interrogate();
 
         assertThat(id, CoreMatchers.is(555));
     }
@@ -101,7 +101,7 @@ public class InterrogatorTest {
     @Test(expected = OptionSettingException.class)
     public void testSetByteOutOf() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--idByte", "555"});
-        interrogator.torture();
+        interrogator.interrogate();
 
         assertThat(id, CoreMatchers.is(555));
     }
@@ -109,7 +109,7 @@ public class InterrogatorTest {
     @Test
     public void testSetByte() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--idByte", "122"});
-        interrogator.torture();
+        interrogator.interrogate();
 
         assertThat(id, CoreMatchers.is(122));
     }
@@ -117,7 +117,7 @@ public class InterrogatorTest {
     @Test
     public void testSetInt() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--amount", "122"});
-        interrogator.torture();
+        interrogator.interrogate();
 
         assertThat(amount, CoreMatchers.is(122));
     }

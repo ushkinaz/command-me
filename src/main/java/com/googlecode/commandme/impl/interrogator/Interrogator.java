@@ -19,11 +19,14 @@ package com.googlecode.commandme.impl.interrogator;
 import com.googlecode.commandme.ActionInvocationException;
 import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.impl.interrogator.tortures.TortureInstrument;
 import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Stack;
 
 /**
  * Interrogates an instance, injects values of arguments and calls actions.
@@ -38,8 +41,10 @@ public class Interrogator<T> {
     private final T                  module;
     private final ModuleIntrospector moduleIntrospector;
     private final String[]           arguments;
-    private       TokenType          currentToken;
-    private OptionDefinition optionDef = null;
+
+    private TokenType                currentToken;
+    private OptionDefinition         optionDef;
+    private Stack<TortureInstrument> tortures;
 
     /**
      * A constructor.
@@ -52,12 +57,13 @@ public class Interrogator<T> {
         this.module = module;
         this.moduleIntrospector = moduleIntrospector;
         this.arguments = arguments;
+        this.tortures = new Stack<TortureInstrument>();
     }
 
     /**
      * Does actual injecting and calls actions
      */
-    public void torture() {
+    public void interrogate() {
         currentToken = TokenType.ACTION;
 
         for (String argument : arguments) {
@@ -140,13 +146,6 @@ public class Interrogator<T> {
         return true;
     }
 
-    private DefaultHelpStrategy createHelpStrategy() {
-        return new DefaultHelpStrategy(
-                module.getClass().getSimpleName(),
-                moduleIntrospector.getOptions().getOptionDefinitions(),
-                moduleIntrospector.getActions().getActionDefinitions());
-    }
-
     private void handleAction(String token) {
         LOGGER.debug("handle Action");
         currentToken = TokenType.ACTION;
@@ -181,23 +180,12 @@ public class Interrogator<T> {
         }
     }
 
-    private enum TokenType {
-        /**
-         * Option with value
-         */
-        OPTION,
-        /**
-         * Option without value
-         */
-        OPTION_NO_VALUE,
-        /**
-         * Action
-         */
-        ACTION,
-        /**
-         * Value of a option
-         */
-        VALUE
+    private DefaultHelpStrategy createHelpStrategy() {
+        return new DefaultHelpStrategy(
+                module.getClass().getSimpleName(),
+                moduleIntrospector.getOptions().getOptionDefinitions(),
+                moduleIntrospector.getActions().getActionDefinitions());
     }
+
 
 }
