@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.impl.interrogator.tortures.TortureHelp;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureInstrument;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureOption;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
@@ -45,6 +46,15 @@ public class TorturesValidator<T> {
 
         for (TortureInstrument instrument : tortures) {
             instrument.validate();
+
+            if (instrument instanceof TortureHelp) {
+                if (tortures.size() > 1) {
+                    throw new CliException("Help option does not accept arguments");
+                } else {
+                    // No need to do any consistency checks
+                    return;
+                }
+            }
 
             if (instrument instanceof TortureOption) {
                 torturedOptions.add(((TortureOption) instrument).getOptionDef());

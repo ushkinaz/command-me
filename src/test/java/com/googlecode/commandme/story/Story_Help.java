@@ -17,11 +17,11 @@
 
 package com.googlecode.commandme.story;
 
+import java.util.Date;
+
 import com.googlecode.commandme.annotations.Action;
 import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
-
-import java.util.Date;
 
 /**
  * Default help facility will use list of all actions and options with optional descriptions
@@ -70,7 +70,7 @@ public class Story_Help extends Story<Story_Help> {
     public void setLife(Long life) {
     }
 
-    @Option(description = "Death time")
+    @Option(description = "Death time", required = true)
     public void setDateOfDeath(Date life) {
     }
 
