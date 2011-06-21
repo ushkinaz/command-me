@@ -16,17 +16,18 @@
 
 package com.googlecode.commandme.impl;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.CommandLine;
 import com.googlecode.commandme.impl.interrogator.Interrogator;
 import com.googlecode.commandme.impl.interrogator.InterrogatorFactory;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospectorFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Implementation of command line.

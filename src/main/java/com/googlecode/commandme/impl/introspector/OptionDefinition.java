@@ -16,12 +16,13 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.impl.interrogator.PropertyVivisector;
-import com.googlecode.commandme.impl.interrogator.PropertyVivisectorFactory;
+import java.lang.reflect.Method;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Method;
+import com.googlecode.commandme.impl.interrogator.PropertyVivisector;
+import com.googlecode.commandme.impl.interrogator.PropertyVivisectorFactory;
 
 /**
  * @author Dmitry Sidorenko

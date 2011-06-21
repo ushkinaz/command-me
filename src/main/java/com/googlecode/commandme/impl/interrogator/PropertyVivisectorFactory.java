@@ -16,13 +16,14 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.OptionDefinitionException;
-import com.googlecode.commandme.impl.introspector.OptionDefinition;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.googlecode.commandme.OptionDefinitionException;
+import com.googlecode.commandme.impl.introspector.OptionDefinition;
 
 /**
  * @author Dmitry Sidorenko

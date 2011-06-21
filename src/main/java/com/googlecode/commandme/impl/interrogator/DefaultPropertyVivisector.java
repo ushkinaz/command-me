@@ -16,13 +16,14 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.OptionSettingException;
-import com.googlecode.commandme.impl.introspector.OptionDefinition;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.impl.introspector.OptionDefinition;
 
 /**
  * Default properties interrogator for primitive types

@@ -16,13 +16,14 @@
 
 package com.googlecode.commandme.impl.interrogator.tortures;
 
-import com.googlecode.commandme.impl.introspector.ActionDefinition;
-import com.googlecode.commandme.impl.introspector.OptionDefinition;
+import java.text.MessageFormat;
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
-import java.util.Collection;
+import com.googlecode.commandme.impl.introspector.ActionDefinition;
+import com.googlecode.commandme.impl.introspector.OptionDefinition;
 
 class DefaultHelpStrategy implements HelpPrintStrategy {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHelpStrategy.class);

@@ -16,15 +16,16 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.OptionDefinitionException;
-import com.googlecode.commandme.annotations.Option;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.OptionDefinitionException;
+import com.googlecode.commandme.annotations.Option;
 
 /**
  * Definition of options.

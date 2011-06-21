@@ -16,10 +16,11 @@
 
 package com.googlecode.commandme.impl.interrogator.tortures;
 
-import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.impl.introspector.ActionDefinition;
 
 /**
  * @author Dmitry Sidorenko
