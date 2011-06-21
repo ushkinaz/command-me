@@ -16,25 +16,36 @@
 
 package com.googlecode.commandme.impl.interrogator.tortures;
 
+import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Dmitry Sidorenko
  */
-public abstract class TortureInstrument<T> {
+public class TortureAction<T> extends TortureInstrument<T> {
     @SuppressWarnings({"unused"})
-    private static final Logger LOGGER = LoggerFactory.getLogger(TortureInstrument.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TortureAction.class);
 
-    protected final T module;
+    private ActionDefinition actionDefinition;
 
-
-    TortureInstrument(T module) {
-        this.module = module;
+    TortureAction(T module) {
+        super(module);
     }
 
-    /**
-     * Doing actual torture
-     */
-    public abstract void torture();
+    @Override
+    public void torture() {
+        try {
+            actionDefinition.getMethod().invoke(module);
+        } catch (Exception e) {
+            LOGGER.warn("Exception", e);
+            throw new CliException("Exception invoking action: " + actionDefinition, e);
+        }
+
+    }
+
+    public void setActionDefinition(ActionDefinition actionDefinition) {
+        this.actionDefinition = actionDefinition;
+    }
 }

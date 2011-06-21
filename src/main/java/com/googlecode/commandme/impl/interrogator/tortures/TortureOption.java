@@ -16,25 +16,39 @@
 
 package com.googlecode.commandme.impl.interrogator.tortures;
 
+import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Dmitry Sidorenko
  */
-public abstract class TortureInstrument<T> {
+public class TortureOption<T> extends TortureInstrument<T> {
     @SuppressWarnings({"unused"})
-    private static final Logger LOGGER = LoggerFactory.getLogger(TortureInstrument.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TortureOption.class);
 
-    protected final T module;
+    private OptionDefinition optionDef;
+    private String           value;
 
 
-    TortureInstrument(T module) {
-        this.module = module;
+    TortureOption(T module) {
+        super(module);
+        value = "magic";
     }
 
-    /**
-     * Doing actual torture
-     */
-    public abstract void torture();
+    public void setOptionDef(OptionDefinition optionDef) {
+        this.optionDef = optionDef;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public void torture() {
+        assert optionDef != null;
+        assert value != null;
+
+        optionDef.getInterrogator().setValue(module, value);
+    }
 }

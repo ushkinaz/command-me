@@ -19,7 +19,9 @@ package com.googlecode.commandme.impl.interrogator;
 import com.googlecode.commandme.ActionInvocationException;
 import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.OptionSettingException;
+import com.googlecode.commandme.impl.interrogator.tortures.TortureBuilder;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureInstrument;
+import com.googlecode.commandme.impl.interrogator.tortures.TortureType;
 import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
@@ -38,13 +40,14 @@ public class Interrogator<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(Interrogator.class);
 
-    private final T                  module;
-    private final ModuleIntrospector moduleIntrospector;
-    private final String[]           arguments;
+    private final T                     module;
+    private final ModuleIntrospector<T> moduleIntrospector;
+    private final String[]              arguments;
 
     private TokenType                currentToken;
+    private TortureBuilder           tortureBuilder;
     private OptionDefinition         optionDef;
-    private Stack<TortureInstrument> tortures;
+    private Stack<TortureInstrument> torturePlan;
 
     /**
      * A constructor.
@@ -53,17 +56,23 @@ public class Interrogator<T> {
      * @param moduleIntrospector initialized introspector
      * @param arguments          actual arguments
      */
-    Interrogator(T module, ModuleIntrospector moduleIntrospector, String[] arguments) {
+    Interrogator(T module, ModuleIntrospector<T> moduleIntrospector, String[] arguments) {
         this.module = module;
         this.moduleIntrospector = moduleIntrospector;
         this.arguments = arguments;
-        this.tortures = new Stack<TortureInstrument>();
+        this.torturePlan = new Stack<TortureInstrument>();
     }
 
     /**
      * Does actual injecting and calls actions
      */
     public void interrogate() {
+        prepareTorturesPlan();
+        validateTorturesPlan();
+        executeTorturesPlan();
+    }
+
+    private void prepareTorturesPlan() {
         currentToken = TokenType.ACTION;
 
         for (String argument : arguments) {
@@ -91,6 +100,17 @@ public class Interrogator<T> {
                         throw new CliException("Something went wrong");
                 }
             }
+        }
+    }
+
+    private void validateTorturesPlan() {
+        //TODO: Implement com.googlecode.commandme.impl.interrogator.Interrogator#validateTorturesPlan
+
+    }
+
+    private void executeTorturesPlan() {
+        for (TortureInstrument tortureInstrument : torturePlan) {
+            tortureInstrument.torture();
         }
     }
 
@@ -124,12 +144,23 @@ public class Interrogator<T> {
             }
             throw new OptionSettingException("Can't find option:" + token);
         }
+
         currentToken = TokenType.OPTION;
+        startBuildingTorture(TortureType.OPTION);
+        tortureBuilder.addOption(optionDef);
         if (!optionDef.getInterrogator().needValue()) {
             currentToken = TokenType.OPTION_NO_VALUE;
-            optionDef.getInterrogator().setValue(module, "no value");
-            optionDef = null;
+            finishBuildingTorture();
         }
+    }
+
+    private void handleValue(String token) {
+        LOGGER.debug("handle Value");
+        currentToken = TokenType.VALUE;
+        assert optionDef != null;
+
+        tortureBuilder.addValue(token);
+        finishBuildingTorture();
     }
 
     /**
@@ -141,51 +172,43 @@ public class Interrogator<T> {
             return false;
         }
 
-        HelpPrintStrategy helpPrintStrategy = createHelpStrategy();
-        helpPrintStrategy.printHelp();
+        startBuildingTorture(TortureType.HELP);
+        finishBuildingTorture();
         return true;
     }
 
     private void handleAction(String token) {
         LOGGER.debug("handle Action");
         currentToken = TokenType.ACTION;
-        callAction(token);
-    }
+        startBuildingTorture(TortureType.ACTION);
 
-    private void handleValue(String token) {
-        LOGGER.debug("handle Value");
-        currentToken = TokenType.VALUE;
-        assert optionDef != null;
-        optionDef.getInterrogator().setValue(module, token);
-        // value parsed
-        optionDef = null;
-    }
-
-    private void callAction(String longActionName) {
-        ActionDefinition definition = moduleIntrospector.getActions().getByLongName(longActionName);
+        ActionDefinition definition = moduleIntrospector.getActions().getByLongName(token);
         if (definition != null) {
             LOGGER.debug("Executing action: {}", definition);
-            try {
-                definition.getMethod().invoke(module);
-            } catch (Exception e) {
-                LOGGER.warn("Exception", e);
-                throw new CliException("Exception invoking action: " + definition, e);
-            }
+            tortureBuilder.addAction(definition);
         } else {
-            if (handleHelpRequest(longActionName)) {
+            if (handleHelpRequest(token)) {
                 return;
             }
-            LOGGER.warn("Can't find action: {}", longActionName);
-            throw new ActionInvocationException("Can't find action: " + longActionName);
+            LOGGER.warn("Can't find action: {}", token);
+            throw new ActionInvocationException("Can't find action: " + token);
         }
+        finishBuildingTorture();
     }
 
-    private DefaultHelpStrategy createHelpStrategy() {
-        return new DefaultHelpStrategy(
-                module.getClass().getSimpleName(),
-                moduleIntrospector.getOptions().getOptionDefinitions(),
-                moduleIntrospector.getActions().getActionDefinitions());
+
+    private void startBuildingTorture(TortureType tortureType) {
+        tortureBuilder = TortureBuilder.<T>getBuilder(module, moduleIntrospector);
+        tortureBuilder.startBuilding(tortureType);
     }
 
+    /**
+     * Adds currently being built torture to the list of tortures, cleans references.
+     */
+    private void finishBuildingTorture() {
+        torturePlan.add(tortureBuilder.finishTortureInstrument());
+        optionDef = null;
+        tortureBuilder = null;
+    }
 
 }
