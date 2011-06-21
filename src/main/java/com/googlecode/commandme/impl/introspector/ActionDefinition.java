@@ -89,11 +89,12 @@ public final class ActionDefinition {
 
     @Override
     public String toString() {
-        return "ActionDefinition{" +
-                "action=" + action.getName() +
-                ", longName='" + longName + '\'' +
-                ", shortName='" + shortName + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder();
+        sb.append("ActionDefinition");
+        sb.append(", longName='").append(longName).append('\'');
+        sb.append(", shortName='").append(shortName).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

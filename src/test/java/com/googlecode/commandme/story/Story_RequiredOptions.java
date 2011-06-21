@@ -19,7 +19,6 @@ package com.googlecode.commandme.story;
 
 import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.annotations.Option;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -32,7 +31,6 @@ import static org.junit.Assert.assertThat;
  *
  * @author Dmitry Sidorenko
  */
-@Ignore
 public class Story_RequiredOptions extends Story<Story_RequiredOptions> {
 
     private boolean flag;

@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
 /**
  * @author Dmitry Sidorenko
  */
-public class OptionDefinition {
+public final class OptionDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(OptionDefinition.class);
 
@@ -107,9 +107,9 @@ public class OptionDefinition {
         sb.append("{longName='").append(longName).append('\'');
         sb.append(", shortName='").append(shortName).append('\'');
         sb.append(", type=").append(type);
+        sb.append(", required=").append(required);
         sb.append(", description='").append(description).append('\'');
         sb.append('}');
-
         return sb.toString();
     }
 

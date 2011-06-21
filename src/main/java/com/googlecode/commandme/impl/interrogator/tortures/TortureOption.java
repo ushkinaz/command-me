@@ -40,6 +40,10 @@ public class TortureOption<T> extends TortureInstrument<T> {
         this.optionDef = optionDef;
     }
 
+    public OptionDefinition getOptionDef() {
+        return optionDef;
+    }
+
     public void setValue(String value) {
         this.value = value;
     }

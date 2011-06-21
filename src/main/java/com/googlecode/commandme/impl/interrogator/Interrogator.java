@@ -67,7 +67,9 @@ public class Interrogator<T> {
      */
     public void interrogate() {
         prepareTorturesPlan();
+
         validateTorturesPlan();
+
         executeTorturesPlan();
     }
 
@@ -103,12 +105,9 @@ public class Interrogator<T> {
     }
 
     private void validateTorturesPlan() {
-        for (TortureInstrument instrument : torturePlan) {
-            instrument.validate();
-        }
-
-        //TODO: Implement com.googlecode.commandme.impl.interrogator.Interrogator#validateTorturesPlan
-
+        TorturesValidator<T> torturesValidator = new TorturesValidator<T>(this.torturePlan, moduleIntrospector.getOptions()
+                .getOptionDefinitions());
+        torturesValidator.validateTorturesPlan();
     }
 
     private void executeTorturesPlan() {
