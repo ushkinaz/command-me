@@ -27,7 +27,7 @@ import com.googlecode.commandme.impl.interrogator.PropertyVivisectorFactory;
 /**
  * @author Dmitry Sidorenko
  */
-public final class OptionDefinition {
+public class OptionDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(OptionDefinition.class);
 

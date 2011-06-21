@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
  *
  * @author Dmitry Sidorenko
  */
-public final class ActionDefinition {
+public class ActionDefinition {
 
     private Method action;
 
