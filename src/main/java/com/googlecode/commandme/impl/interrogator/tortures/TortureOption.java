@@ -49,7 +49,7 @@ public class TortureOption<T> extends TortureInstrument<T> {
         assert optionDef != null;
         assert value != null;
 
-        optionDef.getInterrogator().setValue(module, value);
+        optionDef.getVivisector().setValue(module, value);
     }
 
     @Override

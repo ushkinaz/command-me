@@ -35,14 +35,14 @@ public class DefaultPropertyInterrogatorTest {
     @SuppressWarnings({"unused"})
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPropertyInterrogatorTest.class);
 
-    private DefaultPropertyInterrogator interrogator;
+    private DefaultPropertyVivisector interrogator;
 
     @Before
     public void setUp() throws Exception {
         OptionDefinition optionDefinitionString = Mockito.mock(OptionDefinition.class, RETURNS_DEFAULTS);
         when(optionDefinitionString.getType()).thenReturn(String.class);
 
-        interrogator = new DefaultPropertyInterrogator(optionDefinitionString);
+        interrogator = new DefaultPropertyVivisector(optionDefinitionString);
     }
 
     @Test

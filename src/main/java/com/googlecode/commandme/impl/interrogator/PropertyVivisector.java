@@ -16,7 +16,7 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-public interface PropertyInterrogator {
+public interface PropertyVivisector {
     /**
      * Sets value from it's string representation
      *

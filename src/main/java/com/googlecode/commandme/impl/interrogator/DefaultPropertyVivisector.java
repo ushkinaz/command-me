@@ -29,12 +29,12 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author Dmitry Sidorenko
  */
-public class DefaultPropertyInterrogator implements PropertyInterrogator {
+public class DefaultPropertyVivisector implements PropertyVivisector {
     @SuppressWarnings({"unused"})
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPropertyInterrogator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPropertyVivisector.class);
     private final OptionDefinition optionDefinition;
 
-    DefaultPropertyInterrogator(OptionDefinition optionDefinition) {
+    DefaultPropertyVivisector(OptionDefinition optionDefinition) {
         this.optionDefinition = optionDefinition;
     }
 

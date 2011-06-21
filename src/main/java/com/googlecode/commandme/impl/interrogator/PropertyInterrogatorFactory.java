@@ -45,31 +45,31 @@ public class PropertyInterrogatorFactory {
         allowedOptionClasses.add(Boolean.class);
     }
 
-    public static PropertyInterrogator createInterrogator(OptionDefinition optionDefinition) {
+    public static PropertyVivisector createInterrogator(OptionDefinition optionDefinition) {
         return factory.createInterrogatorInternal(optionDefinition);
     }
 
-    public PropertyInterrogator createInterrogatorInternal(OptionDefinition optionDefinition) {
-        PropertyInterrogator propertyInterrogator;
+    public PropertyVivisector createInterrogatorInternal(OptionDefinition optionDefinition) {
+        PropertyVivisector vivisector;
         // Boolean has to be first
         if (optionDefinition.getType().equals(Boolean.TYPE) || optionDefinition.getType().equals(Boolean.class)) {
-            propertyInterrogator = new BooleanPropertyInterrogator(optionDefinition);
+            vivisector = new BooleanPropertyVivisector(optionDefinition);
         } else if (optionDefinition.getType().isPrimitive()) {
-            propertyInterrogator = new DefaultPropertyInterrogator(optionDefinition);
+            vivisector = new DefaultPropertyVivisector(optionDefinition);
         } else if (allowedOptionClasses.contains(optionDefinition.getType())) {
-            propertyInterrogator = new DefaultPropertyInterrogator(optionDefinition);
+            vivisector = new DefaultPropertyVivisector(optionDefinition);
         } else {
             //Check if we have public constructor with single String argument
             try {
                 optionDefinition.getType().getConstructor(String.class);
-                propertyInterrogator = new DefaultPropertyInterrogator(optionDefinition);
+                vivisector = new DefaultPropertyVivisector(optionDefinition);
             } catch (NoSuchMethodException e) {
                 LOGGER.warn("Can't find public construction(Sring) for " + optionDefinition.getType(), e);
                 throw new OptionDefinitionException("Can't find public construction(Sring) for " + optionDefinition.getType());
             }
         }
 
-        return propertyInterrogator;
+        return vivisector;
     }
 
     public static void setFactory(PropertyInterrogatorFactory factory) {

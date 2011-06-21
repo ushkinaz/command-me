@@ -148,7 +148,7 @@ public class Interrogator<T> {
         currentToken = TokenType.OPTION;
         startBuildingTorture(TortureType.OPTION);
         tortureBuilder.addOption(optionDef);
-        if (!optionDef.getInterrogator().needValue()) {
+        if (!optionDef.getVivisector().needValue()) {
             currentToken = TokenType.OPTION_NO_VALUE;
             finishBuildingTorture();
         }

@@ -28,12 +28,12 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author Dmitry Sidorenko
  */
-public class BooleanPropertyInterrogator implements PropertyInterrogator {
+public class BooleanPropertyVivisector implements PropertyVivisector {
     @SuppressWarnings({"unused"})
-    private static final Logger LOGGER = LoggerFactory.getLogger(BooleanPropertyInterrogator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BooleanPropertyVivisector.class);
     private final OptionDefinition optionDefinition;
 
-    BooleanPropertyInterrogator(OptionDefinition optionDefinition) {
+    BooleanPropertyVivisector(OptionDefinition optionDefinition) {
         this.optionDefinition = optionDefinition;
     }
 

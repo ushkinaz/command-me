@@ -16,8 +16,8 @@
 
 package com.googlecode.commandme.impl.introspector;
 
-import com.googlecode.commandme.impl.interrogator.PropertyInterrogator;
 import com.googlecode.commandme.impl.interrogator.PropertyInterrogatorFactory;
+import com.googlecode.commandme.impl.interrogator.PropertyVivisector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,13 +30,13 @@ public class OptionDefinition {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(OptionDefinition.class);
 
-    private String               longName;
-    private boolean              required;
-    private String               shortName;
-    private Class                type;
-    private String               description;
-    private Method               writerMethod;
-    private PropertyInterrogator interrogator;
+    private String             longName;
+    private boolean            required;
+    private String             shortName;
+    private Class              type;
+    private String             description;
+    private Method             writerMethod;
+    private PropertyVivisector vivisector;
 
     public OptionDefinition() {
     }
@@ -57,7 +57,7 @@ public class OptionDefinition {
 
     public void setType(Class type) {
         this.type = type;
-        interrogator = PropertyInterrogatorFactory.createInterrogator(this);
+        vivisector = PropertyInterrogatorFactory.createInterrogator(this);
     }
 
     public void setDescription(String description) {
@@ -121,8 +121,8 @@ public class OptionDefinition {
         this.writerMethod = writerMethod;
     }
 
-    public PropertyInterrogator getInterrogator() {
-        return interrogator;
+    public PropertyVivisector getVivisector() {
+        return vivisector;
     }
 
     public boolean isRequired() {

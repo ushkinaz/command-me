@@ -41,8 +41,8 @@ import static org.mockito.Mockito.when;
 public class DefaultPropertyInterrogatorParametrizedTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPropertyInterrogatorParametrizedTest.class);
 
-    protected DefaultPropertyInterrogator interrogator;
-    protected boolean                     called;
+    protected DefaultPropertyVivisector interrogator;
+    protected boolean                   called;
 
     protected final String methodName;
     protected final Class  optionType;
@@ -92,7 +92,7 @@ public class DefaultPropertyInterrogatorParametrizedTest {
         when(optionDefinitionString.getType()).thenReturn(optionType);
 
         when(optionDefinitionString.getWriterMethod()).thenReturn(DefaultPropertyInterrogatorParametrizedTest.class.getMethod(methodName, optionType));
-        interrogator = new DefaultPropertyInterrogator(optionDefinitionString);
+        interrogator = new DefaultPropertyVivisector(optionDefinitionString);
     }
 
     @Test
