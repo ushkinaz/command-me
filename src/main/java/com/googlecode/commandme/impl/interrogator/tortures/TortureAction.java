@@ -45,7 +45,24 @@ public class TortureAction<T> extends TortureInstrument<T> {
 
     }
 
+    @Override
+    public void validate() throws TortureException {
+        if (actionDefinition == null) {
+            throw new TortureException("Torture :" + this + " is not valid");
+        }
+
+    }
+
     public void setActionDefinition(ActionDefinition actionDefinition) {
         this.actionDefinition = actionDefinition;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("TortureAction");
+        sb.append("{actionDefinition=").append(actionDefinition);
+        sb.append('}');
+        return sb.toString();
     }
 }

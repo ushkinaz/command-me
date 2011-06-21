@@ -46,4 +46,17 @@ public class TortureHelp<T> extends TortureInstrument<T> {
         HelpPrintStrategy helpPrintStrategy = createHelpStrategy();
         helpPrintStrategy.printHelp();
     }
+
+    @Override
+    public void validate() throws TortureException {
+        //Always valid.
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("TortureHelp");
+        sb.append("{}");
+        return sb.toString();
+    }
 }

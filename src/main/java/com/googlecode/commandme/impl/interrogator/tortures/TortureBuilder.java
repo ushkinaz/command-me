@@ -76,6 +76,8 @@ public class TortureBuilder<T> {
     public TortureInstrument finishTortureInstrument() {
         assert instrument != null;
 
+        instrument.validate();
+
         return instrument;
     }
 }

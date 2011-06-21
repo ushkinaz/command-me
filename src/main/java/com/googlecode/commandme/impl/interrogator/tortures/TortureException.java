@@ -16,32 +16,29 @@
 
 package com.googlecode.commandme.impl.interrogator.tortures;
 
+import com.googlecode.commandme.CliException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Dmitry Sidorenko
  */
-public abstract class TortureInstrument<T> {
+public class TortureException extends CliException {
     @SuppressWarnings({"unused"})
-    private static final Logger LOGGER = LoggerFactory.getLogger(TortureInstrument.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TortureException.class);
 
-    protected final T module;
-
-
-    TortureInstrument(T module) {
-        this.module = module;
+    public TortureException() {
     }
 
-    /**
-     * Doing actual torture
-     */
-    public abstract void torture();
+    public TortureException(String message) {
+        super(message);
+    }
 
-    /**
-     * Validate an torture.
-     *
-     * @throws TortureException exception if torture is not valid
-     */
-    public abstract void validate() throws TortureException;
+    public TortureException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public TortureException(Throwable cause) {
+        super(cause);
+    }
 }

@@ -51,4 +51,22 @@ public class TortureOption<T> extends TortureInstrument<T> {
 
         optionDef.getInterrogator().setValue(module, value);
     }
+
+    @Override
+    public void validate() throws TortureException {
+        if (optionDef == null || value == null) {
+            throw new TortureException("Torture :" + this + " is not valid");
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("TortureOption");
+        sb.append("{optionDef=").append(optionDef);
+        sb.append(", value='").append(value).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
