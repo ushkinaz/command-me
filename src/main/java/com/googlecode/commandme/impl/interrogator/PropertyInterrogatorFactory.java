@@ -29,8 +29,7 @@ import java.util.Set;
  */
 public class PropertyInterrogatorFactory {
     @SuppressWarnings({"unused"})
-    private static final Logger                      LOGGER               = LoggerFactory.getLogger(
-            PropertyInterrogatorFactory.class);
+    private static final Logger                      LOGGER               = LoggerFactory.getLogger(PropertyInterrogatorFactory.class);
     private static       PropertyInterrogatorFactory factory              = new PropertyInterrogatorFactory();
     private static final Set<Class>                  allowedOptionClasses = new HashSet<Class>();
 
