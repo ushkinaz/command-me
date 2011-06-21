@@ -17,7 +17,7 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.annotations.Action;
+import com.googlecode.commandme.annotations.Option;
 import com.googlecode.commandme.impl.interrogator.VivisectorException;
 import org.junit.Test;
 
@@ -25,40 +25,37 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Pass multiple actions in command line
- * <p/>
- * <a href="https://www.pivotaltracker.com/story/show/13446743">story</a>
- *
  * @author Dmitry Sidorenko
  */
-public class Story_MultipleActions extends Story<Story_MultipleActions> {
+public class Story_NoOptionsAreSetInCaseOfError extends Story<Story_NoOptionsAreSetInCaseOfError> {
 
-    private int count = 0;
+    private boolean flag;
+    private int     count;
 
-    @Test
+
+    @Test(expected = VivisectorException.class)
     public void testStory() throws Exception {
-        commandLine.execute(new String[]{"one", "two"});
+        commandLine.execute(new String[]{"--flag", "--deadOption"});
 
-        assertThat(commandLine.getModule().count, is(2));
+        assertThat(commandLine.getModule().flag, is(false));
     }
 
     @Test(expected = VivisectorException.class)
-    public void testNegativeStory() throws Exception {
-        commandLine.execute(new String[]{"--flag", "issue"});
+    public void testStoryWrongType() throws Exception {
+        commandLine.execute(new String[]{"--flag", "--count", "not-a-number"});
+
+        assertThat(commandLine.getModule().flag, is(false));
+        assertThat(commandLine.getModule().count, is(0));
     }
 
-    @Action
-    public void one() {
-        this.count++;
+    @Option
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
-    @Action
-    public void two() {
-        this.count++;
+    @Option
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    @Action
-    public void three() {
-        this.count++;
-    }
 }

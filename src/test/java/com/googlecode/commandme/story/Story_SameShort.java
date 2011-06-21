@@ -17,8 +17,8 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.OptionSettingException;
 import com.googlecode.commandme.annotations.Option;
+import com.googlecode.commandme.impl.interrogator.VivisectorException;
 import org.junit.Test;
 
 /**
@@ -30,7 +30,7 @@ import org.junit.Test;
  */
 public class Story_SameShort extends Story<Story_SameShort> {
 
-    @Test(expected = OptionSettingException.class)
+    @Test(expected = VivisectorException.class)
     public void testStory() throws Exception {
         commandLine.execute(new String[]{"-f"});
     }

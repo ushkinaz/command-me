@@ -18,7 +18,6 @@ package com.googlecode.commandme.impl.interrogator;
 
 import com.googlecode.commandme.ActionInvocationException;
 import com.googlecode.commandme.CliException;
-import com.googlecode.commandme.OptionSettingException;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureBuilder;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureInstrument;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureType;
@@ -28,7 +27,8 @@ import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Stack;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Interrogates an instance, injects values of arguments and calls actions.
@@ -40,14 +40,13 @@ public class Interrogator<T> {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(Interrogator.class);
 
-    private final T                     module;
-    private final ModuleIntrospector<T> moduleIntrospector;
-    private final String[]              arguments;
-
-    private TokenType                currentToken;
-    private TortureBuilder           tortureBuilder;
-    private OptionDefinition         optionDef;
-    private Stack<TortureInstrument> torturePlan;
+    private final String[]                arguments;
+    private final T                       module;
+    private final ModuleIntrospector<T>   moduleIntrospector;
+    private       TortureBuilder<T>       tortureBuilder;
+    private       TokenType               currentToken;
+    private       OptionDefinition        optionDef;
+    private       List<TortureInstrument> torturePlan;
 
     /**
      * A constructor.
@@ -60,7 +59,7 @@ public class Interrogator<T> {
         this.module = module;
         this.moduleIntrospector = moduleIntrospector;
         this.arguments = arguments;
-        this.torturePlan = new Stack<TortureInstrument>();
+        this.torturePlan = new LinkedList<TortureInstrument>();
     }
 
     /**
@@ -104,6 +103,10 @@ public class Interrogator<T> {
     }
 
     private void validateTorturesPlan() {
+        for (TortureInstrument instrument : torturePlan) {
+            instrument.validate();
+        }
+
         //TODO: Implement com.googlecode.commandme.impl.interrogator.Interrogator#validateTorturesPlan
 
     }
@@ -142,7 +145,7 @@ public class Interrogator<T> {
                 currentToken = TokenType.ACTION;
                 return;
             }
-            throw new OptionSettingException("Can't find option:" + token);
+            throw new VivisectorException("Can't find option:" + token);
         }
 
         currentToken = TokenType.OPTION;
@@ -198,7 +201,7 @@ public class Interrogator<T> {
 
 
     private void startBuildingTorture(TortureType tortureType) {
-        tortureBuilder = TortureBuilder.<T>getBuilder(module, moduleIntrospector);
+        tortureBuilder = TortureBuilder.getBuilder(module, moduleIntrospector);
         tortureBuilder.startBuilding(tortureType);
     }
 

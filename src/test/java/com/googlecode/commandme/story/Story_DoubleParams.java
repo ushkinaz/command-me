@@ -17,8 +17,8 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.OptionSettingException;
 import com.googlecode.commandme.annotations.Option;
+import com.googlecode.commandme.impl.interrogator.VivisectorException;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -47,7 +47,7 @@ public class Story_DoubleParams extends Story<Story_DoubleParams> {
         assertThat(commandLine.getModule().bet, is((float) 400.0));
     }
 
-    @Test(expected = OptionSettingException.class)
+    @Test(expected = VivisectorException.class)
     public void testNegativeStory() throws Exception {
         commandLine.execute(new String[]{"--flag", "issue"});
     }

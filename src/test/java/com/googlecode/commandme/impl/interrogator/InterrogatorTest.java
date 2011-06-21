@@ -16,7 +16,6 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.OptionSettingException;
 import com.googlecode.commandme.annotations.Option;
 import com.googlecode.commandme.impl.introspector.*;
 import org.hamcrest.CoreMatchers;
@@ -57,7 +56,7 @@ public class InterrogatorTest {
 
     }
 
-    @Test(expected = OptionSettingException.class)
+    @Test(expected = VivisectorException.class)
     public void testFirstNameFailed() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--notexisyts", "0", "--name", JOHN_FROSTER});
         interrogator.interrogate();

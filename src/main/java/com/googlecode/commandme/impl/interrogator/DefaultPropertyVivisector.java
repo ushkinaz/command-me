@@ -99,7 +99,7 @@ public class DefaultPropertyVivisector implements PropertyVivisector {
                     .charAt(0)) + primitiveClass.getName().substring(1));
         } catch (ClassNotFoundException e) {
             LOGGER.warn("Can't find class for primitive type {}", primitiveClass, e);
-            throw new OptionSettingException("Can't find class for primitive type " + primitiveClass, e);
+            throw new VivisectorException("Can't find class for primitive type " + primitiveClass, e);
         }
     }
 }
