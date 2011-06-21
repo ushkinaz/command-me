@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.googlecode.commandme.impl.interrogator;
+package com.googlecode.commandme.impl.interrogator.tortures;
 
 public interface HelpPrintStrategy {
     void printHelp();

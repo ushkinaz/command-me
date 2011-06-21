@@ -16,7 +16,6 @@
 
 package com.googlecode.commandme.impl.interrogator.tortures;
 
-import com.googlecode.commandme.impl.interrogator.HelpPrintStrategy;
 import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.slf4j.Logger;
