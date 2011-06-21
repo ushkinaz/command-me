@@ -38,8 +38,8 @@ public class BooleanPropertyVivisector implements PropertyVivisector {
     }
 
     @Override
-    public void setValue(Object instance, String... values) {
-        LOGGER.debug("Setting value '{}' to {}", new Object[]{values[0], optionDefinition});
+    public void vivisect(Object instance) {
+        LOGGER.debug("Setting 'true' to {}", new Object[]{optionDefinition});
 
         try {
             optionDefinition.getWriterMethod().invoke(instance, true);
@@ -49,6 +49,11 @@ public class BooleanPropertyVivisector implements PropertyVivisector {
             LOGGER.warn("Can't convert value from String", e);
             throw new OptionSettingException("Can't convert value from String '", e);
         }
+    }
+
+    @Override
+    public void prepare(String... values) throws VivisectorException {
+        // Value currently is not supported
     }
 
     @Override

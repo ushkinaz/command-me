@@ -97,8 +97,9 @@ public class DefaultPropertyInterrogatorParametrizedTest {
 
     @Test
     public void testSetValue() throws NoSuchMethodException {
+        interrogator.prepare(value);
+        interrogator.vivisect(this);
 
-        interrogator.setValue(this, value);
         assertThat(called, is(true));
     }
 

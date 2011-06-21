@@ -90,7 +90,7 @@ public class InterrogatorTest {
         assertThat(id, CoreMatchers.is(555));
     }
 
-    @Test(expected = OptionSettingException.class)
+    @Test(expected = VivisectorException.class)
     public void testSetIntegerWrongFormat() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--id", "555.0"});
         interrogator.interrogate();
@@ -98,7 +98,7 @@ public class InterrogatorTest {
         assertThat(id, CoreMatchers.is(555));
     }
 
-    @Test(expected = OptionSettingException.class)
+    @Test(expected = VivisectorException.class)
     public void testSetByteOutOf() throws Exception {
         Interrogator<InterrogatorTest> interrogator = new Interrogator<InterrogatorTest>(this, moduleIntrospector, new String[]{"--idByte", "555"});
         interrogator.interrogate();

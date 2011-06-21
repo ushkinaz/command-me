@@ -16,7 +16,6 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import com.googlecode.commandme.OptionSettingException;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,7 +69,7 @@ public class DefaultPropertyInterrogatorParametrizedNegativeTest extends Default
         super(methodName, optionType, value);
     }
 
-    @Test(expected = OptionSettingException.class)
+    @Test(expected = VivisectorException.class)
     public void testSetValue() throws NoSuchMethodException {
         OptionDefinition optionDefinitionString = mock(OptionDefinition.class);
         when(optionDefinitionString.getType()).thenReturn(optionType);
@@ -78,7 +77,8 @@ public class DefaultPropertyInterrogatorParametrizedNegativeTest extends Default
         when(optionDefinitionString.getWriterMethod()).thenReturn(DefaultPropertyInterrogatorParametrizedNegativeTest.class
                 .getMethod(methodName, optionType));
 
-        interrogator.setValue(this, value);
+        interrogator.prepare(value);
+        interrogator.vivisect(this);
         assertThat(called, is(false));
     }
 }

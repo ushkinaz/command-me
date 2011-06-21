@@ -49,7 +49,7 @@ public class TortureOption<T> extends TortureInstrument<T> {
         assert optionDef != null;
         assert value != null;
 
-        optionDef.getVivisector().setValue(module, value);
+        optionDef.getVivisector().vivisect(module);
     }
 
     @Override
@@ -58,6 +58,7 @@ public class TortureOption<T> extends TortureInstrument<T> {
             throw new TortureException("Torture :" + this + " is not valid");
         }
 
+        optionDef.getVivisector().prepare(value);
     }
 
     @Override

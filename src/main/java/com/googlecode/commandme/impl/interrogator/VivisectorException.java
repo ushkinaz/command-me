@@ -16,27 +16,24 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-public interface PropertyVivisector {
-    /**
-     * Sets value previously prepared by {@link #prepare(String...)} call
-     *
-     * @param instance instance to set value
-     */
-    void vivisect(Object instance);
+import com.googlecode.commandme.CliException;
 
-    /**
-     * Prepares values for setting at properties
-     *
-     * @param values actual values
-     * @throws VivisectorException
-     */
-    void prepare(String... values) throws VivisectorException;
+/**
+ * @author Dmitry Sidorenko
+ */
+public class VivisectorException extends CliException {
+    public VivisectorException() {
+    }
 
-    /**
-     * Does this property type needs value to be set?
-     * The only use case is boolean option.
-     *
-     * @return {@code true} if should be avoided
-     */
-    boolean needValue();
+    public VivisectorException(String message) {
+        super(message);
+    }
+
+    public VivisectorException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public VivisectorException(Throwable cause) {
+        super(cause);
+    }
 }

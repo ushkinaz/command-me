@@ -38,7 +38,8 @@ public class BooleanPropertyInterrogatorTest {
 
     @Test
     public void testSetValue() throws Exception {
-        interrogator.setValue(this, "");
+        interrogator.prepare("");
+        interrogator.vivisect(this);
 
         assertThat(name, is(true));
     }
