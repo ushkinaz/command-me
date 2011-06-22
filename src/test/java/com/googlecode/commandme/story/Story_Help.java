@@ -17,10 +17,6 @@
 
 package com.googlecode.commandme.story;
 
-import java.util.Date;
-
-import com.googlecode.commandme.annotations.Action;
-import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
 /**
@@ -30,49 +26,7 @@ import org.junit.Test;
  *
  * @author Dmitry Sidorenko
  */
-@SuppressWarnings({"FieldCanBeLocal"})
 public class Story_Help extends Story<Story_Help> {
-
-    private boolean called = false;
-
-    @Action(description = "Greet someone we love")
-    public void greet() {
-        System.out.println("Hello");
-        called = true;
-    }
-
-    @Action
-    public void badBoy() {
-        System.out.println("Oh, my God!");
-        throw new IllegalStateException("They've killed Kenny!");
-    }
-
-    private Integer id;
-    private int     amount;
-    private long    longer;
-
-    @Option(description = "Amount of happyness to give")
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    @Option(description = "Some cryptic ID")
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Option(description = "Long option")
-    public void setLong(Long longer) {
-        this.longer = longer;
-    }
-
-    @Option(description = "Life is this long and  even longer")
-    public void setLife(Long life) {
-    }
-
-    @Option(description = "Death time", required = true)
-    public void setDateOfDeath(Date life) {
-    }
 
     /**
      * I'm really lazy, so no output parsing here. Just rely on "no exception - all is good".
