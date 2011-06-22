@@ -25,6 +25,9 @@ import org.slf4j.LoggerFactory;
 import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
 
+/**
+ * Default help printing facility.
+ */
 class DefaultHelpStrategy implements HelpPrintStrategy {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHelpStrategy.class);
 
@@ -40,6 +43,10 @@ class DefaultHelpStrategy implements HelpPrintStrategy {
         this.actionDefinitions = actionDefinitions;
     }
 
+    /*
+     * TODO: pretty print, align columns
+     * TODO: mention required options somehow
+     */
     @Override
     public void printHelp() {
         StringBuilder helpBuilder = this.helpBuilder;
