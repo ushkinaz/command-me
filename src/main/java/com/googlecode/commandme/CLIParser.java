@@ -35,7 +35,7 @@ import com.googlecode.commandme.impl.CommandLineImpl;
  *
  * @author Dmitry Sidorenko
  */
-public final class CLIParser {
+public class CLIParser {
     @SuppressWarnings({"UnusedDeclaration"})
     private static final Logger LOGGER = LoggerFactory.getLogger(CLIParser.class);
 
