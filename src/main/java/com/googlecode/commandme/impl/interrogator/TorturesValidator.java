@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.OptionSettingException;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureHelp;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureInstrument;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureOption;
@@ -42,7 +43,7 @@ public class TorturesValidator<T> {
     }
 
     void validateTorturesPlan() {
-        Set<OptionDefinition> torturedOptions = new HashSet<OptionDefinition>();
+        Set<OptionDefinition> options = new HashSet<OptionDefinition>();
 
         for (TortureInstrument instrument : tortures) {
             instrument.validate();
@@ -56,20 +57,30 @@ public class TorturesValidator<T> {
                 }
             }
 
+            // Build a set of options
             if (instrument instanceof TortureOption) {
-                torturedOptions.add(((TortureOption) instrument).getOptionDef());
+                options.add(((TortureOption) instrument).getOptionDef());
             }
         }
 
-        for (OptionDefinition optionDefinition : optionDefinitions) {
-            if (optionDefinition.isRequired() && !torturedOptions.contains(optionDefinition)) {
-                LOGGER.error("Required option " + optionDefinition + " not set");
-                throw new CliException("Required option " + optionDefinition + " not set");
-            }
-        }
+        checkRequiredOptions(options);
 
 
         LOGGER.debug("Validation complete");
 
+    }
+
+    /**
+     * Check that all required options are set
+     *
+     * @param options options present
+     */
+    private void checkRequiredOptions(Set<OptionDefinition> options) {
+        for (OptionDefinition optionDefinition : optionDefinitions) {
+            if (optionDefinition.isRequired() && !options.contains(optionDefinition)) {
+                LOGGER.error("Required option " + optionDefinition + " not set");
+                throw new OptionSettingException("Required option " + optionDefinition + " not set");
+            }
+        }
     }
 }

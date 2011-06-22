@@ -17,6 +17,7 @@
 
 package com.googlecode.commandme.story;
 
+import com.googlecode.commandme.CliException;
 import org.junit.Test;
 
 /**
@@ -49,5 +50,10 @@ public class Story_Help extends Story<Story_Help> {
     @Test
     public void testStoryHelpInAction() throws Exception {
         commandLine.execute(new String[]{"help"});
+    }
+
+    @Test(expected = CliException.class)
+    public void testStoryNegative() throws Exception {
+        commandLine.execute(new String[]{"help", "again"});
     }
 }

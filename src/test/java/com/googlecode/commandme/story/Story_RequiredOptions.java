@@ -17,7 +17,7 @@
 
 package com.googlecode.commandme.story;
 
-import com.googlecode.commandme.CliException;
+import com.googlecode.commandme.OptionSettingException;
 import com.googlecode.commandme.annotations.Option;
 import org.junit.Test;
 
@@ -45,7 +45,7 @@ public class Story_RequiredOptions extends Story<Story_RequiredOptions> {
         assertThat(commandLine.getModule().dead, is(true));
     }
 
-    @Test(expected = CliException.class)
+    @Test(expected = OptionSettingException.class)
     public void testNegativeStory() throws Exception {
         commandLine.execute(new String[]{"--dead"});
     }
