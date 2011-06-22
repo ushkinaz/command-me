@@ -67,11 +67,19 @@ public class Interrogator<T> {
      * Does actual injecting and calls actions
      */
     public void interrogate() {
-        prepareTorturesPlan();
+        try {
+            prepareTorturesPlan();
 
-        validateTorturesPlan();
+            validateTorturesPlan();
 
-        executeTorturesPlan();
+            executeTorturesPlan();
+        } catch (CliException e) {
+            LOGGER.warn("Trouble interrogating", e);
+
+            tortureBuilder = TortureBuilder.getBuilder(module, moduleIntrospector);
+            tortureBuilder.startBuilding(TortureType.HELP);
+            tortureBuilder.finishTortureInstrument().torture();
+        }
     }
 
     private void prepareTorturesPlan() {
