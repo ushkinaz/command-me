@@ -53,15 +53,19 @@ class DefaultHelpStrategy implements HelpPrintStrategy {
         helpBuilder.append(applicationName).append("\n");
         helpBuilder.append(MessageFormat.format("Usage: {0} [options] [actions]\n", applicationName));
 
-        appendAtLevel("Options:\n", 1);
-        for (OptionDefinition optionDefinition : optionDefinitions) {
-            appendAtLevel(buildOptionHelp(optionDefinition), 2);
+        if (optionDefinitions.size() > 0) {
+            appendAtLevel("Options:\n", 1);
+            for (OptionDefinition optionDefinition : optionDefinitions) {
+                appendAtLevel(buildOptionHelp(optionDefinition), 2);
 
+            }
         }
 
-        appendAtLevel("Actions:\n", 1);
-        for (ActionDefinition actionDefinition : actionDefinitions) {
-            appendAtLevel(buildActionHelp(actionDefinition), 2);
+        if (actionDefinitions.size() > 0) {
+            appendAtLevel("Actions:\n", 1);
+            for (ActionDefinition actionDefinition : actionDefinitions) {
+                appendAtLevel(buildActionHelp(actionDefinition), 2);
+            }
         }
         System.out.println(helpBuilder);
     }
