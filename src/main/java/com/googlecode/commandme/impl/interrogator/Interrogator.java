@@ -74,11 +74,11 @@ public class Interrogator<T> {
 
             executeTorturesPlan();
         } catch (CliException e) {
-            LOGGER.warn("Trouble interrogating", e);
-
+            LOGGER.error("Trouble interrogating", e);
             tortureBuilder = TortureBuilder.getBuilder(module, moduleIntrospector);
             tortureBuilder.startBuilding(TortureType.HELP);
             tortureBuilder.finishTortureInstrument().torture();
+            throw e;
         }
     }
 
@@ -221,5 +221,4 @@ public class Interrogator<T> {
         optionDef = null;
         tortureBuilder = null;
     }
-
 }
