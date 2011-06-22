@@ -149,6 +149,10 @@
                         <log4j.configuration>log4j-tests.xml</log4j.configuration>
                     </systemPropertyVariables>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/Story*.java</include>
+                    </includes>
                 </configuration>
             </plugin>
             <plugin>
