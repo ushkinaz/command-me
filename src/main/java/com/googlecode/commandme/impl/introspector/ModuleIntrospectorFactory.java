@@ -32,7 +32,7 @@ public class ModuleIntrospectorFactory {
         factory = new ModuleIntrospectorFactory();
     }
 
-    public static <T> ModuleIntrospector createIntrospector(Class<T> clz) {
+    public static <T> ModuleIntrospector<T> createIntrospector(Class<T> clz) {
         return factory.create(clz);
     }
 
@@ -40,7 +40,7 @@ public class ModuleIntrospectorFactory {
         ModuleIntrospectorFactory.factory = factory;
     }
 
-    protected <T> ModuleIntrospector create(Class<T> clz) {
+    protected <T> ModuleIntrospector<T> create(Class<T> clz) {
         return new ModuleIntrospector<T>(clz);
     }
 

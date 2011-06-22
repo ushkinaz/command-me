@@ -40,10 +40,10 @@ public class CommandLineImpl<T> implements CommandLine<T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandLineImpl.class);
 
 
-    private ModuleIntrospector moduleIntrospector;
-
-    private Class<T> clz;
-    private T        instance;
+    private Class<T>              clz;
+    private T                     instance;
+    private Interrogator<T>       interrogator;
+    private ModuleIntrospector<T> moduleIntrospector;
 
     /**
      * Constructs an object
@@ -67,7 +67,7 @@ public class CommandLineImpl<T> implements CommandLine<T> {
      * Does actual work.
      */
     public T execute(String[] arguments) {
-        Interrogator interrogator = InterrogatorFactory.createInterrogator(instance, moduleIntrospector, arguments);
+        interrogator = InterrogatorFactory.createInterrogator(instance, moduleIntrospector, arguments);
         interrogator.interrogate();
 
         return instance;

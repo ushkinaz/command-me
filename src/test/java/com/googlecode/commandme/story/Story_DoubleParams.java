@@ -49,7 +49,7 @@ public class Story_DoubleParams extends Story<Story_DoubleParams> {
 
     @Test(expected = VivisectorException.class)
     public void testNegativeStory() throws Exception {
-        commandLine.execute(new String[]{"--flag", "issue"});
+        commandLine.execute(new String[]{"--amount", "issue"});
     }
 
     @Option
