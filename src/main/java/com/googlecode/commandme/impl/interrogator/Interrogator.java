@@ -93,7 +93,7 @@ public class Interrogator<T> {
             } else if (argument.startsWith("--")) {
                 handleLongNameOption(argument.substring(2));
             } else if (argument.startsWith("-")) {
-                handleMultipleOptions(argument.substring(1));
+                handleShortOptions(argument.substring(1));
             } else {
                 switch (currentToken) {
                     case OPTION:
@@ -125,7 +125,10 @@ public class Interrogator<T> {
         }
     }
 
-    private void handleMultipleOptions(String argument) {
+    private void handleShortOptions(String argument) {
+        if (argument.charAt(1) == '=') {
+            //Short form using
+        }
         for (Character c : argument.toCharArray()) {
             handleShortNameOption(c.toString());
         }
