@@ -16,12 +16,6 @@
 
 package com.googlecode.commandme.impl.interrogator;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.googlecode.commandme.ActionInvocationException;
 import com.googlecode.commandme.CliException;
 import com.googlecode.commandme.impl.interrogator.tortures.TortureBuilder;
@@ -30,6 +24,11 @@ import com.googlecode.commandme.impl.interrogator.tortures.TortureType;
 import com.googlecode.commandme.impl.introspector.ActionDefinition;
 import com.googlecode.commandme.impl.introspector.ModuleIntrospector;
 import com.googlecode.commandme.impl.introspector.OptionDefinition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Interrogates an instance, injects values of arguments and calls actions.
@@ -126,7 +125,7 @@ public class Interrogator<T> {
     }
 
     private void handleShortOptions(String argument) {
-        if (argument.charAt(1) == '=') {
+        if (argument.length() > 1 && argument.charAt(1) == '=') {
             //Short form using
         }
         for (Character c : argument.toCharArray()) {
