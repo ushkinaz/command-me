@@ -105,7 +105,7 @@ public class Interrogator<T> {
                         break;
                     default:
                         LOGGER.warn("Something went wrong. Current token: '{}', previous tokenType: '{}'",
-                                new Object[]{argument, currentToken});
+                            new Object[]{argument, currentToken});
                         throw new CliException("Something went wrong");
                 }
             }
@@ -113,7 +113,8 @@ public class Interrogator<T> {
     }
 
     private void validateTorturesPlan() {
-        TorturesValidator<T> torturesValidator = new TorturesValidator<T>(this.torturePlan, moduleIntrospector.getOptions()
+        TorturesValidator<T> torturesValidator = new TorturesValidator<T>(this.torturePlan,
+            moduleIntrospector.getOptions()
                 .getOptionDefinitions());
         torturesValidator.validateTorturesPlan();
     }
@@ -126,11 +127,28 @@ public class Interrogator<T> {
 
     private void handleShortOptions(String argument) {
         if (argument.length() > 1 && argument.charAt(1) == '=') {
-            //Short form using
+            handleShortNameWithValue(argument);
+        } else {
+            for (Character c : argument.toCharArray()) {
+                handleShortNameOption(c.toString());
+            }
         }
-        for (Character c : argument.toCharArray()) {
-            handleShortNameOption(c.toString());
+    }
+
+    private void handleShortNameWithValue(String argument) {
+        String shortName = argument.substring(0, 1);
+        optionDef = moduleIntrospector.getOptions().getByShortName(shortName);
+        handleOption(shortName);
+        String parameterValue = argument.substring(2);
+        if (isEnclosedWith(parameterValue, "\"") ||
+            isEnclosedWith(parameterValue, "'")) {
+            parameterValue = parameterValue.substring(1, parameterValue.length() - 1);
         }
+        handleValue(parameterValue);
+    }
+
+    private boolean isEnclosedWith(String parameterValue, String enclosingChar) {
+        return parameterValue.startsWith(enclosingChar) && parameterValue.endsWith(enclosingChar);
     }
 
     private void handleLongNameOption(String token) {
@@ -168,7 +186,7 @@ public class Interrogator<T> {
     }
 
     private void handleValue(String token) {
-        LOGGER.debug("handle Value");
+        LOGGER.debug("Handling value");
         currentToken = TokenType.VALUE;
         assert optionDef != null;
 
