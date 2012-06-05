@@ -1,0 +1,25 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+version = '1.1-SNAPSHOT'
+
+slf4jVersion = '1.6.1'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Command Me', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.8.+'
+
+    testRuntime group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4jVersion
+}
